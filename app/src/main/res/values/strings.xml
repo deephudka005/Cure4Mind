@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Cure4MInd</string>
+    <string name="app_name">Cureya</string>
     <string name="start_chat_value">Write Message</string>
     <string name="attach_value">Attach</string>
     <string name="recycler_view_header">Let\'s find a companion</string>
