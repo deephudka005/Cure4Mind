@@ -196,6 +196,33 @@
         app:destination="@id/settingsFragment" />
     </fragment>
     <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.cureya.register.SignUpFragment"
+        android:label="SignUpFragment"
+        tools:layout="@layout/fragment_sign_up">
+        <action
+            android:id="@+id/action_signUpFragment_to_logInFragment"
+            app:destination="@id/logInFragment" />
+        <action
+            android:id="@+id/action_signUpFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/logInFragment"
+        android:name="com.example.cureya.register.LogInFragment"
+        android:label="fragment_log_in"
+        tools:layout="@layout/fragment_log_in" >
+        <action
+            android:id="@+id/action_logInFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_logInFragment_to_signUpFragment"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/action_logInFragment_to_forgetPasswordFragment"
+            app:destination="@id/forgetPasswordFragment" />
+    </fragment>
+    <fragment
         android:id="@+id/accountFragment"
         android:name="com.cureya.cure4mind.settings.AccountFragment"
         android:label="AccountFragment"
@@ -206,6 +233,69 @@
         <action
             android:id="@+id/action_accountFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/musicVideoFragment"
+        android:name="com.cureya.cure4mind.relaxation.ui.MusicVideoFragment"
+        android:label="VideoFragment"
+        tools:layout="@layout/fragment_relaxation_music_video" >
+        <argument
+            android:name="content_type"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_musicVideoFragment_to_videoFragment"
+            app:destination="@id/videoFragment" />
+        <action
+            android:id="@+id/action_musicVideoFragment_to_musicFragment"
+            app:destination="@id/musicFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/musicFragment"
+        android:name="com.cureya.cure4mind.relaxation.ui.MusicFragment"
+        android:label="MusicFragment"
+        tools:layout="@layout/fragment_relaxation_music" >
+        <argument
+            android:name="item_position"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/relaxationFragment"
+        android:name="com.cureya.cure4mind.relaxation.ui.RelaxationFragment"
+        android:label="Cureya"
+        tools:layout="@layout/fragment_relaxation" >
+        <action
+            android:id="@+id/action_relaxationFragment_to_yogaFragment"
+            app:destination="@id/yogaFragment" />
+        <action
+            android:id="@+id/action_relaxationFragment_to_musicVideoFragment"
+            app:destination="@id/musicVideoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/videoFragment"
+        android:name="com.cureya.cure4mind.relaxation.ui.VideoFragment"
+        android:label="VideoFragment"
+        tools:layout="@layout/fragment_relaxation_video" >
+        <argument
+            android:name="video_url"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/yogaFragment"
+        android:name="com.cureya.cure4mind.relaxation.ui.YogaFragment"
+        android:label="YogaFragment"
+        tools:layout="@layout/fragment_relaxation_yoga" >
+        <action
+            android:id="@+id/action_yogaFragment_to_yogaDetailsFragment"
+            app:destination="@id/yogaDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/yogaDetailsFragment"
+        android:name="com.cureya.cure4mind.relaxation.ui.YogaDetailsFragment"
+        android:label="YogaDetailsFragment"
+        tools:layout="@layout/fragment_relaxation_yoga_details" >
+        <argument
+            android:name="item_title"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/AccountFragment"
