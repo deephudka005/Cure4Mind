@@ -1,4 +1,4 @@
-package com.cureya.cure4mind
+package com.cureya.cure4mind.home
 
 import android.os.Bundle
 import android.view.LayoutInflater

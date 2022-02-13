@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "354237639901",
+    "project_id": "cure4mind-d687f",
+    "storage_bucket": "cure4mind-d687f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:354237639901:android:74c2310e5e01b0a0b5ff34",
+        "android_client_info": {
+          "package_name": "com.cureya.cure4mind"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "354237639901-0qqvdmhor1gm47n6thg7r4i3edb8facn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.cureya.cure4mind",
+            "certificate_hash": "63de6d5018deaa0dc1ae2a4c4b229dd921539a37"
+          }
+        },
+        {
+          "client_id": "354237639901-cpiqkqqip2udoi972jchep9c2v92b5tu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAto2_olukYLDxp49gLdgC9OrMXHTyF19Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "354237639901-cpiqkqqip2udoi972jchep9c2v92b5tu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
