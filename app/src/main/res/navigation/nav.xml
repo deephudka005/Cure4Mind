@@ -197,7 +197,7 @@
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.cureya.register.SignUpFragment"
+        android:name="com.cureya.cure4mind.register.SignUpFragment"
         android:label="SignUpFragment"
         tools:layout="@layout/fragment_sign_up">
         <action
@@ -209,7 +209,7 @@
     </fragment>
     <fragment
         android:id="@+id/logInFragment"
-        android:name="com.example.cureya.register.LogInFragment"
+        android:name="com.cureya.cure4mind.register.LogInFragment"
         android:label="fragment_log_in"
         tools:layout="@layout/fragment_log_in" >
         <action
@@ -321,4 +321,29 @@
             android:id="@+id/action_changeDetailsFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/communityFragment2"
+        android:name="com.cureya.cure4mind.community.ui.fragment.dashboard.CommunityFragment"
+        android:label="community_dashboard"
+        tools:layout="@layout/community_dashboard" >
+        <action
+            android:id="@+id/action_communityFragment2_to_createPost"
+            app:destination="@id/createPost" />
+        <action
+            android:id="@+id/action_communityFragment2_to_postDetailFragment"
+            app:destination="@id/postDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createPost"
+        android:name="com.cureya.cure4mind.community.ui.fragment.create.CreatePost"
+        android:label="create_post_fragment"
+        tools:layout="@layout/create_post_fragment" />
+    <fragment
+        android:id="@+id/postDetailFragment"
+        android:name="com.cureya.cure4mind.community.ui.fragment.details.PostDetailFragment"
+        android:label="PostDetailFragment" />
+    <fragment
+        android:id="@+id/forgetPasswordFragment"
+        android:name="com.cureya.cure4mind.register.ForgetPasswordFragment"
+        android:label="ForgetPasswordFragment" />
 </navigation>

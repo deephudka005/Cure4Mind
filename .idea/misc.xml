@@ -15,10 +15,14 @@
         <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/layout/fragment_relaxation_yoga.xml" value="0.17481884057971014" />
         <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/layout/fragment_relaxation_yoga_details.xml" value="0.17481884057971014" />
         <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/layout/fragment_sign_up.xml" value="0.17481884057971014" />
+        <entry key="app/src/main/res/layout/comment_layout.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/community_post_card.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/layout_community_dashboard.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/tags_picker.xml" value="0.1" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
