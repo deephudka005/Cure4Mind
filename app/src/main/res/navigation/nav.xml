@@ -21,4 +21,194 @@
         android:name="com.cureya.cure4mind.home.AboutUsFragment"
         android:label="About Us"
         tools:layout="@layout/fragment_about_us" />
+    <fragment
+        android:id="@+id/our_Aim"
+        android:name="com.cureya.cure4mind.settings.Our_Aim"
+        android:label="our_aim"
+        tools:layout="@layout/our_aim" >
+        <action
+            android:id="@+id/action_our_Aim_to_informationFragment"
+            app:destination="@id/informationFragment" />
+        <action
+            android:id="@+id/action_our_Aim_to_about_Us"
+            app:destination="@id/about_Us" />
+    </fragment>
+    <fragment
+        android:id="@+id/our_Mission"
+        android:name="com.cureya.cure4mind.settings.Our_Mission"
+        android:label="our_mission"
+        tools:layout="@layout/our_mission" >
+        <action
+            android:id="@+id/action_our_Mission_to_informationFragment"
+            app:destination="@id/informationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/our_Vision"
+        android:name="com.cureya.cure4mind.settings.Our_Vision"
+        android:label="our_vision"
+        tools:layout="@layout/our_vision" >
+        <action
+            android:id="@+id/action_our_Vision_to_informationFragment"
+            app:destination="@id/informationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/our_Value_Proposition"
+        android:name="com.cureya.cure4mind.settings.Our_Value_Proposition"
+        android:label="our_value_proposition"
+        tools:layout="@layout/our_value_proposition" >
+        <action
+            android:id="@+id/action_our_Value_Proposition_to_informationFragment"
+            app:destination="@id/informationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/about_Us"
+        android:name="com.cureya.cure4mind.settings.About_Us"
+        android:label="about_us"
+        tools:layout="@layout/about_us" >
+        <action
+            android:id="@+id/action_about_Us_to_informationFragment"
+            app:destination="@id/informationFragment" />
+        <action
+            android:id="@+id/action_about_Us_to_informationFragment2"
+            app:destination="@id/informationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/our_Achievements"
+        android:name="com.cureya.cure4mind.settings.Our_Achievements"
+        android:label="our_achievements"
+        tools:layout="@layout/our_achievements" >
+        <action
+            android:id="@+id/action_our_Achievements_to_informationFragment"
+            app:destination="@id/informationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/our_Collaborations"
+        android:name="com.cureya.cure4mind.settings.Our_Collaborations"
+        android:label="our_collaborations"
+        tools:layout="@layout/our_collaborations" >
+        <action
+            android:id="@+id/action_our_Collaborations_to_informationFragment"
+            app:destination="@id/informationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/team_Cureya"
+        android:name="com.cureya.cure4mind.settings.Team_Cureya"
+        android:label="team_cureya"
+        tools:layout="@layout/team_cureya" >
+        <action
+            android:id="@+id/action_team_Cureya_to_informationFragment"
+            app:destination="@id/informationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/mood_fragment"
+        android:name="com.cureya.cure4mind.home.MoodFragment"
+        android:label="Moods"
+        tools:layout="@layout/fragment_mood"/>
+    <action
+        android:id="@+id/action_homeFragment_to_moodFragment"
+        app:destination="@id/mood_fragment"/>
+    <fragment
+        android:id="@+id/informationFragment"
+        android:name="com.cureya.cure4mind.settings.InformationFragment"
+        android:label="InformationFragment"
+        tools:layout="@layout/fragment_settings_information" >
+        <action
+            android:id="@+id/action_informationFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_informationFragment_to_our_Aim"
+            app:destination="@id/our_Aim" />
+        <action
+            android:id="@+id/action_informationFragment_to_our_Mission"
+            app:destination="@id/our_Mission" />
+        <action
+            android:id="@+id/action_informationFragment_to_our_Vision"
+            app:destination="@id/our_Vision" />
+        <action
+            android:id="@+id/action_informationFragment_to_our_Value_Proposition"
+            app:destination="@id/our_Value_Proposition" />
+        <action
+            android:id="@+id/action_informationFragment_to_our_Achievements"
+            app:destination="@id/our_Achievements" />
+        <action
+            android:id="@+id/action_informationFragment_to_our_Collaborations"
+            app:destination="@id/our_Collaborations" />
+        <action
+            android:id="@+id/action_informationFragment_to_team_Cureya"
+            app:destination="@id/team_Cureya" />
+        <action
+            android:id="@+id/action_informationFragment_to_about_Us"
+            app:destination="@id/about_Us" />
+    </fragment>
+    <fragment
+        android:id="@+id/faqFragment"
+        android:name="com.cureya.cure4mind.settings.FaqFragment"
+        android:label="FaqFragment"
+        tools:layout="@layout/fragment_settings_faqs" >
+        <action
+            android:id="@+id/action_faqFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/reportFragment"
+        android:name="com.cureya.cure4mind.settings.ReportFragment"
+        android:label="ReportFragment"
+        tools:layout="@layout/fragment_settings_report" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.cureya.cure4mind.settings.SettingsFragment"
+        android:label="SettingsFragment"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_accountFragment"
+            app:destination="@id/accountFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_feedbackFragment"
+            app:destination="@id/feedbackFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_informationFragment"
+            app:destination="@id/informationFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_faqFragment"
+            app:destination="@id/faqFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_reportFragment"
+            app:destination="@id/reportFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountFragment"
+        android:name="com.cureya.cure4mind.settings.AccountFragment"
+        android:label="AccountFragment"
+        tools:layout="@layout/fragment_settings_account">
+        <action
+            android:id="@+id/action_accountFragment_to_changeDetailsFragment"
+            app:destination="@id/changeDetailsFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/AccountFragment"
+        android:name="com.cureya.cure4mind.settings.AccountFragment"
+        android:label="AccountFragment"
+        tools:layout="@layout/fragment_settings_account">
+        <action
+            android:id="@+id/action_accountFragment_to_changeDetailsFragment"
+            app:destination="@id/changeDetailsFragment" />
+        <action
+            android:id="@+id/action_accountFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changeDetailsFragment"
+        android:name="com.cureya.cure4mind.settings.ChangeDetailsFragment"
+        android:label="ChangeDetailsFragment"
+        tools:layout="@layout/fragment_settings_change_details">
+        <argument
+            android:name="change_data_type"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_changeDetailsFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>
