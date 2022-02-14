@@ -171,6 +171,7 @@ class LogInFragment : Fragment() {
                         joinedCureya = Date()
                     )
                     addToUserBase(user)
+                    googleSignInClient.revokeAccess()
                     updateUI()
                 } else {
                     showToast("Unexpected error occurred")
