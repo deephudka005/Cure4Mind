@@ -15,28 +15,28 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(com.cureya.cure4mind.R.layout.activity_main)
+        setContentView(R.layout.activity_main)
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
 
-        val bottomNavView = findViewById<BottomNavigationView>(com.cureya.cure4mind.R.id.nav_view)
+        val bottomNavView = findViewById<BottomNavigationView>(R.id.nav_view)
 
         val navHostFragment = supportFragmentManager
-            .findFragmentById(com.cureya.cure4mind.R.id.nav_host_fragment) as NavHostFragment
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
         bottomNavView.setupWithNavController(navController)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(com.cureya.cure4mind.R.menu.top_menu, menu)
+        menuInflater.inflate(R.menu.top_menu, menu)
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            com.cureya.cure4mind.R.id.aboutUsfragment -> {
-                navController.navigate(com.cureya.cure4mind.R.id.aboutUsfragment)
+            R.id.aboutUsfragment -> {
+                navController.navigate(R.id.aboutUsfragment)
                 true
             }
             else -> super.onOptionsItemSelected(item)
