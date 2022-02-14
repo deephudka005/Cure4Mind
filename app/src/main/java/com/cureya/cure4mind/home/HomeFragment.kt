@@ -62,9 +62,9 @@ class HomeFragment : Fragment(), blogitemClicked {
             opentwitterlink()
         }
         binding.profile.setOnClickListener {
-           // val direction =
-            //    HomeFragmentDirections.actionHomeFragmentToPersonalProfile(auth.uid!!)
-           // findNavController().navigate(direction)
+            val direction =
+                HomeFragmentDirections.actionHomeFragmentToPersonalProfile(auth.uid!!)
+            findNavController().navigate(direction)
         }
         getusername()
         initMembers(view)

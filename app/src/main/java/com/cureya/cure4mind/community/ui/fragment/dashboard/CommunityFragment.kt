@@ -56,9 +56,9 @@ class CommunityFragment : Fragment() {
             }, {
 
             }, {
-//                val direction =
-//                    CommunityFragmentDirections.actionDashboardFragmentToPostDetailFragment(it)
-//                navController.navigate(direction)
+                val direction =
+                    CommunityFragmentDirections.actionCommunityFragmentToPostDetailFragment(it)
+                navController.navigate(direction)
             },
             { view, post ->
                 val popup = PopupMenu(requireContext(), view).apply {
@@ -94,8 +94,8 @@ class CommunityFragment : Fragment() {
                 }
                 popup.show()
             }, {
-//                val direction = CommunityFragmentDirections.actionCommunityFragmentToPersonalProfile(it)
-//                navController.navigate(direction)
+                val direction = CommunityFragmentDirections.actionCommunityFragmentToPersonalProfile(it)
+                navController.navigate(direction)
             }
 
         )
@@ -145,7 +145,7 @@ class CommunityFragment : Fragment() {
             setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.community_menu_post -> {
-//                        navController.navigate(R.id.action_dashboardFragment_to_createPost)
+                        navController.navigate(R.id.action_communityFragment_to_createPost)
                     }
                     R.id.community_menu_report -> {
 
