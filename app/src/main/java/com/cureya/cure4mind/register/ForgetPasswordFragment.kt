@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.cureya.cure4mind.databinding.FragmentForgetPasswordBinding
 import com.cureya.cure4mind.register.SignUpFragment.Companion.USER_LIST
+import com.cureya.cure4mind.util.database
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
@@ -45,8 +46,7 @@ class ForgetPasswordFragment: Fragment() {
     private fun validateEmail() {
         val email = binding.resetEmail.text.toString().trim()
 
-        db = Firebase.database
-        db.reference.child(USER_LIST).orderByChild(EMAIL_CHILD).equalTo(email)
+        database.child(USER_LIST).orderByChild(EMAIL_CHILD).equalTo(email)
             .addListenerForSingleValueEvent(object: ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.value != null) {

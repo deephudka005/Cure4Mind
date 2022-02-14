@@ -54,15 +54,15 @@ class PersonalProfile : Fragment() {
 
     private fun initMembers() {
         viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
-//        val profileId = PersonalProfileArgs.fromBundle(requireArguments()).userId
-//        if (profileId != auth.uid!!) {
-//            binding.apply {
-//                editAbout.visibility = View.GONE
-//                editEmail.visibility = View.GONE
-//                editProfilePhoto.visibility = View.GONE
-//                editGender.visibility = View.GONE
-//            }
-//        }
+        val profileId = PersonalProfileArgs.fromBundle(requireArguments()).userId
+        if (profileId != auth.uid!!) {
+            binding.apply {
+                editAbout.visibility = View.GONE
+                editEmail.visibility = View.GONE
+                editProfilePhoto.visibility = View.GONE
+                editGender.visibility = View.GONE
+            }
+        }
         getContent =
             registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
                 val contentResolver = requireActivity().contentResolver
@@ -110,7 +110,7 @@ class PersonalProfile : Fragment() {
                 }
             }
         navController = findNavController()
-//        viewModel.loadData(profileId)
+        viewModel.loadData(profileId)
     }
 
     private fun setClickListeners() {

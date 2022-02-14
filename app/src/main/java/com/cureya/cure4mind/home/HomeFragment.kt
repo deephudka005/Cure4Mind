@@ -15,6 +15,7 @@ import coil.load
 import com.cureya.cure4mind.R
 import com.cureya.cure4mind.blog
 import com.cureya.cure4mind.databinding.FragmentHomeBinding
+import com.cureya.cure4mind.util.database
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
@@ -26,7 +27,6 @@ class HomeFragment : Fragment(), blogitemClicked {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var blogRecyclerView: RecyclerView
-    private lateinit var database: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,8 +39,6 @@ class HomeFragment : Fragment(), blogitemClicked {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         auth = Firebase.auth
-        database =
-            FirebaseDatabase.getInstance("https://cureyadraft-default-rtdb.asia-southeast1.firebasedatabase.app").reference
 
         binding.homeContextualMenu.setOnClickListener { showMenuPopUp(it) }
         binding.webLink.setOnClickListener {

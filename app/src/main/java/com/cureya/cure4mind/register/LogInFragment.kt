@@ -17,6 +17,7 @@ import com.cureya.cure4mind.model.User
 import com.cureya.cure4mind.register.SignUpFragment.Companion.RC_SIGN_IN
 import com.cureya.cure4mind.register.SignUpFragment.Companion.TAG
 import com.cureya.cure4mind.register.SignUpFragment.Companion.USER_LIST
+import com.cureya.cure4mind.util.database
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -178,10 +179,9 @@ class LogInFragment : Fragment() {
     }
 
     private fun addToUserBase(user: User) {
-        db = Firebase.database
         val newChildKey = auth.currentUser?.uid!!
 
-        db.reference.child(USER_LIST).child(newChildKey).apply {
+       database.child(USER_LIST).child(newChildKey).apply {
             addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.value == null) {

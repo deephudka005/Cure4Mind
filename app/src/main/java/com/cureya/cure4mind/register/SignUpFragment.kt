@@ -16,6 +16,7 @@ import androidx.navigation.fragment.findNavController
 import com.cureya.cure4mind.R
 import com.cureya.cure4mind.databinding.FragmentSignUpBinding
 import com.cureya.cure4mind.model.User
+import com.cureya.cure4mind.util.database
 import com.cureya.cure4mind.util.defaultProfilePic
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -133,10 +134,9 @@ class SignUpFragment: Fragment() {
     private fun isPasswordLong(str: String) = str.length > 7
 
     private fun addToUserBase(user: User) {
-        db = Firebase.database
         val newChildKey = auth.currentUser?.uid!!
 
-        db.reference.child(USER_LIST).child(newChildKey).apply {
+        database.child(USER_LIST).child(newChildKey).apply {
             addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.value == null) {
