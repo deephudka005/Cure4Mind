@@ -53,7 +53,7 @@ class ChatFragment : Fragment() {
         dbReference =
             FirebaseDatabase.getInstance("https://cureyadraft-default-rtdb.asia-southeast1.firebasedatabase.app").reference
         auth = FirebaseAuth.getInstance()
-//        user = ChatFragmentArgs.fromBundle(requireArguments()).user
+        user = ChatFragmentArgs.fromBundle(requireArguments()).user
         chatRecyclerAdapter = ChatRecyclerAdapter(auth.uid!!)
         binding.apply {
             userName.text = user.name
