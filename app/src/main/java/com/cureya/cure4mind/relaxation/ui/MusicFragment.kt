@@ -24,6 +24,7 @@ import com.cureya.cure4mind.model.Content
 import com.cureya.cure4mind.relaxation.ui.MusicVideoFragment.Companion.MUSIC_LIST
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -36,7 +37,7 @@ class MusicFragment : Fragment() {
 
     private lateinit var adapter: FirebaseRecyclerAdapter<Content, CardMusicViewHolder>
     private lateinit var binding: FragmentRelaxationMusicBinding
-    private lateinit var db: FirebaseDatabase
+    private lateinit var dbRef: DatabaseReference
 
     private lateinit var mediaPlayer: MediaPlayer
     private val contentList = mutableListOf<Content>()
@@ -56,12 +57,13 @@ class MusicFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        db = Firebase.database
+        dbRef = FirebaseDatabase.getInstance("https://cure4mind-d687f-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
+
         position = navArgument.itemPosition
 
         createContentList()
 
-        val musicRef = db.reference.child(MUSIC_LIST)
+        val musicRef = dbRef.child(MUSIC_LIST)
 
         val musicList = FirebaseRecyclerOptions.Builder<Content>()
             .setQuery(musicRef, Content::class.java)
@@ -120,7 +122,7 @@ class MusicFragment : Fragment() {
     }
 
     private fun createContentList() {
-        db.reference.child(MUSIC_LIST).get()
+        dbRef.child(MUSIC_LIST).get()
             .addOnSuccessListener { snapshot ->
                 snapshot.children.forEach {
                     val item = it.getValue(Content::class.java)!!

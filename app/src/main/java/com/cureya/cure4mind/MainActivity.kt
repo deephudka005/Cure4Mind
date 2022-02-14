@@ -1,4 +1,5 @@
 package com.cureya.cure4mind
+
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem

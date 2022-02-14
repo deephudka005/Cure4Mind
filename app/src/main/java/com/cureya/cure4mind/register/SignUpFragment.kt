@@ -137,12 +137,16 @@ class SignUpFragment: Fragment() {
         val newChildKey = auth.currentUser?.uid!!
 
         database.child(USER_LIST).child(newChildKey).apply {
-            addListenerForSingleValueEvent(object : ValueEventListener {
+            Log.w("SignUpFragment", "Inside db reference apply uid: $newChildKey")
+            addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
+                    Log.w("SignUpFragment", "On data change")
                     if (snapshot.value == null) {
-                        this@apply.setValue(user)
+                        Log.w("SignUpFragment", "Snapshot value is null")
+                        this@apply.push().setValue(user)
                         Log.w(TAG, "New user inserted to database")
                     } else Log.w(TAG, "User already exists")
+                    updateUI()
                 }
                 override fun onCancelled(error: DatabaseError) {
                     Log.e(TAG, "Inside addToUserList()", error.toException())
