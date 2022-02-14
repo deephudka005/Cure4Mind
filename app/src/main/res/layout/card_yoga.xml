@@ -20,8 +20,8 @@
 
         <ImageView
             android:id="@+id/yoga_card_image"
-            android:layout_width="140dp"
-            android:layout_height="260dp"
+            android:layout_width="280dp"
+            android:layout_height="160dp"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/asset_yoga_card_vertical_bg" />
     </com.google.android.material.card.MaterialCardView>
