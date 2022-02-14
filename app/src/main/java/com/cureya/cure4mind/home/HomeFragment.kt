@@ -170,7 +170,7 @@ class HomeFragment : Fragment(), blogitemClicked {
             setOnMenuItemClickListener { p0 ->
                 when (p0?.itemId) {
                     R.id.settings -> {
-                        //findNavController().navigate(R.id.action_homeFragment_to_settingsFragment)
+                        findNavController().navigate(R.id.action_homeFragment_to_settingsFragment)
                         true
                     }
                     R.id.about_us -> {
@@ -179,21 +179,21 @@ class HomeFragment : Fragment(), blogitemClicked {
                     }
                     R.id.log_out -> {
                         auth.signOut()
-                        //findNavController().navigate(R.id.action_homeFragment_to_logInFragment)
+                        findNavController().navigate(R.id.action_homeFragment_to_logInFragment)
                         true
                     }
                     R.id.profile -> {
-                        //val direction =
-                          //  HomeFragmentDirections.actionHomeFragmentToPersonalProfile(auth.uid!!)
-                       // findNavController().navigate(direction)
+                        val direction =
+                            HomeFragmentDirections.actionHomeFragmentToPersonalProfile(auth.uid!!)
+                        findNavController().navigate(direction)
                         true
                     }
                     R.id.moods -> {
-                       // findNavController().navigate(R.id.action_homeFragment_to_moodFragment)
+                        findNavController().navigate(R.id.action_homeFragment_to_moodFragment)
                         true
                     }
                     R.id.contact_us -> {
-                      //  findNavController().navigate(R.id.action_homeFragment_to_contactUsFragment)
+                      findNavController().navigate(R.id.action_homeFragment_to_contactUsFragment)
                         true
                     }
                     else -> false
@@ -208,7 +208,7 @@ class HomeFragment : Fragment(), blogitemClicked {
     override fun onStart() {
         super.onStart()
         if (auth.currentUser == null) {
-           // findNavController().navigate(R.id.action_homeFragment_to_logInFragment)
+           findNavController().navigate(R.id.action_homeFragment_to_logInFragment)
         }
     }
 

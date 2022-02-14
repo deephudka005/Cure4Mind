@@ -9,14 +9,21 @@
         android:name="com.cureya.cure4mind.home.HomeFragment"
         android:label="Cureya"
         tools:layout="@layout/fragment_home">
-
+        <action
+            android:id="@+id/action_homeFragment_to_logInFragment"
+            app:destination="@id/logInFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_aboutUsFragment"
+            app:destination="@id/aboutUsFragment" />
         <action
             android:id="@+id/action_homeFragment_to_contactUsFragment"
             app:destination="@id/contactusFragment"/>
         <action
-            android:id="@+id/action_homeFragment_to_aboutUsFragment"
-            app:destination="@id/aboutUsFragment" />
-
+            android:id="@+id/action_homeFragment_to_personalProfile"
+            app:destination="@id/personalProfile" />
     </fragment>
     <fragment
         android:id="@+id/contactusFragment"
@@ -358,4 +365,9 @@
         android:id="@+id/chatListFragment"
         android:name="com.cureya.cure4mind.chat.ui.fragments.chatList.ChatListFragment"
         android:label="ChatListFragment" />
+    <fragment
+        android:id="@+id/personalProfile"
+        android:name="com.cureya.cure4mind.profile.PersonalProfile"
+        android:label="profile_fragment"
+        tools:layout="@layout/profile_fragment" />
 </navigation>
