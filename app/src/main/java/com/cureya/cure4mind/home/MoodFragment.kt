@@ -169,7 +169,7 @@ class MoodFragment : Fragment() {
         val text : TextView = dialog.findViewById(com.cureya.cure4mind.R.id.subtext_dialog)
         text.text = msg
         val dialogButton: Button = dialog.findViewById(com.cureya.cure4mind.R.id.btn)
-        dialogButton.setOnClickListener(View.OnClickListener { dialog.dismiss() })
+        dialogButton.setOnClickListener({ dialog.dismiss() })
         dialog.show()
     }
 
