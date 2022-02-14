@@ -66,6 +66,9 @@ class HomeFragment : Fragment(), blogitemClicked {
                 HomeFragmentDirections.actionHomeFragmentToPersonalProfile(auth.uid!!)
             findNavController().navigate(direction)
         }
+        binding.moods.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_moodFragment)
+        }
         getusername()
         initMembers(view)
         val images = listOf<blog>(
