@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.cureya.cure4mind.R
 import com.cureya.cure4mind.community.models.TAG
 import com.cureya.cure4mind.databinding.CommunityDashboardBinding
-import com.example.cureya.community.ui.fragment.dashboard.DashboardViewModel
 import com.google.firebase.auth.FirebaseAuth
 
 

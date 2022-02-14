@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import com.cureya.cure4mind.community.models.Post
 import com.cureya.cure4mind.community.models.TAG
 import com.cureya.cure4mind.community.models.User
+import com.cureya.cure4mind.util.database
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
@@ -20,8 +21,6 @@ import java.util.*
 class CreatePostViewModel : ViewModel() {
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private val database =
-        FirebaseDatabase.getInstance("https://cureyadraft-default-rtdb.asia-southeast1.firebasedatabase.app").reference
     private val storageRef = Firebase.storage.reference
 
     private val _isLoading = MutableLiveData<Boolean>(false)

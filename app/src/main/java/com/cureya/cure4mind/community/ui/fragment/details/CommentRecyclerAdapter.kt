@@ -8,8 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.cureya.cure4mind.R
-import com.cureya.cure4mind.community.utils.toDateString
 import com.cureya.cure4mind.community.models.Comment
+import com.cureya.cure4mind.util.toDateString
 
 
 class CommentRecyclerAdapter : RecyclerView.Adapter<CommentRecyclerAdapter.CommentsViewHolder>() {

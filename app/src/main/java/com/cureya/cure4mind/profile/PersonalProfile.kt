@@ -21,8 +21,8 @@ import androidx.navigation.fragment.findNavController
 import coil.load
 import com.bumptech.glide.Glide
 import com.cureya.cure4mind.R
-import com.cureya.cure4mind.community.utils.toDateString
 import com.cureya.cure4mind.databinding.ProfileFragmentBinding
+import com.cureya.cure4mind.util.toDateString
 import com.google.firebase.auth.FirebaseAuth
 
 class PersonalProfile : Fragment() {

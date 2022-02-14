@@ -1,6 +1,6 @@
 package com.cureya.cure4mind.model
 
-import com.cureya.cure4mind.community.utils.defaultProfilePic
+import com.cureya.cure4mind.util.defaultProfilePic
 import java.util.*
 
 data class User(

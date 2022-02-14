@@ -13,7 +13,7 @@ import coil.load
 import com.cureya.cure4mind.R
 import com.cureya.cure4mind.community.models.Post
 import com.cureya.cure4mind.community.models.TAG
-import com.cureya.cure4mind.community.utils.toDateString
+import com.cureya.cure4mind.util.toDateString
 import com.google.firebase.auth.FirebaseAuth
 import de.hdodenhof.circleimageview.CircleImageView
 
