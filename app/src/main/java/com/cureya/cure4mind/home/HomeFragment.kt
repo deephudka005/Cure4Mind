@@ -17,6 +17,8 @@ import com.cureya.cure4mind.R
 import com.cureya.cure4mind.blog
 import com.cureya.cure4mind.databinding.FragmentHomeBinding
 import com.cureya.cure4mind.util.database
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
