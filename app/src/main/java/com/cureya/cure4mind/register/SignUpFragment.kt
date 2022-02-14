@@ -143,7 +143,7 @@ class SignUpFragment: Fragment() {
                     Log.w("SignUpFragment", "On data change")
                     if (snapshot.value == null) {
                         Log.w("SignUpFragment", "Snapshot value is null")
-                        this@apply.push().setValue(user)
+                        this@apply.setValue(user)
                         Log.w(TAG, "New user inserted to database")
                     } else Log.w(TAG, "User already exists")
                     updateUI()
