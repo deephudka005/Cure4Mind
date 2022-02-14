@@ -2,6 +2,7 @@ package com.cureya.cure4mind.home
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
+import java.util.*
 
 class HomeFragment : Fragment(), blogitemClicked {
 
@@ -103,7 +105,8 @@ class HomeFragment : Fragment(), blogitemClicked {
         var username = ""
         val user = auth.currentUser
         val uid = user?.uid.toString()
-        database.child("users").child(uid).get().addOnSuccessListener {
+        database.child("users").child(auth.uid!!).get().addOnSuccessListener {
+            Log.d("TAG", "getusername: ${it.getValue(Any::class.java)}")
             username = it.child("name").value.toString()//.split(" ")[0]
             val photoUrl = it.child("photoUrl").value.toString()
             binding.userinfo.text = username

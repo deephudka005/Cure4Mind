@@ -186,7 +186,7 @@ class LogInFragment : Fragment() {
             addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.value == null) {
-                        this@apply.push().setValue(user)
+                        this@apply.setValue(user)
                         Log.w(TAG, "New user inserted to database")
                     } else Log.w(TAG, "User already exists")
                 }
