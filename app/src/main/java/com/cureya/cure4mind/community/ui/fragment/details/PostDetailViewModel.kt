@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.cureya.cure4mind.community.models.Comment
 import com.cureya.cure4mind.community.models.Post
 import com.cureya.cure4mind.community.models.User
+import com.cureya.cure4mind.util.database
 
 
 import com.google.firebase.FirebaseException
@@ -19,8 +20,6 @@ import kotlinx.coroutines.tasks.await
 
 class PostDetailViewModel : ViewModel() {
 
-    private val database =
-        FirebaseDatabase.getInstance("https://cureyadraft-default-rtdb.asia-southeast1.firebasedatabase.app").reference
     private val auth = FirebaseAuth.getInstance()
 
     private val _comments = MutableLiveData<List<Comment>>()

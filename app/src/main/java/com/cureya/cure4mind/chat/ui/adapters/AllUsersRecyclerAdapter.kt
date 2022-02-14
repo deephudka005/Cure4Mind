@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cureya.cure4mind.R
 import com.cureya.cure4mind.chat.data.models.User
-import com.example.cureya.chat.utils.toDateString
+import com.cureya.cure4mind.util.toDateString
 
 class AllUsersRecyclerAdapter(
     private val context: Context,

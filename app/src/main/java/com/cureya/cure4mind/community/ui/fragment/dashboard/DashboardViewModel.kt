@@ -1,4 +1,4 @@
-package com.example.cureya.community.ui.fragment.dashboard
+package com.cureya.cure4mind.community.ui.fragment.dashboard
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cureya.cure4mind.community.models.Post
 import com.cureya.cure4mind.community.models.TAG
+import com.cureya.cure4mind.util.database
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -15,9 +16,6 @@ import kotlinx.coroutines.tasks.await
 
 
 class DashboardViewModel : ViewModel() {
-
-    private val database =
-        FirebaseDatabase.getInstance("https://cureyadraft-default-rtdb.asia-southeast1.firebasedatabase.app").reference
 
     private val auth = FirebaseAuth.getInstance()
     private val _posts = MutableLiveData<List<Post>>(listOf());

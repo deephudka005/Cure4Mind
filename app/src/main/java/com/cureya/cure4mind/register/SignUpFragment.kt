@@ -14,9 +14,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.cureya.cure4mind.R
-import com.cureya.cure4mind.community.utils.defaultProfilePic
 import com.cureya.cure4mind.databinding.FragmentSignUpBinding
 import com.cureya.cure4mind.model.User
+import com.cureya.cure4mind.util.defaultProfilePic
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions

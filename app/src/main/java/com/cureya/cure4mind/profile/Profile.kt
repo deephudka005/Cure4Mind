@@ -1,10 +1,11 @@
 package com.cureya.cure4mind.profile
 
+import com.cureya.cure4mind.util.defaultProfilePic
 import java.util.*
 
 data class Profile(
     var userId:String = "",
-    val photoUrl: String = "https://firebasestorage.googleapis.com/v0/b/cureyadraft.appspot.com/o/static%2Fdefault_profile_pic.png?alt=media&token=a52249e9-4de2-4e67-8e73-fa71ff26f289",
+    val photoUrl: String = defaultProfilePic,
     val email: String = "Not provided",
     val gender: String = "Not provided",
     val joinedGroups: Int = 0,

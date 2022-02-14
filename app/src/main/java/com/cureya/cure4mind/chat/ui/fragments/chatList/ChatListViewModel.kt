@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.cureya.cure4mind.chat.data.models.Message
 import com.cureya.cure4mind.chat.data.models.User
+import com.cureya.cure4mind.util.database
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -19,8 +20,6 @@ class ChatListViewModel() : ViewModel() {
 
     private val allUsers = MutableLiveData<List<User>>()
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
-    private val database =
-        FirebaseDatabase.getInstance("https://cureyadraft-default-rtdb.asia-southeast1.firebasedatabase.app").reference
 
     init {
         loadData()

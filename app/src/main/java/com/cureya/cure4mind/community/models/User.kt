@@ -1,7 +1,7 @@
 package com.cureya.cure4mind.community.models
 
 import android.os.Parcelable
-import com.cureya.cure4mind.community.utils.defaultProfilePic
+import com.cureya.cure4mind.util.defaultProfilePic
 import kotlinx.parcelize.Parcelize
 
 

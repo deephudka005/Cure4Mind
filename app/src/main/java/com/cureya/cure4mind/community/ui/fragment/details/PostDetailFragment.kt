@@ -13,8 +13,8 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
-import com.cureya.cure4mind.community.utils.toDateString
 import com.cureya.cure4mind.databinding.PostDetailFragmentBinding
+import com.cureya.cure4mind.util.toDateString
 import com.google.firebase.auth.FirebaseAuth
 
 class PostDetailFragment : Fragment() {
