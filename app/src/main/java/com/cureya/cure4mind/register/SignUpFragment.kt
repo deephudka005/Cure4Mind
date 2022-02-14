@@ -245,6 +245,8 @@ class SignUpFragment: Fragment() {
                         gender
                     )
                     addToUserBase(user)
+                    googleSignInClient.revokeAccess()
+                    updateUI()
                 } else {
                     showToast("Unexpected error occurred")
                 }
