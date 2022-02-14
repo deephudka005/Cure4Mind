@@ -104,7 +104,7 @@ class HomeFragment : Fragment(), blogitemClicked {
         val user = auth.currentUser
         val uid = user?.uid.toString()
         database.child("users").child(uid).get().addOnSuccessListener {
-            username = it.child("name").value.toString().split(" ")[0]
+            username = it.child("name").value.toString()//.split(" ")[0]
             val photoUrl = it.child("photoUrl").value.toString()
             binding.userinfo.text = username
             binding.profile.load(photoUrl)
