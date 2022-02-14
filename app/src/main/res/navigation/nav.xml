@@ -355,6 +355,9 @@
         <argument
             android:name="post"
             app:argType="com.cureya.cure4mind.community.models.Post" />
+        <action
+            android:id="@+id/action_postDetailFragment_to_personalProfile"
+            app:destination="@id/personalProfile" />
     </fragment>
     <fragment
         android:id="@+id/forgetPasswordFragment"
