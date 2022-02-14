@@ -49,11 +49,11 @@ class PostDetailFragment : Fragment() {
         commentRecyclerAdapter = CommentRecyclerAdapter()
         viewModel = ViewModelProvider(this)[PostDetailViewModel::class.java]
         navController = findNavController()
-//        val post = PostDetailFragmentArgs.fromBundle(requireArguments()).post
-//        val direction =
-//            PostDetailFragmentDirections.actionPostDetailFragmentToPersonalProfile(post.userId)
-//        binding.postCard.postUserImage.setOnClickListener { navController.navigate(direction) }
-//        viewModel.initData(post)
+        val post = PostDetailFragmentArgs.fromBundle(requireArguments()).post
+        val direction =
+            PostDetailFragmentDirections.actionPostDetailFragmentToPersonalProfile(post.userId)
+        binding.postCard.postUserImage.setOnClickListener { navController.navigate(direction) }
+        viewModel.initData(post)
     }
 
     private fun setClickListeners() {

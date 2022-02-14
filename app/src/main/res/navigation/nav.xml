@@ -364,6 +364,9 @@
         <argument
             android:name="post"
             app:argType="com.cureya.cure4mind.community.models.Post" />
+        <action
+            android:id="@+id/action_postDetailFragment_to_personalProfile"
+            app:destination="@id/personalProfile" />
     </fragment>
     <fragment
         android:id="@+id/forgetPasswordFragment"
@@ -373,14 +376,21 @@
         android:id="@+id/chatFragment"
         android:name="com.cureya.cure4mind.chat.ui.fragments.chat.ChatFragment"
         android:label="ChatFragment" >
-        <action
-            android:id="@+id/action_chatFragment_to_chatListFragment"
-            app:destination="@id/chatListFragment" />
+        <argument
+            android:name="user"
+            app:argType="com.cureya.cure4mind.chat.data.models.User" />
     </fragment>
     <fragment
         android:id="@+id/chatListFragment"
         android:name="com.cureya.cure4mind.chat.ui.fragments.chatList.ChatListFragment"
-        android:label="ChatListFragment" />
+        android:label="ChatListFragment" >
+        <action
+            android:id="@+id/action_chatListFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/action_chatListFragment_to_personalProfile"
+            app:destination="@id/personalProfile" />
+    </fragment>
     <fragment
         android:id="@+id/personalProfile"
         android:name="com.cureya.cure4mind.profile.PersonalProfile"
@@ -400,7 +410,7 @@
         android:name="com.cureya.cure4mind.SplashActivity"
         android:label="SplashActivity" />
     <fragment
-        android:id="@+id/chatbotFragment2"
+        android:id="@+id/chatbotFragment"
         android:name="com.cureya.cure4mind.chatbot.ChatbotFragment"
         android:label="ChatbotFragment" />
 </navigation>

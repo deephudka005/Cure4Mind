@@ -19,7 +19,6 @@ import de.hdodenhof.circleimageview.CircleImageView
 
 class ChatListFragment : Fragment() {
 
-
     private lateinit var auth: FirebaseAuth
 
     private lateinit var allUsersRecycler: RecyclerView
@@ -37,7 +36,6 @@ class ChatListFragment : Fragment() {
         return inflater.inflate(R.layout.chat_list_fragment, container, false)
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initMembers(view)
@@ -52,15 +50,14 @@ class ChatListFragment : Fragment() {
         allUsersRecycler = view.findViewById(R.id.all_users_recycler)
         chatUsersRecycler = view.findViewById(R.id.chat_users_recycler)
         allUsersAdapter = AllUsersRecyclerAdapter(requireContext(), { user ->
-//            val direction = ChatListFragmentDirections.actionChatListFragmentToChatFragment(user)
-//            navController.navigate(direction)
+            val direction = ChatListFragmentDirections.actionChatListFragmentToChatFragment(user)
+            navController.navigate(direction)
         }) {
-//            val direction = ChatListFragmentDirections.actionChatListFragmentToPersonalProfile(it)
-//            navController.navigate(direction)
+            val direction = ChatListFragmentDirections.actionChatListFragmentToPersonalProfile(it)
+            navController.navigate(direction)
         }
         Glide.with(this).load(auth.currentUser?.photoUrl)
             .into(view.findViewById<CircleImageView>(R.id.profile))
-
     }
 
     private fun observeData() {
