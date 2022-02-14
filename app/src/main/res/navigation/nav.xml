@@ -159,6 +159,15 @@
             app:destination="@id/about_Us" />
     </fragment>
     <fragment
+        android:id="@+id/personalProfile"
+        android:name="com.cureya.cure4mind.profile.PersonalProfile"
+        android:label="profile_fragment"
+        tools:layout="@layout/profile_fragment" >
+        <argument
+            android:name="userId"
+            app:argType="string" />
+    </fragment>
+    <fragment
         android:id="@+id/faqFragment"
         android:name="com.cureya.cure4mind.settings.FaqFragment"
         android:label="FaqFragment"

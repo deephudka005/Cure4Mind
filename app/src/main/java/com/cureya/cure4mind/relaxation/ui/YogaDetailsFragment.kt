@@ -13,17 +13,14 @@ import com.cureya.cure4mind.databinding.FragmentRelaxationYogaDetailsBinding
 import com.cureya.cure4mind.model.Yoga
 import com.cureya.cure4mind.relaxation.ui.YogaFragment.Companion.YOGA_LIST
 import com.cureya.cure4mind.relaxation.ui.YogaFragment.Companion.YOGA_TITLE
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 class YogaDetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentRelaxationYogaDetailsBinding
-    private lateinit var db: FirebaseDatabase
+    private lateinit var dbRef: DatabaseReference
 
     private val navArgument: YogaDetailsFragmentArgs by navArgs()
 
@@ -39,11 +36,11 @@ class YogaDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        db = Firebase.database
+        dbRef = FirebaseDatabase.getInstance("https://cure4mind-d687f-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
 
         val yogaTitle = navArgument.itemTitle
 
-        db.reference.child(YOGA_LIST).orderByChild(YOGA_TITLE).equalTo(yogaTitle)
+        dbRef.child(YOGA_LIST).orderByChild(YOGA_TITLE).equalTo(yogaTitle)
             .addListenerForSingleValueEvent(object: ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.value != null) {

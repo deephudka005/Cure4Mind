@@ -17,6 +17,7 @@ import com.cureya.cure4mind.relaxation.viewHolder.MusicViewHolder
 import com.cureya.cure4mind.relaxation.viewHolder.VideoViewHolder
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -27,6 +28,7 @@ class MusicVideoFragment : Fragment() {
     private lateinit var musicAdapter: FirebaseRecyclerAdapter<Content, MusicViewHolder>
     private lateinit var binding: FragmentRelaxationMusicVideoBinding
     private lateinit var db: FirebaseDatabase
+    private lateinit var dbRef: DatabaseReference
 
     private val navArgument: MusicVideoFragmentArgs by navArgs()
 
@@ -47,7 +49,7 @@ class MusicVideoFragment : Fragment() {
 
         val contentType = navArgument.contentType
 
-        db = Firebase.database
+        dbRef = FirebaseDatabase.getInstance("https://cure4mind-d687f-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
 
         if (contentType == CONTENT_TYPE_VIDEO) {
             showVideoList()
@@ -58,7 +60,8 @@ class MusicVideoFragment : Fragment() {
     }
 
     private fun showVideoList() {
-        val videoRef = db.reference.child(VIDEO_LIST)
+        Log.w(TAG, "show video list called")
+        val videoRef = dbRef.child(VIDEO_LIST)
 
         val videoList = FirebaseRecyclerOptions.Builder<Content>()
             .setQuery(videoRef, Content::class.java)
@@ -87,7 +90,7 @@ class MusicVideoFragment : Fragment() {
     }
 
     private fun showMusicList() {
-        val musicRef = db.reference.child(MUSIC_LIST)
+        val musicRef = dbRef.child(MUSIC_LIST)
         Log.w(TAG, "inside showMusicList")
 
         val musicList = FirebaseRecyclerOptions.Builder<Content>()
