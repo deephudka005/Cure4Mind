@@ -35,7 +35,7 @@ import kotlin.math.abs
 
 class MusicFragment : Fragment() {
 
-    private lateinit var adapter: FirebaseRecyclerAdapter<Content, CardMusicViewHolder>
+    // private lateinit var adapter: FirebaseRecyclerAdapter<Content, CardMusicViewHolder>
     private lateinit var binding: FragmentRelaxationMusicBinding
     private lateinit var dbRef: DatabaseReference
 
@@ -63,53 +63,11 @@ class MusicFragment : Fragment() {
 
         createContentList()
 
-        val musicRef = dbRef.child(MUSIC_LIST)
-
-        val musicList = FirebaseRecyclerOptions.Builder<Content>()
-            .setQuery(musicRef, Content::class.java)
-            .build()
-
-        adapter = object: FirebaseRecyclerAdapter<Content, CardMusicViewHolder>(musicList) {
-            override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardMusicViewHolder {
-                val layoutView = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.card_music, parent, false)
-                return CardMusicViewHolder(
-                    CardMusicBinding.bind(layoutView)
-                )
-            }
-            override fun onBindViewHolder(holder: CardMusicViewHolder, position: Int, model: Content) {
-                holder.bind(model)
-            }
-        }
-        // creating a sliding list with 3 visible items
-        binding.musicListViewPager.adapter = adapter
-        binding.musicListViewPager.offscreenPageLimit = 3
-        binding.musicListViewPager.clipChildren = false
-        binding.musicListViewPager.clipToPadding = false
-        binding.musicListViewPager.currentItem = position
-
-        val transformer = CompositePageTransformer().apply {
-            addTransformer(MarginPageTransformer(40))
-            addTransformer { page, position ->
-                val r = 1 - abs(position)
-                page.scaleY = 0.85F + r * 0.14F
-            }
-        }
-        binding.musicListViewPager.setPageTransformer(transformer)
-
         binding.musicPlay.setOnClickListener { handleMusicState() }
 
         binding.musicNext.setOnClickListener { playNextMusic() }
 
         binding.musicPrevious.setOnClickListener { playPreviousMusic() }
-
-        // sliding bar slide action
-        binding.musicListViewPager.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(pos: Int) {
-                super.onPageSelected(pos)
-                playSlideMusic(pos)
-            }
-        })
 
         // seekbar music control
         binding.musicSeekbar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
@@ -119,6 +77,8 @@ class MusicFragment : Fragment() {
             override fun onStartTrackingTouch(p0: SeekBar?) {}
             override fun onStopTrackingTouch(p0: SeekBar?) {}
         })
+
+        binding.backButton.setOnClickListener { findNavController().navigateUp() }
     }
 
     private fun createContentList() {
@@ -128,13 +88,15 @@ class MusicFragment : Fragment() {
                     val item = it.getValue(Content::class.java)!!
                     contentList.add(item)
                 }
-                binding.progressBar.visibility = View.GONE
-                val url = contentList[position].contentUrl!!
-                playMusicWithUrl(url)
+                val content = contentList[position]
+                playMusicWithUrl(content.contentUrl!!, content.title!!, content.thumbnailUrl!!)
             }
     }
 
-    private fun playMusicWithUrl(url: String) {
+    private fun playMusicWithUrl(url: String, title: String, imgUrl: String) {
+        binding.musicHeading.text = title
+        binding.musicImage.load(imgUrl)
+
         mediaPlayer = MediaPlayer().apply {
             setAudioAttributes(
                 AudioAttributes.Builder()
@@ -146,6 +108,7 @@ class MusicFragment : Fragment() {
             prepare() // might take long! (for buffering, etc)
             start()
         }
+        binding.progressBar.visibility = View.GONE
         setSeekBar()
         updateTimer()
     }
@@ -176,43 +139,32 @@ class MusicFragment : Fragment() {
         }, 0, 1000)
     }
 
-    private fun playSlideMusic(pos: Int) {
-        try {
-            mediaPlayer.stop()
-            mediaPlayer.release()
-
-            val url = contentList[pos].contentUrl!!
-            setMusicTitle(contentList[pos].title!!)
-            playMusicWithUrl(url)
-        } catch (e: Exception) {}
-    }
-
     private fun playNextMusic() {
         mediaPlayer.stop()
         mediaPlayer.release()
 
+        binding.progressBar.visibility = View.VISIBLE
+
         // to loop back once we are at the edge of the list
         position = (position + 1) % contentList.size
-        binding.musicListViewPager.currentItem = position
 
-        val url = contentList[position].contentUrl!!
-        setMusicTitle(contentList[position].title!!)
-        playMusicWithUrl(url)
+        val content = contentList[position]
+        playMusicWithUrl(content.contentUrl!!, content.title!!, content.thumbnailUrl!!)
     }
 
     private fun playPreviousMusic() {
         mediaPlayer.stop()
         mediaPlayer.release()
 
+        binding.progressBar.visibility = View.VISIBLE
+
         // to loop through the list
         if (position - 1 < 0) {
             position = contentList.size - 1
-        } else { position.dec() }
-        binding.musicListViewPager.currentItem = position
+        } else { --position }
 
-        val url = contentList[position].contentUrl!!
-        setMusicTitle(contentList[position].title!!)
-        playMusicWithUrl(url)
+        val content = contentList[position]
+        playMusicWithUrl(content.contentUrl!!, content.title!!, content.thumbnailUrl!!)
     }
 
     private fun handleMusicState() {
@@ -235,31 +187,8 @@ class MusicFragment : Fragment() {
         return "$time$seconds"
     }
 
-    private fun setMusicTitle(title: String) { binding.musicTitle.text = title }
-
-    override fun onStart() {
-        super.onStart()
-        adapter.startListening()
-    }
-
     override fun onPause() {
         super.onPause()
         mediaPlayer.release()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        adapter.stopListening()
-    }
-
-    inner class CardMusicViewHolder(private val binding: CardMusicBinding)
-        : RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(item: Content) {
-            binding.musicThumbnail.load(item.thumbnailUrl)
-
-            // title is not part of the view holder as to configure a sliding list
-            setMusicTitle(item.title!!)
-        }
     }
 }

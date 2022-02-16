@@ -52,7 +52,7 @@
             <ImageView
                 android:id="@+id/yoga_image"
                 android:layout_width="match_parent"
-                android:layout_height="360dp"
+                android:layout_height="260dp"
                 android:scaleType="centerCrop" />
         </com.google.android.material.card.MaterialCardView>
 

@@ -6,6 +6,19 @@
     android:layout_height="match_parent">
 
     <ImageView
+        android:id="@+id/bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:clickable="false"
+        android:focusable="false"
+        app:srcCompat="@drawable/asset_relaxation_music_bg_one"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <ImageView
         android:id="@+id/back_button"
         android:layout_width="20dp"
         android:layout_height="20dp"
@@ -25,6 +38,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/music_list_view_pager"
         android:layout_width="match_parent"
@@ -47,20 +61,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/music_list_view_pager"
-        tools:text="Believer" />
-
-    <!--
-    <ImageView
-        android:id="@+id/bg"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:clickable="false"
-        android:focusable="false"
-        app:srcCompat="@drawable/asset_relaxation_music_bg_one"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        tools:text="Believer" /> -->
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/bg_image"
@@ -70,14 +71,13 @@
         app:cardCornerRadius="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/audio_label">
 
         <ImageView
             android:id="@+id/music_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:outlineProvider="bounds" />
+            android:scaleType="centerCrop" />
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
@@ -91,7 +91,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/bg_image"
-        tools:text="Believer" /> -->
+        tools:text="Believer" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/music_player_frame"
@@ -101,7 +101,7 @@
         app:layout_constraintVertical_bias="0.7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/music_title"
+        app:layout_constraintTop_toBottomOf="@id/music_heading"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
