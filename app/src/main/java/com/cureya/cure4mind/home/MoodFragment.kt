@@ -41,7 +41,7 @@ class MoodFragment : Fragment() {
 
         auth = Firebase.auth
         database =
-            FirebaseDatabase.getInstance("https://cure4mind-d687f-default-rtdb.asia-southeast1.firebasedatabase.app").reference
+            FirebaseDatabase.getInstance("https://cure4mind-d687f-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
         GlobalScope.launch {
             val email =
                 database.child("users").child(auth.uid!!).child("email").get().await()
