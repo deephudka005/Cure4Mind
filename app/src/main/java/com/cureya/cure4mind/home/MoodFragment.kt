@@ -158,6 +158,24 @@ class MoodFragment : Fragment() {
                         Toast.makeText(activity, "email not mentioned!", Toast.LENGTH_SHORT).show()
                     }
                 }
+                binding.sad.setOnClickListener {
+                    showDialog(activity, "Your submission has been received! Got it your Mood is sad")
+                    val user_feed = Mood(name, email, "sad")
+                    if (email != null) {
+                        database.child("Mood").child(auth.uid.toString()).setValue(user_feed)
+                    } else {
+                        Toast.makeText(activity, "email not mentioned!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                binding.slightlySmiling.setOnClickListener {
+                    showDialog(activity, "Your submission has been received! Got it your Mood is slightly Smiling")
+                    val user_feed = Mood(name, email, "Slightly Smiling")
+                    if (email != null) {
+                        database.child("Mood").child(auth.uid.toString()).setValue(user_feed)
+                    } else {
+                        Toast.makeText(activity, "email not mentioned!", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
     }
