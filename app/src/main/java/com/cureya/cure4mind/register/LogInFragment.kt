@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.cureya.cure4mind.R
 import com.cureya.cure4mind.databinding.FragmentLogInBinding
@@ -65,6 +67,7 @@ class LogInFragment : Fragment() {
             logIn.setOnClickListener { handleLogIn() }
             googleLogIn.setOnClickListener { launchSignInIntent() }
             register.setOnClickListener { goToSignUpFragment() }
+            // forgetPassword.setOnClickListener { goToForgetPassFragment() }
         }
     }
 
@@ -145,7 +148,18 @@ class LogInFragment : Fragment() {
         }
     }
 
-    private fun goToHomeFragment() = findNavController().navigate(R.id.action_logInFragment_to_homeFragment)
+    /**
+     * This extension function is to prevent calling
+     * navigation id multiple times in [FirebaseDatabase]
+     * callbacks, preventing [IllegalArgumentException] crash
+     */
+    private fun NavController.safeNavigate(direction: NavDirections) {
+        currentDestination?.getAction(direction.actionId)?.run { navigate(direction) }
+    }
+
+    private fun goToHomeFragment() = findNavController().safeNavigate(
+        LogInFragmentDirections.actionLogInFragmentToHomeFragment()
+    )
 
     private fun goToSignUpFragment() = findNavController().navigate(R.id.action_logInFragment_to_signUpFragment)
 
@@ -160,6 +174,7 @@ class LogInFragment : Fragment() {
                     val user = User(
                         auth.currentUser?.displayName,
                         auth.currentUser?.email,
+                        null,
                         auth.currentUser?.photoUrl.toString(),
                         null,
                         null,

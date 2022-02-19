@@ -29,9 +29,7 @@ class MusicViewModel(
     private val seekbar: SeekBar,
     private val musicTimeTotal: TextView,
     private val musicTimeCount: TextView,
-    private val background: ImageView,
-    private val musicImg: ImageView,
-    private val musicHeading: TextView,
+    private val musicPlay: ImageView,
     private val progressBar: ProgressBar
 ): ViewModel() {
 
@@ -67,17 +65,18 @@ class MusicViewModel(
         }
         setSeekBar()
         updateTimer()
+        musicPlay.setImageResource(R.drawable.asset_relaxation_music_playing)
         progressBar.visibility = View.GONE
         musicTimeTotal.text = formatTime(mediaPlayer.duration.toLong())
     }
 
-    fun handleMusicState(musicStateButton: ImageView) {
+    fun handleMusicState() {
         if (mediaPlayer.isPlaying) {
             mediaPlayer.pause()
-            musicStateButton.setImageResource(R.drawable.ic_play)
+            musicPlay.setImageResource(R.drawable.ic_play)
         } else {
             mediaPlayer.start()
-            musicStateButton.setImageResource(R.drawable.asset_relaxation_music_playing)
+            musicPlay.setImageResource(R.drawable.asset_relaxation_music_playing)
         }
     }
 
@@ -157,15 +156,13 @@ class MusicViewModelFactory(
         private val seekBar: SeekBar,
         private val musicTimeTotal: TextView,
         private val musicTimeCount: TextView,
-        private val background: ImageView,
-        private val musicImg: ImageView,
-        private val musicHeading: TextView,
+        private val musicPlay: ImageView,
         private val progressBar: ProgressBar
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MusicViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return MusicViewModel(pos, seekBar, musicTimeTotal, musicTimeCount, background, musicImg, musicHeading, progressBar)
+            return MusicViewModel(pos, seekBar, musicTimeTotal, musicTimeCount, musicPlay, progressBar)
                     as T
         }
         throw IllegalArgumentException("Unknown viewModel class")

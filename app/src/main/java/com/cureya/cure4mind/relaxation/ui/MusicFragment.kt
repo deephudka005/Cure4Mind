@@ -1,15 +1,12 @@
 package com.cureya.cure4mind.relaxation.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -34,9 +31,7 @@ class MusicFragment : Fragment() {
             binding.musicSeekbar,
             binding.musicTimeTotal,
             binding.musicTimeCount,
-            binding.bg,
-            binding.musicImage,
-            binding.musicHeading,
+            binding.musicPlay,
             binding.progressBar
         )
     }
@@ -55,17 +50,12 @@ class MusicFragment : Fragment() {
 
         position = navArgument.itemPosition
 
-        binding.bg.load(navArgument.initialMusicThumbnail)
         binding.musicImage.load(navArgument.initialMusicThumbnail)
         binding.musicHeading.text = navArgument.initialMusicTitle
 
         musicViewModel.createContentList()
 
-        // on clicked card music on the list
-        /* binding.bg.load(navArgument.initialMusicThumbnail)
-        binding.musicHeading.text = navArgument.initialMusicTitle */
-
-        binding.musicPlay.setOnClickListener { musicViewModel.handleMusicState(it as ImageView) }
+        binding.musicPlay.setOnClickListener { musicViewModel.handleMusicState() }
 
         binding.musicNext.setOnClickListener {
             musicViewModel.playNextMusic()
@@ -86,27 +76,13 @@ class MusicFragment : Fragment() {
             override fun onStopTrackingTouch(p0: SeekBar?) {}
         })
 
-        binding.backButton.setOnClickListener { findNavController().navigateUp() }
+        binding.backButton.setOnClickListener {
+            findNavController().navigateUp()
+        }
     }
-
-    /* private fun playMusicWithUrl(url: String, title: String, imgUrl: String) {
-        musicViewModel.playMusic(url)
-
-        binding.musicHeading.text = title
-        binding.musicImage.load(imgUrl)
-        binding.progressBar.visibility = View.GONE
-        musicViewModel.setSeekBar(
-            binding.musicTimeTotal,
-            binding.musicSeekbar
-        )
-        musicViewModel.updateTimer(
-            binding.musicTimeCount
-        )
-    } */
 
     private fun setMusicTitleAndImg() {
         val content = musicViewModel.getCurrentContent()
-        Glide.with(this).load(content.thumbnailUrl!!).into(binding.bg)
         Glide.with(this).load(content.thumbnailUrl!!).into(binding.musicImage)
         binding.musicHeading.text = content.title!!
     }
