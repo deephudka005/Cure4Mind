@@ -234,7 +234,7 @@ class SignUpFragment: Fragment() {
                         auth.currentUser?.photoUrl.toString(),
                         null,
                         gender,
-                        false,
+                        false
                     )
                     addToUserBase(user)
                     googleSignInClient.revokeAccess()
