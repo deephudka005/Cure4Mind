@@ -55,6 +55,10 @@ class MusicFragment : Fragment() {
 
         position = navArgument.itemPosition
 
+        binding.bg.load(navArgument.initialMusicThumbnail)
+        binding.musicImage.load(navArgument.initialMusicThumbnail)
+        binding.musicHeading.text = navArgument.initialMusicTitle
+
         musicViewModel.createContentList()
 
         // on clicked card music on the list
@@ -65,10 +69,12 @@ class MusicFragment : Fragment() {
 
         binding.musicNext.setOnClickListener {
             musicViewModel.playNextMusic()
+            setMusicTitleAndImg()
         }
 
         binding.musicPrevious.setOnClickListener {
             musicViewModel.playPreviousMusic()
+            setMusicTitleAndImg()
         }
 
         // controlling music when user slides seekbar
@@ -98,12 +104,12 @@ class MusicFragment : Fragment() {
         )
     } */
 
-    /* private fun setMusicTitleAndImg() {
+    private fun setMusicTitleAndImg() {
         val content = musicViewModel.getCurrentContent()
         Glide.with(this).load(content.thumbnailUrl!!).into(binding.bg)
         Glide.with(this).load(content.thumbnailUrl!!).into(binding.musicImage)
         binding.musicHeading.text = content.title!!
-    } */
+    }
 
     override fun onStart() {
         val bottomView = (activity as AppCompatActivity)

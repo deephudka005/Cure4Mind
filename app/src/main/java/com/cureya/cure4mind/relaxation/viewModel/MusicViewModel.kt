@@ -49,9 +49,6 @@ class MusicViewModel(
                     contentList.add(item)
                 }
                 val content = contentList[pos]
-                background.load(content.thumbnailUrl!!)
-                musicImg.load(content.thumbnailUrl!!)
-                musicHeading.text = content.title
                 playMusic(content.contentUrl!!)
             }
     }

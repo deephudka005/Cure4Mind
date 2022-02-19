@@ -7,7 +7,6 @@ import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CompoundButton
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -26,19 +25,14 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
+import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
 
 class SignUpFragment: Fragment() {
 
     private lateinit var googleSignInClient: GoogleSignInClient
-    private lateinit var auth: FirebaseAuth
-    private lateinit var db: FirebaseDatabase
     private lateinit var binding: FragmentSignUpBinding
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -137,12 +131,9 @@ class SignUpFragment: Fragment() {
         val newChildKey = auth.currentUser?.uid!!
 
         database.child(USER_LIST).child(newChildKey).apply {
-            Log.w("SignUpFragment", "Inside db reference apply uid: $newChildKey")
             addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    Log.w("SignUpFragment", "On data change")
                     if (snapshot.value == null) {
-                        Log.w("SignUpFragment", "Snapshot value is null")
                         this@apply.setValue(user)
                         Log.w(TAG, "New user inserted to database")
                     } else Log.w(TAG, "User already exists")
@@ -246,7 +237,6 @@ class SignUpFragment: Fragment() {
                     )
                     addToUserBase(user)
                     googleSignInClient.revokeAccess()
-                    updateUI()
                 } else {
                     showToast("Unexpected error occurred")
                 }

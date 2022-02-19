@@ -22,7 +22,6 @@ import com.google.firebase.ktx.Firebase
 class ForgetPasswordFragment: Fragment() {
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var db: FirebaseDatabase
     private lateinit var binding: FragmentForgetPasswordBinding
 
     override fun onCreateView(
