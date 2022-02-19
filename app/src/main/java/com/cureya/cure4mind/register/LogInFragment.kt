@@ -148,18 +148,15 @@ class LogInFragment : Fragment() {
         }
     }
 
-    /**
-     * This extension function is to prevent calling
-     * navigation id multiple times in [FirebaseDatabase]
-     * callbacks, preventing [IllegalArgumentException] crash
-     */
-    private fun NavController.safeNavigate(direction: NavDirections) {
-        currentDestination?.getAction(direction.actionId)?.run { navigate(direction) }
+    private fun goToHomeFragment() {
+        try {
+            // to prevent crash from calling nav multiple times
+            // in FirebaseDatabase callbacks
+            findNavController().navigate(R.id.action_logInFragment_to_homeFragment)
+        } catch (e: Exception) {
+            Log.e(TAG, "Second time nav call aborted", e)
+        }
     }
-
-    private fun goToHomeFragment() = findNavController().safeNavigate(
-        LogInFragmentDirections.actionLogInFragmentToHomeFragment()
-    )
 
     private fun goToSignUpFragment() = findNavController().navigate(R.id.action_logInFragment_to_signUpFragment)
 
@@ -214,5 +211,4 @@ class LogInFragment : Fragment() {
         private const val USER_VOID_ERROR =
             "There is no user record corresponding to this identifier. The user may have been deleted."
     }
-
 }

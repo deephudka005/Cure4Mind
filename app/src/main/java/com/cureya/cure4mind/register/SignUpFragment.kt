@@ -81,7 +81,7 @@ class SignUpFragment: Fragment() {
                             "Female"
                         } else "LGBTQIA"
                     Log.w("SignUpFragment","Firebase auth successful")
-                    val user = User(name, email, defaultProfilePic, password, gender,false)
+                    val user = User(name, email, phone, defaultProfilePic, password, gender,false)
                     addToUserBase(user)
                 }
             }
@@ -204,20 +204,17 @@ class SignUpFragment: Fragment() {
         }
     }
 
-    /**
-     * This extension function is to prevent calling
-     * navigation id multiple times in [FirebaseDatabase]
-     * callbacks, preventing [IllegalArgumentException] crash
-     */
-    private fun NavController.safeNavigate(direction: NavDirections) {
-        currentDestination?.getAction(direction.actionId)?.run { navigate(direction) }
-    }
-
     private fun goToLogInFragment() = findNavController().navigate(R.id.action_signUpFragment_to_logInFragment)
 
-    private fun goToHomeFragment() = findNavController().safeNavigate(
-        SignUpFragmentDirections.actionSignUpFragmentToHomeFragment()
-    )
+    private fun goToHomeFragment() {
+        try {
+            // to prevent crash from calling nav multiple times
+            // in FirebaseDatabase callbacks
+            findNavController().navigate(R.id.action_signUpFragment_to_homeFragment)
+        } catch (e: Exception) {
+            Log.e(TAG, "Second time nav call aborted", e)
+        }
+    }
 
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
