@@ -81,7 +81,7 @@ class SignUpFragment: Fragment() {
                             "Female"
                         } else "LGBTQIA"
                     Log.w("SignUpFragment","Firebase auth successful")
-                    val user = User(name, email, phone, defaultProfilePic, password, gender)
+                    val user = User(name, email, defaultProfilePic, password, gender,false)
                     addToUserBase(user)
                 }
             }
@@ -238,7 +238,8 @@ class SignUpFragment: Fragment() {
                         binding.edtPhone.text.toString(),
                         auth.currentUser?.photoUrl.toString(),
                         null,
-                        gender
+                        gender,
+                        false
                     )
                     addToUserBase(user)
                     googleSignInClient.revokeAccess()

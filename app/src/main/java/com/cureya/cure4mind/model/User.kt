@@ -10,5 +10,6 @@ data class User(
     val photoUrl: String = defaultProfilePic,
     val password: String?,
     val gender: String?,
+    val counsellarstatus : Boolean,
     val joinedCureya : Date = Date()
 )

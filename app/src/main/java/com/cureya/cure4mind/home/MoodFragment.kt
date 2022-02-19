@@ -41,7 +41,7 @@ class MoodFragment : Fragment() {
 
         auth = Firebase.auth
         database =
-            FirebaseDatabase.getInstance("https://cure4mind-d687f-default-rtdb.asia-southeast1.firebasedatabase.app").reference
+            FirebaseDatabase.getInstance("https://cure4mind-d687f-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
         GlobalScope.launch {
             val email =
                 database.child("users").child(auth.uid!!).child("email").get().await()
@@ -152,6 +152,24 @@ class MoodFragment : Fragment() {
                 binding.happy.setOnClickListener {
                     showDialog(activity, "Your submission has been received! Got it your Mood is happy")
                     val user_feed = Mood(name, email, "happy")
+                    if (email != null) {
+                        database.child("Mood").child(auth.uid.toString()).setValue(user_feed)
+                    } else {
+                        Toast.makeText(activity, "email not mentioned!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                binding.sad.setOnClickListener {
+                    showDialog(activity, "Your submission has been received! Got it your Mood is sad")
+                    val user_feed = Mood(name, email, "sad")
+                    if (email != null) {
+                        database.child("Mood").child(auth.uid.toString()).setValue(user_feed)
+                    } else {
+                        Toast.makeText(activity, "email not mentioned!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                binding.slightlySmiling.setOnClickListener {
+                    showDialog(activity, "Your submission has been received! Got it your Mood is slightly Smiling")
+                    val user_feed = Mood(name, email, "Slightly Smiling")
                     if (email != null) {
                         database.child("Mood").child(auth.uid.toString()).setValue(user_feed)
                     } else {
