@@ -29,8 +29,9 @@ class MusicViewModel(
     private val seekbar: SeekBar,
     private val musicTimeTotal: TextView,
     private val musicTimeCount: TextView,
-    private val musicHeading: TextView,
+    private val background: ImageView,
     private val musicImg: ImageView,
+    private val musicHeading: TextView,
     private val progressBar: ProgressBar
 ): ViewModel() {
 
@@ -48,6 +49,9 @@ class MusicViewModel(
                     contentList.add(item)
                 }
                 val content = contentList[pos]
+                background.load(content.thumbnailUrl!!)
+                musicImg.load(content.thumbnailUrl!!)
+                musicHeading.text = content.title
                 playMusic(content.contentUrl!!)
             }
     }
@@ -86,8 +90,6 @@ class MusicViewModel(
         pos = (pos + 1) % contentList.size
 
         val content = contentList[pos]
-        musicImg.load(content.thumbnailUrl!!)
-        musicHeading.text = content.title!!
 
         if (mediaPlayer.isPlaying) mediaPlayer.stop()
         mediaPlayer.release()
@@ -103,14 +105,14 @@ class MusicViewModel(
         } else { --pos }
 
         val content = contentList[pos]
-        musicImg.load(content.thumbnailUrl!!)
-        musicHeading.text = content.title!!
 
         mediaPlayer.stop()
         mediaPlayer.release()
 
         playMusic(content.contentUrl!!)
     }
+
+    fun getCurrentContent() = contentList[pos]
 
     fun setSeekbarUserProgress(progress: Int) = mediaPlayer.seekTo(progress)
 
@@ -158,14 +160,15 @@ class MusicViewModelFactory(
         private val seekBar: SeekBar,
         private val musicTimeTotal: TextView,
         private val musicTimeCount: TextView,
-        private val musicHeading: TextView,
+        private val background: ImageView,
         private val musicImg: ImageView,
+        private val musicHeading: TextView,
         private val progressBar: ProgressBar
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MusicViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return MusicViewModel(pos, seekBar, musicTimeTotal, musicTimeCount, musicHeading, musicImg, progressBar)
+            return MusicViewModel(pos, seekBar, musicTimeTotal, musicTimeCount, background, musicImg, musicHeading, progressBar)
                     as T
         }
         throw IllegalArgumentException("Unknown viewModel class")

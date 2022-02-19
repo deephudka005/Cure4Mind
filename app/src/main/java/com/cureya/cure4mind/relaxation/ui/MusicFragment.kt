@@ -7,15 +7,19 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.SeekBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
+import com.bumptech.glide.Glide
+import com.cureya.cure4mind.R
 import com.cureya.cure4mind.databinding.FragmentRelaxationMusicBinding
 import com.cureya.cure4mind.relaxation.viewModel.MusicViewModel
 import com.cureya.cure4mind.relaxation.viewModel.MusicViewModelFactory
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MusicFragment : Fragment() {
 
@@ -30,8 +34,9 @@ class MusicFragment : Fragment() {
             binding.musicSeekbar,
             binding.musicTimeTotal,
             binding.musicTimeCount,
-            binding.musicHeading,
+            binding.bg,
             binding.musicImage,
+            binding.musicHeading,
             binding.progressBar
         )
     }
@@ -52,6 +57,10 @@ class MusicFragment : Fragment() {
 
         musicViewModel.createContentList()
 
+        // on clicked card music on the list
+        /* binding.bg.load(navArgument.initialMusicThumbnail)
+        binding.musicHeading.text = navArgument.initialMusicTitle */
+
         binding.musicPlay.setOnClickListener { musicViewModel.handleMusicState(it as ImageView) }
 
         binding.musicNext.setOnClickListener {
@@ -62,7 +71,7 @@ class MusicFragment : Fragment() {
             musicViewModel.playPreviousMusic()
         }
 
-        // seekbar music control
+        // controlling music when user slides seekbar
         binding.musicSeekbar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
                 if (p2) { musicViewModel.setSeekbarUserProgress(p1) }
@@ -89,7 +98,24 @@ class MusicFragment : Fragment() {
         )
     } */
 
+    /* private fun setMusicTitleAndImg() {
+        val content = musicViewModel.getCurrentContent()
+        Glide.with(this).load(content.thumbnailUrl!!).into(binding.bg)
+        Glide.with(this).load(content.thumbnailUrl!!).into(binding.musicImage)
+        binding.musicHeading.text = content.title!!
+    } */
+
+    override fun onStart() {
+        val bottomView = (activity as AppCompatActivity)
+            .findViewById<BottomNavigationView>(R.id.nav_view)
+        bottomView.visibility = View.GONE
+        super.onStart()
+    }
+
     override fun onStop() {
+        val bottomView = (activity as AppCompatActivity)
+            .findViewById<BottomNavigationView>(R.id.nav_view)
+        bottomView.visibility = View.VISIBLE
         musicViewModel.releaseMediaPlayer()
         super.onStop()
     }
