@@ -12,6 +12,7 @@
         android:scaleType="centerCrop"
         android:clickable="false"
         android:focusable="false"
+        android:foreground="?attr/scrimBackground"
         app:srcCompat="@drawable/asset_relaxation_music_bg_one"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

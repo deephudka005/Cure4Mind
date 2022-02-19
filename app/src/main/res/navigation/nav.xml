@@ -273,6 +273,12 @@
         <argument
             android:name="item_position"
             app:argType="integer" />
+        <argument
+            android:name="initial_music_thumbnail"
+            app:argType="string" />
+        <argument
+            android:name="initial_music_title"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/relaxationFragment"
@@ -390,15 +396,6 @@
         <action
             android:id="@+id/action_chatListFragment_to_personalProfile"
             app:destination="@id/personalProfile" />
-    </fragment>
-    <fragment
-        android:id="@+id/personalProfile"
-        android:name="com.cureya.cure4mind.profile.PersonalProfile"
-        android:label="profile_fragment"
-        tools:layout="@layout/profile_fragment" >
-        <argument
-            android:name="userId"
-            app:argType="string" />
     </fragment>
     <activity
         android:id="@+id/mainActivity"

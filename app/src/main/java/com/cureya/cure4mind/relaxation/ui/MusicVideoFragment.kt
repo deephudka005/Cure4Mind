@@ -37,15 +37,12 @@ class MusicVideoFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.w("MusicVideoFragment", "Back to musicVideo fragment onCreate()")
         binding = FragmentRelaxationMusicVideoBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        Log.w("MusicVideoFragment", "Back to musicVideo fragment onViewCreated()")
 
         val contentType = navArgument.contentType
 
@@ -54,13 +51,11 @@ class MusicVideoFragment : Fragment() {
         if (contentType == CONTENT_TYPE_VIDEO) {
             showVideoList()
         } else {
-            Log.w("MusicVideoFragment", "showMusicList() called")
             showMusicList()
         }
     }
 
     private fun showVideoList() {
-        Log.w(TAG, "show video list called")
         val videoRef = dbRef.child(VIDEO_LIST)
 
         val videoList = FirebaseRecyclerOptions.Builder<Content>()
@@ -84,20 +79,16 @@ class MusicVideoFragment : Fragment() {
                 holder.bind(model)
             }
         }
-        Log.w(TAG, "adapter list count: ${videoAdapter.itemCount}")
         binding.contentRecyclerView.adapter = videoAdapter
         binding.contentRecyclerView.itemAnimator = null
     }
 
     private fun showMusicList() {
         val musicRef = dbRef.child(MUSIC_LIST)
-        Log.w(TAG, "inside showMusicList")
 
         val musicList = FirebaseRecyclerOptions.Builder<Content>()
             .setQuery(musicRef, Content::class.java)
             .build()
-
-        Log.w(TAG, "musicList: ${musicList.snapshots}")
 
         binding.label.text = getString(R.string.music)
         binding.heading.text = getString(R.string.we_recommend_you_favourite_music)
@@ -116,21 +107,17 @@ class MusicVideoFragment : Fragment() {
                 holder.bind(model, position)
             }
         }
-        Log.w(TAG, "adapter list count: ${musicAdapter.itemCount}")
         binding.contentRecyclerView.adapter = musicAdapter
         binding.contentRecyclerView.itemAnimator = null
     }
 
     override fun onStart() {
         super.onStart()
-        Log.w("MusicVideoFragment", "Back to musicVideo fragment onStart()")
         try {
             videoAdapter.startListening()
-            Log.w(TAG, "Video adapter called")
         } catch (e: UninitializedPropertyAccessException) { }
         try {
             musicAdapter.startListening()
-            Log.w(TAG, "Music adapter called")
         } catch (e: UninitializedPropertyAccessException) { }
     }
 
@@ -150,8 +137,8 @@ class MusicVideoFragment : Fragment() {
         )
     )
 
-    fun goToMusicFragment(position: Int) = findNavController().navigate(
-        MusicVideoFragmentDirections.actionMusicVideoFragmentToMusicFragment(position)
+    fun goToMusicFragment(position: Int, imgUrl: String, title: String) = findNavController().navigate(
+        MusicVideoFragmentDirections.actionMusicVideoFragmentToMusicFragment(position, imgUrl, title)
     )
 
     companion object {

@@ -36,7 +36,7 @@ class MusicViewHolder(private val binding: CardMusicAndVideoBinding,
         progressBar.visibility = View.GONE
 
         binding.cardPlayer.setOnClickListener {
-            listener.goToMusicFragment(itemPosition)
+            listener.goToMusicFragment(itemPosition, item.thumbnailUrl!!, item.title!!)
         }
     }
 }
