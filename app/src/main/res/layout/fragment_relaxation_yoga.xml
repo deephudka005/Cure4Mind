@@ -36,6 +36,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/yoga_label" />
 
+        <!--
         <TextView
             android:id="@+id/top_card_title_text_view"
             android:layout_width="wrap_content"
@@ -48,35 +49,35 @@
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/yoga_title" />
+            app:layout_constraintTop_toBottomOf="@id/yoga_title" /> -->
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/top_yoga_card"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            app:cardCornerRadius="18dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/top_card_title_text_view">
+<!--        <com.google.android.material.card.MaterialCardView-->
+<!--            android:id="@+id/top_yoga_card"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginHorizontal="8dp"-->
+<!--            app:cardCornerRadius="18dp"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@id/top_card_title_text_view">-->
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="160dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/asset_relaxation_top_card_image" />
-        </com.google.android.material.card.MaterialCardView>
+<!--            <ImageView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="160dp"-->
+<!--                android:scaleType="centerCrop"-->
+<!--                app:srcCompat="@drawable/asset_relaxation_top_card_image" />-->
+<!--        </com.google.android.material.card.MaterialCardView>-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/yoga_card_recycler_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/card_yoga"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/top_yoga_card" />
+            app:layout_constraintTop_toBottomOf="@id/yoga_title" />
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/progress_bar"

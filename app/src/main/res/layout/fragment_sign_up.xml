@@ -76,6 +76,26 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/phone_edit_text_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/phone_number"
+                android:paddingHorizontal="36dp"
+                android:layout_marginTop="16dp"
+                android:animateLayoutChanges="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/email_edit_text_layout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="phone" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/email_password_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -88,7 +108,7 @@
                 app:endIconDrawable="@drawable/ic_see_password"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/checkbox_male"
+                app:layout_constraintTop_toBottomOf="@id/phone_edit_text_layout"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -109,7 +129,7 @@
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/email_edit_text_layout" />
+                app:layout_constraintTop_toBottomOf="@id/email_password_layout" />
 
             <CheckBox
                 android:id="@+id/checkbox_male"
@@ -154,7 +174,7 @@
                 android:layout_marginHorizontal="36dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/email_password_layout" />
+                app:layout_constraintTop_toBottomOf="@id/checkbox_male" />
 
             <ImageView
                 android:id="@+id/btnOr"

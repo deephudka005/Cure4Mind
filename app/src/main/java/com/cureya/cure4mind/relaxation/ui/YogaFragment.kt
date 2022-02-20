@@ -11,6 +11,7 @@ import com.cureya.cure4mind.databinding.CardYogaBinding
 import com.cureya.cure4mind.databinding.FragmentRelaxationYogaBinding
 import com.cureya.cure4mind.model.Yoga
 import com.cureya.cure4mind.relaxation.viewHolder.YogaViewHolder
+import com.cureya.cure4mind.util.database
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.DatabaseReference
@@ -22,7 +23,6 @@ class YogaFragment : Fragment() {
 
     private lateinit var adapter: FirebaseRecyclerAdapter<Yoga, YogaViewHolder>
     private lateinit var binding: FragmentRelaxationYogaBinding
-    private lateinit var dbRef: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,9 +36,7 @@ class YogaFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        dbRef = FirebaseDatabase.getInstance("https://cure4mind-d687f-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
-
-        val yogaRef = dbRef.child(YOGA_LIST)
+        val yogaRef = database.child(YOGA_LIST)
         val yogaList = FirebaseRecyclerOptions.Builder<Yoga>()
             .setQuery(yogaRef, Yoga::class.java)
             .build()

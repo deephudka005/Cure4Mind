@@ -7,9 +7,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.cureya.cure4mind.R
 import com.cureya.cure4mind.databinding.FragmentLogInBinding
@@ -28,10 +31,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import java.util.*
@@ -41,7 +41,6 @@ class LogInFragment : Fragment() {
     private lateinit var binding: FragmentLogInBinding
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
-    private lateinit var db: FirebaseDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,12 +65,17 @@ class LogInFragment : Fragment() {
 
         binding.apply {
 
-            logIn.setOnClickListener { handleLogIn() }
+            logIn.setOnClickListener { prelogin() }
             googleLogIn.setOnClickListener { launchSignInIntent() }
             register.setOnClickListener { goToSignUpFragment() }
+            forgetPassword.setOnClickListener { goToForgetPassFragment() }
         }
     }
-
+    private fun prelogin(){
+        if (areTextFieldsValid(binding.edtLogInEmail, binding.edtLogInPassword)) {
+            handleLogIn()
+        }
+    }
     private fun handleLogIn() {
         val email = binding.edtLogInEmail.text.toString().trim()
         val password = binding.edtLogInPassword.text.toString().trim()
@@ -92,6 +96,28 @@ class LogInFragment : Fragment() {
             }
     }
 
+    private fun areTextFieldsValid(
+        emailFiled: EditText,
+        passwordField: EditText
+    ) : Boolean {
+
+        val emailFieldCheck = isTextFieldEmpty(emailFiled.text.toString())
+
+        val passwordFieldCheck = isTextFieldEmpty(passwordField.text.toString())
+
+        if (!emailFieldCheck) {
+            emailFiled.error = "Please enter a valid email address"
+            emailFiled.requestFocus()
+        }
+        if (!passwordFieldCheck) {
+            passwordField.error = "Password should be at least 8 characters long"
+            passwordField.requestFocus()
+        }
+        return emailFieldCheck && passwordFieldCheck
+    }
+    private fun isTextFieldEmpty(text: String): Boolean {
+        return text.isNotEmpty() && text.isNotBlank()
+    }
     private fun launchSignInIntent() {
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
@@ -149,7 +175,15 @@ class LogInFragment : Fragment() {
         }
     }
 
-    private fun goToHomeFragment() = findNavController().navigate(R.id.action_logInFragment_to_homeFragment)
+    private fun goToHomeFragment() {
+        try {
+            // to prevent crash from calling nav multiple times
+            // in FirebaseDatabase callbacks
+            findNavController().navigate(R.id.action_logInFragment_to_homeFragment)
+        } catch (e: Exception) {
+            Log.e(TAG, "Second time nav call aborted", e)
+        }
+    }
 
     private fun goToSignUpFragment() = findNavController().navigate(R.id.action_logInFragment_to_signUpFragment)
 
@@ -164,14 +198,15 @@ class LogInFragment : Fragment() {
                     val user = User(
                         auth.currentUser?.displayName,
                         auth.currentUser?.email,
+                        null,
                         auth.currentUser?.photoUrl.toString(),
                         null,
                         null,
+                        false,
                         joinedCureya = Date()
                     )
                     addToUserBase(user)
                     googleSignInClient.revokeAccess()
-                    updateUI()
                 } else {
                     showToast("Unexpected error occurred")
                 }
@@ -188,6 +223,7 @@ class LogInFragment : Fragment() {
                         this@apply.setValue(user)
                         Log.w(TAG, "New user inserted to database")
                     } else Log.w(TAG, "User already exists")
+                    updateUI()
                 }
                 override fun onCancelled(error: DatabaseError) {
                     Log.e(TAG, "inside addToUserList()", error.toException())
@@ -202,5 +238,4 @@ class LogInFragment : Fragment() {
         private const val USER_VOID_ERROR =
             "There is no user record corresponding to this identifier. The user may have been deleted."
     }
-
 }

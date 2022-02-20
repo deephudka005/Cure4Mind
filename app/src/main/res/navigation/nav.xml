@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.cureya.cure4mind.home.HomeFragment"
-        android:label="Cureya"
+        android:label="HomeFragment"
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_logInFragment"
@@ -221,7 +221,8 @@
             app:destination="@id/logInFragment" />
         <action
             android:id="@+id/action_signUpFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/logInFragment"
@@ -273,6 +274,12 @@
         <argument
             android:name="item_position"
             app:argType="integer" />
+        <argument
+            android:name="initial_music_thumbnail"
+            app:argType="string" />
+        <argument
+            android:name="initial_music_title"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/relaxationFragment"
@@ -374,7 +381,12 @@
     <fragment
         android:id="@+id/forgetPasswordFragment"
         android:name="com.cureya.cure4mind.register.ForgetPasswordFragment"
-        android:label="ForgetPasswordFragment" />
+        android:label="ForgetPasswordFragment" >
+        <action
+            android:id="@+id/action_forgetPasswordFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/forgetPasswordFragment" />
+    </fragment>
     <fragment
         android:id="@+id/chatFragment"
         android:name="com.cureya.cure4mind.chat.ui.fragments.chat.ChatFragment"

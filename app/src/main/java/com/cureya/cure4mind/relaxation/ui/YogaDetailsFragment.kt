@@ -13,6 +13,7 @@ import com.cureya.cure4mind.databinding.FragmentRelaxationYogaDetailsBinding
 import com.cureya.cure4mind.model.Yoga
 import com.cureya.cure4mind.relaxation.ui.YogaFragment.Companion.YOGA_LIST
 import com.cureya.cure4mind.relaxation.ui.YogaFragment.Companion.YOGA_TITLE
+import com.cureya.cure4mind.util.database
 import com.google.firebase.database.*
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -20,7 +21,6 @@ import com.google.firebase.ktx.Firebase
 class YogaDetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentRelaxationYogaDetailsBinding
-    private lateinit var dbRef: DatabaseReference
 
     private val navArgument: YogaDetailsFragmentArgs by navArgs()
 
@@ -36,11 +36,9 @@ class YogaDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        dbRef = FirebaseDatabase.getInstance("https://cure4mind-d687f-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
-
         val yogaTitle = navArgument.itemTitle
 
-        dbRef.child(YOGA_LIST).orderByChild(YOGA_TITLE).equalTo(yogaTitle)
+        database.child(YOGA_LIST).orderByChild(YOGA_TITLE).equalTo(yogaTitle)
             .addListenerForSingleValueEvent(object: ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.value != null) {
