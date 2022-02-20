@@ -378,7 +378,12 @@
     <fragment
         android:id="@+id/forgetPasswordFragment"
         android:name="com.cureya.cure4mind.register.ForgetPasswordFragment"
-        android:label="ForgetPasswordFragment" />
+        android:label="ForgetPasswordFragment" >
+        <action
+            android:id="@+id/action_forgetPasswordFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/forgetPasswordFragment" />
+    </fragment>
     <fragment
         android:id="@+id/chatFragment"
         android:name="com.cureya.cure4mind.chat.ui.fragments.chat.ChatFragment"

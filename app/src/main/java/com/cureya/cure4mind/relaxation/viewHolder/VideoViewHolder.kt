@@ -33,8 +33,6 @@ class VideoViewHolder(private val binding: CardMusicAndVideoBinding,
                 override fun onLoadCleared(placeholder: Drawable?) {}
             })
 
-        progressBar.visibility = View.GONE
-
         binding.cardPlayer.setOnClickListener {
             listener.goToVideoFragment(item.contentUrl!!)
         }

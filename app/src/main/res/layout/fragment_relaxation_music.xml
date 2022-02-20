@@ -146,23 +146,38 @@
             app:layout_constraintTop_toBottomOf="@id/music_time_count" />
 
         <ImageView
+            android:id="@+id/music_favourite"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_marginVertical="12dp"
+            app:tint="@color/music_player_button_background"
+            app:srcCompat="@drawable/asset_love"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintTop_toTopOf="@id/music_play"
+            app:layout_constraintBottom_toBottomOf="@id/music_play"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/music_previous" />
+
+        <ImageView
             android:id="@+id/music_previous"
             android:layout_width="42dp"
             android:layout_height="42dp"
             android:layout_marginVertical="12dp"
             app:tint="@color/music_player_button_background"
             app:srcCompat="@drawable/ic_previous"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintTop_toTopOf="@id/music_play"
             app:layout_constraintBottom_toBottomOf="@id/music_play"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/music_favourite"
             app:layout_constraintEnd_toStartOf="@id/music_play" />
 
         <ImageView
             android:id="@+id/music_play"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="54dp"
+            android:layout_height="54dp"
             android:layout_marginVertical="12dp"
             android:scaleType="centerCrop"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintTop_toBottomOf="@id/music_seekbar"
             app:layout_constraintStart_toEndOf="@id/music_previous"
             app:layout_constraintEnd_toStartOf="@id/music_next"
@@ -175,9 +190,23 @@
             android:layout_marginVertical="12dp"
             app:tint="@color/music_player_button_background"
             app:srcCompat="@drawable/ic_next"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintTop_toTopOf="@id/music_play"
             app:layout_constraintBottom_toBottomOf="@id/music_play"
             app:layout_constraintStart_toEndOf="@id/music_play"
+            app:layout_constraintEnd_toStartOf="@id/music_list" />
+
+        <ImageView
+            android:id="@+id/music_list"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginVertical="12dp"
+            app:tint="@color/music_player_button_background"
+            app:srcCompat="@drawable/ic_list"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintTop_toTopOf="@id/music_play"
+            app:layout_constraintBottom_toBottomOf="@id/music_play"
+            app:layout_constraintStart_toEndOf="@id/music_next"
             app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -67,7 +67,7 @@ class LogInFragment : Fragment() {
             logIn.setOnClickListener { handleLogIn() }
             googleLogIn.setOnClickListener { launchSignInIntent() }
             register.setOnClickListener { goToSignUpFragment() }
-            // forgetPassword.setOnClickListener { goToForgetPassFragment() }
+            forgetPassword.setOnClickListener { goToForgetPassFragment() }
         }
     }
 

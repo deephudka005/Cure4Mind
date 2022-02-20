@@ -147,6 +147,8 @@
     <string name="lgbtqia">LGBTQIA</string>
     <string name="phone_number">Phone Number</string>
     <string name="send_otp">Send OTP</string>
+    <string name="favourite">Favourite</string>
+    <string name="all">All</string>
 
     <string-array name="blog_name">
         <item>Mental Health Disorders and How to Overcome them</item>

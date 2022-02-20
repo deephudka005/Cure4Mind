@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide
 import com.cureya.cure4mind.R
 import com.cureya.cure4mind.databinding.FragmentRelaxationMusicBinding
 import com.cureya.cure4mind.relaxation.viewModel.MusicViewModel
+import com.cureya.cure4mind.relaxation.viewModel.MusicViewModel.Companion.CHILD_FAVOURITE_MUSIC
 import com.cureya.cure4mind.relaxation.viewModel.MusicViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -31,6 +32,7 @@ class MusicFragment : Fragment() {
             binding.musicSeekbar,
             binding.musicTimeTotal,
             binding.musicTimeCount,
+            binding.musicFavourite,
             binding.musicPlay,
             binding.progressBar
         )
@@ -65,6 +67,10 @@ class MusicFragment : Fragment() {
         binding.musicPrevious.setOnClickListener {
             musicViewModel.playPreviousMusic()
             setMusicTitleAndImg()
+        }
+
+        binding.musicFavourite.setOnClickListener {
+            musicViewModel.addToUserMusicListAndSetColor()
         }
 
         // controlling music when user slides seekbar

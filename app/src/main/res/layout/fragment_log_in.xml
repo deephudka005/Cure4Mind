@@ -140,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="4dp"
                 android:textStyle="bold"
-                android:textColor="@color/black"
+                android:textColor="@color/text_primary"
                 android:text="@string/register"/>
         </LinearLayout>
 
