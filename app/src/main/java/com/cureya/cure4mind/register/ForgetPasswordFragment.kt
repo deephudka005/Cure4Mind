@@ -53,7 +53,7 @@ class ForgetPasswordFragment: Fragment() {
             validatePhoneNumber()
         }
         binding.continueButton.setOnClickListener {
-            if (varifyId.isNotEmpty()) {
+            if (varifyId != "") {
                 verifyOtp(varifyId)
             }
         }
@@ -84,7 +84,7 @@ class ForgetPasswordFragment: Fragment() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
                 Log.d(TAG, "onVerificationCompleted:$credential")
                 showToast("Verification completed")
-                goToHomeFragment()
+                // goToHomeFragment()
             }
             override fun onVerificationFailed(e: FirebaseException) {
                 Log.w(TAG, "onVerificationFailed", e)
@@ -100,7 +100,7 @@ class ForgetPasswordFragment: Fragment() {
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
                 super.onCodeSent(verificationId, token)
-                // verifyOtp(verificationId)
+                varifyId = verificationId
                 Log.d(TAG, "onCodeSent:$verificationId")
             }
         }
@@ -122,8 +122,8 @@ class ForgetPasswordFragment: Fragment() {
             .plus(binding.otpBoxFive.text.toString())
             .plus(binding.otpBoxSix.text.toString())
 
-        val credential = PhoneAuthProvider.getCredential(verifyID, otpInput)
-        if (credential != null) {
+        Log.w(TAG, "verify: $verifyID, output: $otpInput")
+        if (verifyID == otpInput) {
             goToHomeFragment()
         }
     }
