@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -62,12 +63,16 @@ class LogInFragment : Fragment() {
 
         binding.apply {
 
-            logIn.setOnClickListener { handleLogIn() }
+            logIn.setOnClickListener { prelogin() }
             googleLogIn.setOnClickListener { launchSignInIntent() }
             register.setOnClickListener { goToSignUpFragment() }
         }
     }
-
+    private fun prelogin(){
+        if (areTextFieldsValid(binding.edtLogInEmail, binding.edtLogInPassword)) {
+            handleLogIn()
+        }
+    }
     private fun handleLogIn() {
         val email = binding.edtLogInEmail.text.toString().trim()
         val password = binding.edtLogInPassword.text.toString().trim()
@@ -88,6 +93,28 @@ class LogInFragment : Fragment() {
             }
     }
 
+    private fun areTextFieldsValid(
+        emailFiled: EditText,
+        passwordField: EditText
+    ) : Boolean {
+
+        val emailFieldCheck = isTextFieldEmpty(emailFiled.text.toString())
+
+        val passwordFieldCheck = isTextFieldEmpty(passwordField.text.toString())
+
+        if (!emailFieldCheck) {
+            emailFiled.error = "Please enter a valid email address"
+            emailFiled.requestFocus()
+        }
+        if (!passwordFieldCheck) {
+            passwordField.error = "Password should be at least 8 characters long"
+            passwordField.requestFocus()
+        }
+        return emailFieldCheck && passwordFieldCheck
+    }
+    private fun isTextFieldEmpty(text: String): Boolean {
+        return text.isNotEmpty() && text.isNotBlank()
+    }
     private fun launchSignInIntent() {
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
