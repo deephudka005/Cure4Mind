@@ -96,8 +96,11 @@ class CommunityFragment : Fragment() {
             }, {
                 val direction = CommunityFragmentDirections.actionCommunityFragmentToPersonalProfile(it)
                 navController.navigate(direction)
+            },{
+             viewModel.savePost(it)
+            },{
+                viewModel.unSavePost(it)
             }
-
         )
     }
 
@@ -149,6 +152,9 @@ class CommunityFragment : Fragment() {
                     }
                     R.id.community_menu_report -> {
 
+                    }
+                    R.id.community_menu_saved -> {
+                        navController.navigate(R.id.action_communityFragment_to_savedPost)
                     }
                 }
                 true

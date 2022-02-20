@@ -23,7 +23,9 @@ class PostRecyclerAdapter(
     val share: (Post) -> Unit,
     val onPostClick: (Post) -> Unit,
     val showMenu: (View, Post) -> Unit,
-    val onProfileClick: (userId: String) -> Unit
+    val onProfileClick: (userId: String) -> Unit,
+    val savePost:(postId:String) -> Unit,
+    val unSavePost : (postId:String) -> Unit
 ) : RecyclerView.Adapter<PostRecyclerAdapter.PostViewHolder>() {
 
     private val posts: MutableList<Post> = mutableListOf()
@@ -60,8 +62,8 @@ class PostRecyclerAdapter(
         val postImage: ImageView = itemView.findViewById(R.id.post_card_photo)
         val like: ImageView = itemView.findViewById(R.id.post_like)
         val likeCount: TextView = itemView.findViewById(R.id.post_card_like_count)
-        val love: ImageView = itemView.findViewById(R.id.post_love)
-        val loveCount: TextView = itemView.findViewById(R.id.post_card_love_count)
+        val save: ImageView = itemView.findViewById(R.id.post_save)
+        val saveCount: TextView = itemView.findViewById(R.id.post_card_love_count)
         val comment: FrameLayout = itemView.findViewById(R.id.post_card_comment_frame)
         val menu: ImageView = itemView.findViewById(R.id.post_card_menu_button)
         val commentCount: TextView = itemView.findViewById(R.id.post_card_comment_count)
@@ -77,6 +79,8 @@ class PostRecyclerAdapter(
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
         val post = posts[position]
         val isLiked = post.likes.contains(auth.uid!!)
+        val isSaved = post.saved.contains(auth.uid!!)
+
         holder.apply {
             profilePhoto.load(post.profilePhoto)
             userName.text = post.userName
@@ -84,23 +88,26 @@ class PostRecyclerAdapter(
             caption.text = post.caption
             likeCount.text = post.likes.size.toString()
             commentCount.text = post.commentCount.toString()
+            saveCount.text = post.saved.size.toString()
             postTime.text = post.createdAt.toDateString()
             profession.text = post.tags[0].name
-            if (!isLiked) {
+            if (!isLiked)
                 like.setColorFilter(Color.argb(255, 64, 64, 64))
-            } else {
+             else
                 like.setColorFilter(Color.argb(255, 255, 0, 0))
-            }
+
+            if (!isSaved)
+                save.setColorFilter(Color.argb(255, 64, 64, 64))
+            else
+                save.setColorFilter(Color.argb(255, 255, 0, 0))
+
             comment.setOnClickListener { onPostClick(post) }
             postImage.setOnClickListener { onPostClick(post) }
             share.setOnClickListener { share(post) }
             menu.setOnClickListener { showMenu(it, post) }
-            like.setOnClickListener {
-                if (isLiked) unlikePost(post.postId) else likePost(post.postId)
-            }
-            profilePhoto.setOnClickListener {
-                onProfileClick(post.userId)
-            }
+            like.setOnClickListener { if (isLiked) unlikePost(post.postId) else likePost(post.postId) }
+            save.setOnClickListener { if (isSaved) unSavePost(post.postId) else savePost(post.postId) }
+            profilePhoto.setOnClickListener { onProfileClick(post.userId) }
         }
     }
 

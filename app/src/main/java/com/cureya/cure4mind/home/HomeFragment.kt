@@ -108,7 +108,7 @@ class HomeFragment : Fragment(), blogitemClicked {
         var username = ""
         val user = auth.currentUser
         val uid = user?.uid.toString()
-        database.child("users").child(auth.uid!!).get().addOnSuccessListener {
+        database.child("users").child(uid).get().addOnSuccessListener {
             Log.d("TAG", "getusername: ${it.getValue(Any::class.java)}")
             username = it.child("name").value.toString()//.split(" ")[0]
             val photoUrl = it.child("photoUrl").value.toString()
