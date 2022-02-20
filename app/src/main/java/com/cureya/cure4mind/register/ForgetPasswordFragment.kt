@@ -6,18 +6,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.cureya.cure4mind.R
 import com.cureya.cure4mind.databinding.FragmentForgetPasswordBinding
 import com.cureya.cure4mind.register.SignUpFragment.Companion.USER_LIST
 import com.cureya.cure4mind.util.database
-import com.google.firebase.auth.EmailAuthProvider
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.FirebaseException
+import com.google.firebase.FirebaseTooManyRequestsException
+import com.google.firebase.auth.*
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import java.util.concurrent.TimeUnit
 
 class ForgetPasswordFragment: Fragment() {
 
@@ -36,13 +37,14 @@ class ForgetPasswordFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.continueButton.setOnClickListener {
-            validateEmail()
+        auth = Firebase.auth
+
+        binding.sendButton.setOnClickListener {
+            retrievePhoneNumber()
         }
-        // EmailAuthProvider.
     }
 
-    private fun validateEmail() {
+    /* private fun validateEmail() {
         val email = binding.resetEmail.text.toString().trim()
 
         database.child(USER_LIST).orderByChild(EMAIL_CHILD).equalTo(email)
@@ -58,10 +60,48 @@ class ForgetPasswordFragment: Fragment() {
                     Log.e(TAG, "error in finding user", error.toException())
                 }
             })
+    } */
+
+    private fun retrievePhoneNumber() {
+        var phoneNumber = ""
+        database.child(USER_LIST).child("phone").get().addOnSuccessListener {
+            phoneNumber = it.value.toString()
+        }
+        sendOTP(phoneNumber)
     }
 
-    private fun sendOTP() {
+    private fun sendOTP(phoneNumber: String) {
+        val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
+            override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+                Log.d(TAG, "onVerificationCompleted:$credential")
+                // signInWithPhoneAuthCredential(credential)
+            }
+            override fun onVerificationFailed(e: FirebaseException) {
+                Log.w(TAG, "onVerificationFailed", e)
+
+                if (e is FirebaseAuthInvalidCredentialsException) {
+                    // Invalid request
+                } else if (e is FirebaseTooManyRequestsException) {
+                    // The SMS quota for the project has been exceeded
+                }
+            }
+            override fun onCodeSent(
+                verificationId: String,
+                token: PhoneAuthProvider.ForceResendingToken
+            ) {
+                Log.d(TAG, "onCodeSent:$verificationId")
+                // storedVerificationId = verificationId
+                // resendToken = token
+            }
+        }
+        val options = PhoneAuthOptions.newBuilder(auth)
+            .setPhoneNumber(phoneNumber)
+            .setTimeout(60L, TimeUnit.SECONDS)
+            .setActivity(requireActivity())
+            .setCallbacks(callbacks)
+            .build()
+        PhoneAuthProvider.verifyPhoneNumber(options)
     }
 
     private fun showToast(text: String) {
@@ -70,6 +110,20 @@ class ForgetPasswordFragment: Fragment() {
             text,
             Toast.LENGTH_LONG
         ).show()
+    }
+
+    override fun onStart() {
+        val bottomView = (activity as AppCompatActivity)
+            .findViewById<BottomNavigationView>(R.id.nav_view)
+        bottomView.visibility = View.GONE
+        super.onStart()
+    }
+
+    override fun onStop() {
+        val bottomView = (activity as AppCompatActivity)
+            .findViewById<BottomNavigationView>(R.id.nav_view)
+        bottomView.visibility = View.VISIBLE
+        super.onStop()
     }
 
     companion object {

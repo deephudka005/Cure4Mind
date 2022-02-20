@@ -11,6 +11,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.cureya.cure4mind.R
 import com.cureya.cure4mind.databinding.FragmentSignUpBinding
@@ -58,7 +60,7 @@ class SignUpFragment: Fragment() {
     }
 
     private fun prepareToRegister() {
-        if (areTextFieldsValid(binding.nameEditText, binding.edtLogInEmail, binding.edtLogInPassword)) {
+        if (areTextFieldsValid(binding.nameEditText, binding.edtLogInEmail, binding.edtLogInPassword, binding.edtPhone)) {
             register()
         }
     }
@@ -66,6 +68,7 @@ class SignUpFragment: Fragment() {
     private fun register() {
         val name = binding.nameEditText.text.toString().trim()
         val email = binding.edtLogInEmail.text.toString().trim()
+        val phone = binding.edtPhone.text.toString().trim()
         val password = binding.edtLogInPassword.text.toString().trim()
 
         auth.createUserWithEmailAndPassword(email, password)
@@ -78,9 +81,8 @@ class SignUpFragment: Fragment() {
                             "Female"
                         } else "LGBTQIA"
                     Log.w("SignUpFragment","Firebase auth successful")
-                    val user = User(name, email, defaultProfilePic, password, gender,false)
+                    val user = User(name, email, phone, defaultProfilePic, password, gender,false)
                     addToUserBase(user)
-                    goToHomeFragment()
                 }
             }
             .addOnFailureListener {
@@ -94,9 +96,12 @@ class SignUpFragment: Fragment() {
     private fun areTextFieldsValid(
         nameField: EditText,
         emailFiled: EditText,
+        phoneField: EditText,
         passwordField: EditText
     ) : Boolean {
         val nameFieldCheck = isTextFieldEmpty(nameField.text.toString())
+
+        val phoneFieldCheck = isTextFieldEmpty(phoneField.text.toString())
 
         val emailFieldCheck = isTextFieldEmpty(emailFiled.text.toString()) &&
                 isEmailValid(emailFiled.text.toString())
@@ -112,11 +117,15 @@ class SignUpFragment: Fragment() {
             emailFiled.error = "Please enter a valid email address"
             emailFiled.requestFocus()
         }
+        if (!phoneFieldCheck) {
+            phoneField.error = "Please enter a valid email address"
+            phoneField.requestFocus()
+        }
         if (!passwordFieldCheck) {
             passwordField.error = "Password should be at least 8 characters long"
             passwordField.requestFocus()
         }
-        return nameFieldCheck && emailFieldCheck && passwordFieldCheck
+        return nameFieldCheck && emailFieldCheck && passwordFieldCheck && phoneFieldCheck
     }
 
     private fun isTextFieldEmpty(text: String): Boolean {
@@ -168,10 +177,10 @@ class SignUpFragment: Fragment() {
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)!!
-                if (isGenderSelected()) {
+                if (isRequiredSelected()) {
                     firebaseAuthWithGoogle(account.idToken!!)
                 } else {
-                    showToast("Please select your gender")
+                    showToast("Please provide your gender and phone number")
                 }
             } catch (e: ApiException) {
                 // Google Sign In failed, update UI appropriately
@@ -180,32 +189,16 @@ class SignUpFragment: Fragment() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        updateUI()
+    private fun isRequiredSelected() : Boolean {
+        val checkBoxClick =
+            binding.checkboxMale.isChecked || binding.checkboxFemale.isChecked || binding.checkboxLgbtqia.isChecked
+        return checkBoxClick && binding.edtPhone.text!!.isNotEmpty()
     }
-
-    override fun onResume() {
-        super.onResume()
-        val bottomView = (activity as AppCompatActivity)
-            .findViewById<BottomNavigationView>(R.id.nav_view)
-        bottomView.visibility = View.GONE
-    }
-
-    override fun onStop() {
-        super.onStop()
-        val bottomView = (activity as AppCompatActivity)
-            .findViewById<BottomNavigationView>(R.id.nav_view)
-        bottomView.visibility = View.VISIBLE
-    }
-
-    private fun isGenderSelected() =
-        binding.checkboxMale.isChecked || binding.checkboxFemale.isChecked || binding.checkboxLgbtqia.isChecked
 
     private fun updateUI() {
         val currentUser = auth.currentUser
         if(currentUser != null) {
-            findNavController().navigate(R.id.action_signUpFragment_to_homeFragment)
+            goToHomeFragment()
         } else {
             showToast("Please register to continue")
         }
@@ -213,7 +206,15 @@ class SignUpFragment: Fragment() {
 
     private fun goToLogInFragment() = findNavController().navigate(R.id.action_signUpFragment_to_logInFragment)
 
-    private fun goToHomeFragment() = findNavController().navigate(R.id.action_signUpFragment_to_homeFragment)
+    private fun goToHomeFragment() {
+        try {
+            // to prevent crash from calling nav multiple times
+            // in FirebaseDatabase callbacks
+            findNavController().navigate(R.id.action_signUpFragment_to_homeFragment)
+        } catch (e: Exception) {
+            Log.e(TAG, "Second time nav call aborted", e)
+        }
+    }
 
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
@@ -231,6 +232,7 @@ class SignUpFragment: Fragment() {
                     val user = User(
                         auth.currentUser?.displayName,
                         auth.currentUser?.email,
+                        binding.edtPhone.text.toString(),
                         auth.currentUser?.photoUrl.toString(),
                         null,
                         gender,
@@ -274,13 +276,26 @@ class SignUpFragment: Fragment() {
         return
     }
 
+    override fun onStart() {
+        super.onStart()
+        val bottomView = (activity as AppCompatActivity)
+                .findViewById<BottomNavigationView>(R.id.nav_view)
+        bottomView.visibility = View.GONE
+    }
+
+    override fun onStop() {
+        super.onStop()
+        val bottomView = (activity as AppCompatActivity)
+            .findViewById<BottomNavigationView>(R.id.nav_view)
+        bottomView.visibility = View.VISIBLE
+    }
+
     companion object {
         const val RC_SIGN_IN = 100
         const val USER_LIST = "users"
         const val EMAIL = "email"
         const val PASSWORD = "password"
-        const val TAG = "GOOGLE_SIGN_IN_TAG"
-        private const val PASSWORD_PATTERN = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})"
+        const val TAG = "SignUpFragment"
         const val USER_EXISTS_ERROR =
             "The email address is already in use by another account."
     }

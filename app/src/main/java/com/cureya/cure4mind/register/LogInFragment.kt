@@ -11,6 +11,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.cureya.cure4mind.R
 import com.cureya.cure4mind.databinding.FragmentLogInBinding
@@ -66,6 +68,7 @@ class LogInFragment : Fragment() {
             logIn.setOnClickListener { prelogin() }
             googleLogIn.setOnClickListener { launchSignInIntent() }
             register.setOnClickListener { goToSignUpFragment() }
+            // forgetPassword.setOnClickListener { goToForgetPassFragment() }
         }
     }
     private fun prelogin(){
@@ -172,7 +175,15 @@ class LogInFragment : Fragment() {
         }
     }
 
-    private fun goToHomeFragment() = findNavController().navigate(R.id.action_logInFragment_to_homeFragment)
+    private fun goToHomeFragment() {
+        try {
+            // to prevent crash from calling nav multiple times
+            // in FirebaseDatabase callbacks
+            findNavController().navigate(R.id.action_logInFragment_to_homeFragment)
+        } catch (e: Exception) {
+            Log.e(TAG, "Second time nav call aborted", e)
+        }
+    }
 
     private fun goToSignUpFragment() = findNavController().navigate(R.id.action_logInFragment_to_signUpFragment)
 
@@ -187,6 +198,7 @@ class LogInFragment : Fragment() {
                     val user = User(
                         auth.currentUser?.displayName,
                         auth.currentUser?.email,
+                        null,
                         auth.currentUser?.photoUrl.toString(),
                         null,
                         null,
@@ -226,5 +238,4 @@ class LogInFragment : Fragment() {
         private const val USER_VOID_ERROR =
             "There is no user record corresponding to this identifier. The user may have been deleted."
     }
-
 }

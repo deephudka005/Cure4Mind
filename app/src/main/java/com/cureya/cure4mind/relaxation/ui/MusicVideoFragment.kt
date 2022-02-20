@@ -1,7 +1,6 @@
 package com.cureya.cure4mind.relaxation.ui
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,20 +14,15 @@ import com.cureya.cure4mind.model.Content
 import com.cureya.cure4mind.relaxation.ui.RelaxationFragment.Companion.CONTENT_TYPE_VIDEO
 import com.cureya.cure4mind.relaxation.viewHolder.MusicViewHolder
 import com.cureya.cure4mind.relaxation.viewHolder.VideoViewHolder
+import com.cureya.cure4mind.util.database
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 
 class MusicVideoFragment : Fragment() {
 
     private lateinit var videoAdapter: FirebaseRecyclerAdapter<Content, VideoViewHolder>
     private lateinit var musicAdapter: FirebaseRecyclerAdapter<Content, MusicViewHolder>
     private lateinit var binding: FragmentRelaxationMusicVideoBinding
-    private lateinit var db: FirebaseDatabase
-    private lateinit var dbRef: DatabaseReference
 
     private val navArgument: MusicVideoFragmentArgs by navArgs()
 
@@ -46,8 +40,6 @@ class MusicVideoFragment : Fragment() {
 
         val contentType = navArgument.contentType
 
-        dbRef = FirebaseDatabase.getInstance("https://cure4mind-d687f-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
-
         if (contentType == CONTENT_TYPE_VIDEO) {
             showVideoList()
         } else {
@@ -56,7 +48,7 @@ class MusicVideoFragment : Fragment() {
     }
 
     private fun showVideoList() {
-        val videoRef = dbRef.child(VIDEO_LIST)
+        val videoRef = database.child(VIDEO_LIST)
 
         val videoList = FirebaseRecyclerOptions.Builder<Content>()
             .setQuery(videoRef, Content::class.java)
@@ -84,7 +76,7 @@ class MusicVideoFragment : Fragment() {
     }
 
     private fun showMusicList() {
-        val musicRef = dbRef.child(MUSIC_LIST)
+        val musicRef = database.child(MUSIC_LIST)
 
         val musicList = FirebaseRecyclerOptions.Builder<Content>()
             .setQuery(musicRef, Content::class.java)
