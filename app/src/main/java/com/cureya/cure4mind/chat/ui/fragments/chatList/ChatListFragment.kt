@@ -7,14 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.cureya.cure4mind.R
 import com.cureya.cure4mind.chat.ui.adapters.AllUsersRecyclerAdapter
+import com.cureya.cure4mind.util.database
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.messaging.FirebaseMessaging
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.coroutines.tasks.await
 
 
 class ChatListFragment : Fragment() {
@@ -39,6 +43,7 @@ class ChatListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initMembers(view)
+        setMessageToken()
         setLayoutManager()
         setAdapters()
         observeData()
@@ -75,6 +80,14 @@ class ChatListFragment : Fragment() {
     private fun setLayoutManager() {
         allUsersRecycler.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+    }
+
+    private fun setMessageToken() {
+        lifecycleScope.launchWhenCreated {
+            val token  = FirebaseMessaging.getInstance().token.await()
+            database.child("message_tokens").child(auth.uid!!).setValue(token).await()
+            Log.d(TAG, "setMessageToken: $token")
+        }
     }
 
     companion object {

@@ -139,9 +139,9 @@
             app:layout_constraintTop_toBottomOf="@+id/post_card_caption">
 
             <ImageView
-                android:id="@+id/post_love"
+                android:id="@+id/post_save"
                 android:layout_width="wrap_content"
-                android:layout_height="24dp"
+                android:layout_height="match_parent"
                 android:layout_gravity="start"
                 android:background="?attr/actionBarItemBackground"
                 app:srcCompat="@drawable/asset_love"

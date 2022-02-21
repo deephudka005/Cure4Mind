@@ -14,9 +14,10 @@ data class Post(
     val commentCount: Int = 0,
     val createdAt: Date = Date(),
     val likes: List<String> = listOf(),
+    val saved: List<String> = listOf(),
     val shares: Int = 0,
     val userId: String = "",
-    val profilePhoto: String = "",
+    val profilePhoto: String = defaultProfilePic,
     val userName: String = "",
     val tags: List<TAG> = listOf()
 ) : Parcelable

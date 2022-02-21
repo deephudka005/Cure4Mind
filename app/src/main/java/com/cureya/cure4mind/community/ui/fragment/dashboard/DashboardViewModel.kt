@@ -98,6 +98,43 @@ class DashboardViewModel : ViewModel() {
         }
     }
 
+    fun savePost(postId: String) {
+        viewModelScope.launch {
+            try {
+                database.child("community").child("saved").child(auth.uid!!).child(postId).setValue(postId).await()
+                val t: GenericTypeIndicator<MutableList<String>> =
+                    object : GenericTypeIndicator<MutableList<String>>() {}
+                val saved = database.child("community").child("posts").child(postId).child("saved")
+                    .get().await().getValue(t)
+                    ?: mutableListOf()
+                saved.add(auth.uid!!)
+                database.child("community").child("posts").child(postId).child("saved")
+                    .setValue(saved)
+            } catch (e:Exception) {
+                Log.e(TAG, "savePost: ", e)
+            }
+        }
+    }
+
+    fun unSavePost(postId: String) {
+        viewModelScope.launch {
+            try {
+                database.child("community").child("saved").child(auth.uid!!).child(postId).removeValue().await()
+                val t: GenericTypeIndicator<MutableList<String>> =
+                    object : GenericTypeIndicator<MutableList<String>>() {}
+                val saved = database.child("community").child("posts").child(postId).child("saved")
+                    .get().await().getValue(t)
+                    ?: mutableListOf()
+                saved.remove(auth.uid!!)
+                database.child("community").child("posts").child(postId).child("saved")
+                    .setValue(saved)
+            } catch (e:Exception) {
+                Log.e(TAG, "savePost: ", e)
+            }
+        }
+
+    }
+
     companion object {
         private const val TAG = "DASHBOARD_VIEWMODEL"
     }

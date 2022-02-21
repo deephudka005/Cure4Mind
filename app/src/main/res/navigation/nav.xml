@@ -358,6 +358,9 @@
         <action
             android:id="@+id/action_communityFragment_to_personalProfile"
             app:destination="@id/personalProfile" />
+        <action
+            android:id="@+id/action_communityFragment_to_savedPost"
+            app:destination="@id/savedPost" />
     </fragment>
     <fragment
         android:id="@+id/createPost"
@@ -416,4 +419,9 @@
         android:id="@+id/chatbotFragment"
         android:name="com.cureya.cure4mind.chatbot.ChatbotFragment"
         android:label="ChatbotFragment" />
+    <fragment
+        android:id="@+id/savedPost"
+        android:name="com.cureya.cure4mind.community.ui.fragment.saved.SavedPost"
+        android:label="saved_post_fragment"
+        tools:layout="@layout/saved_post_fragment" />
 </navigation>
