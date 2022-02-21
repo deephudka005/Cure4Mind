@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.cureya.cure4mind.R
@@ -18,7 +17,6 @@ import com.cureya.cure4mind.register.SignUpFragment.Companion.USER_LIST
 import com.cureya.cure4mind.util.database
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.FirebaseException
-import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.*
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
@@ -31,7 +29,7 @@ class ForgetPasswordFragment: Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: FragmentForgetPasswordBinding
-    private var varifyId = ""
+    private var verifyId = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,12 +47,17 @@ class ForgetPasswordFragment: Fragment() {
 
         autoChangeOtpEditTextFocus()
 
+        // to wait until the otp arrives
+        binding.continueButton.visibility = View.GONE
+
         binding.sendButton.setOnClickListener {
             validatePhoneNumber()
         }
         binding.continueButton.setOnClickListener {
-            if (varifyId != "") {
-                verifyOtp(varifyId)
+            val userInput = getUserOtp()
+            if (userInput.isNotEmpty()) {
+                val phoneAuthCredential = PhoneAuthProvider.getCredential(verifyId, userInput)
+                signUpWithCredentials(phoneAuthCredential)
             }
         }
     }
@@ -66,7 +69,7 @@ class ForgetPasswordFragment: Fragment() {
             .addListenerForSingleValueEvent(object: ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.value != null) {
-                        val phoneWithCountry = "+91".plus(phoneNumber)
+                        val phoneWithCountry = COUNTRY_CODE_IND.plus(phoneNumber)
                         sendOTP(phoneWithCountry)
                     } else {
                         showToast("User with this Phone does not exists")
@@ -82,25 +85,18 @@ class ForgetPasswordFragment: Fragment() {
         val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                Log.d(TAG, "onVerificationCompleted:$credential")
-                showToast("Verification completed")
-                // goToHomeFragment()
+                signUpWithCredentials(credential)
             }
             override fun onVerificationFailed(e: FirebaseException) {
                 Log.w(TAG, "onVerificationFailed", e)
 
-                if (e is FirebaseAuthInvalidCredentialsException) {
-                    // Invalid request
-                } else if (e is FirebaseTooManyRequestsException) {
-                    // The SMS quota for the project has been exceeded
-                }
             }
             override fun onCodeSent(
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
-                super.onCodeSent(verificationId, token)
-                varifyId = verificationId
+                verifyId = verificationId
+                binding.continueButton.visibility = View.VISIBLE
                 Log.d(TAG, "onCodeSent:$verificationId")
             }
         }
@@ -114,18 +110,24 @@ class ForgetPasswordFragment: Fragment() {
         showToast("Redirecting to verify you are not a robot")
     }
 
-    private fun verifyOtp(verifyID: String) {
-        val otpInput = binding.otpBoxOne.text.toString()
-            .plus(binding.otpBoxTwo.text.toString())
-            .plus(binding.otpBoxThree.text.toString())
-            .plus(binding.otpBoxFour.text.toString())
-            .plus(binding.otpBoxFive.text.toString())
-            .plus(binding.otpBoxSix.text.toString())
+    private fun getUserOtp(): String {
+        return binding.otpBoxOne.text.toString().trim()
+            .plus(binding.otpBoxTwo.text.toString()).trim()
+            .plus(binding.otpBoxThree.text.toString()).trim()
+            .plus(binding.otpBoxFour.text.toString()).trim()
+            .plus(binding.otpBoxFive.text.toString()).trim()
+            .plus(binding.otpBoxSix.text.toString()).trim()
+    }
 
-        Log.w(TAG, "verify: $verifyID, output: $otpInput")
-        if (verifyID == otpInput) {
-            goToHomeFragment()
-        }
+    private fun signUpWithCredentials(credential: PhoneAuthCredential) {
+        auth.signInWithCredential(credential)
+            .addOnCompleteListener {
+                showToast("Signed in")
+                goToHomeFragment()
+            }
+            .addOnFailureListener {
+                showToast("Unable to process request")
+            }
     }
 
     private fun autoChangeOtpEditTextFocus() {
@@ -176,18 +178,6 @@ class ForgetPasswordFragment: Fragment() {
         })
     }
 
-    /* private fun signInWithCredential(credential: PhoneAuthCredential) {
-        auth.signInWithCredential(credential).addOnCompleteListener {
-            try {
-                // to prevent crash from calling nav multiple times
-                // in FirebaseDatabase callbacks
-                findNavController().navigate(R.id.action_forgetPasswordFragment_to_homeFragment)
-            } catch (e: Exception) {
-                Log.e(SignUpFragment.TAG, "Second time nav call aborted", e)
-            }
-        }
-    } */
-
     private fun goToHomeFragment() {
         try {
             // to prevent crash from calling nav multiple times
@@ -222,6 +212,7 @@ class ForgetPasswordFragment: Fragment() {
 
     companion object {
         const val EMAIL_CHILD = "email"
+        private const val COUNTRY_CODE_IND = "+91"
         private const val TAG = "ForgetPasswordFragment"
     }
 }
