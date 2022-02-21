@@ -82,6 +82,10 @@ class MusicFragment : Fragment() {
             override fun onStopTrackingTouch(p0: SeekBar?) {}
         })
 
+        binding.musicList.setOnClickListener {
+            findNavController().navigate(R.id.action_musicFragment_to_musicPlayListFragment)
+        }
+
         binding.backButton.setOnClickListener {
             findNavController().navigateUp()
         }

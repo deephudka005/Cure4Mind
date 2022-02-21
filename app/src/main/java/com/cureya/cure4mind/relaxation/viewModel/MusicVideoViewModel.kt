@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.SeekBar
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.cureya.cure4mind.R
@@ -27,8 +28,7 @@ import java.util.*
 
 @SuppressLint("StaticFieldLeak")
 class MusicVideoViewModel(
-        private val musicVideoFragment: MusicVideoFragment,
-        private val progressBar: ProgressBar
+        private val musicVideoFragment: MusicVideoFragment
 ) : ViewModel() {
 
     private val auth = Firebase.auth
@@ -46,8 +46,7 @@ class MusicVideoViewModel(
                     .inflate(R.layout.card_music_and_video, parent, false)
                 return VideoViewHolder(
                     CardMusicAndVideoBinding.bind(layoutView),
-                    musicVideoFragment,
-                    progressBar
+                    musicVideoFragment
                 )
             }
             override fun onBindViewHolder(holder: VideoViewHolder, position: Int, model: Content) {
@@ -71,8 +70,7 @@ class MusicVideoViewModel(
                     .inflate(R.layout.card_music_and_video, parent, false)
                 return MusicViewHolder(
                     CardMusicAndVideoBinding.bind(layoutView),
-                    musicVideoFragment,
-                    progressBar
+                    musicVideoFragment
                 )
             }
             override fun onBindViewHolder(holder: MusicViewHolder, position: Int, model: Content) {
@@ -99,8 +97,7 @@ class MusicVideoViewModel(
                     .inflate(R.layout.card_music_and_video, parent, false)
                 return MusicViewHolder(
                     CardMusicAndVideoBinding.bind(layoutView),
-                    musicVideoFragment,
-                    progressBar
+                    musicVideoFragment
                 )
             }
             override fun onBindViewHolder(holder: MusicViewHolder, position: Int, model: Content) {
@@ -112,13 +109,12 @@ class MusicVideoViewModel(
 }
 
 class MusicVideoViewModelFactory(
-    private val musicVideoFragment: MusicVideoFragment,
-    private val progressBar: ProgressBar
+    private val musicVideoFragment: MusicVideoFragment
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MusicVideoViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return MusicVideoViewModel(musicVideoFragment, progressBar)
+            return MusicVideoViewModel(musicVideoFragment)
                     as T
         }
         throw IllegalArgumentException("Unknown viewModel class")

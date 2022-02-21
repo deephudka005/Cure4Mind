@@ -2,8 +2,6 @@ package com.cureya.cure4mind.relaxation.viewHolder
 
 import android.graphics.drawable.Drawable
 import android.os.Build
-import android.view.View
-import android.widget.ProgressBar
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -14,8 +12,7 @@ import com.cureya.cure4mind.model.Content
 import com.cureya.cure4mind.relaxation.ui.MusicVideoFragment
 
 class MusicViewHolder(private val binding: CardMusicAndVideoBinding,
-                      private val listener: MusicVideoFragment,
-                      private val progressBar: ProgressBar
+                      private val listener: MusicVideoFragment
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: Content, itemPosition: Int) {
@@ -32,8 +29,6 @@ class MusicViewHolder(private val binding: CardMusicAndVideoBinding,
                 }
                 override fun onLoadCleared(placeholder: Drawable?) {}
             })
-
-        progressBar.visibility = View.GONE
 
         binding.cardPlayer.setOnClickListener {
             listener.goToMusicFragment(itemPosition, item.thumbnailUrl!!, item.title!!)

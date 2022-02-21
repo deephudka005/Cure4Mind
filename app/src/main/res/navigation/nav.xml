@@ -251,6 +251,9 @@
             android:id="@+id/action_accountFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+
+
+    <!-- Relaxation -->
     <fragment
         android:id="@+id/musicVideoFragment"
         android:name="com.cureya.cure4mind.relaxation.ui.MusicVideoFragment"
@@ -280,7 +283,15 @@
         <argument
             android:name="initial_music_title"
             app:argType="string" />
+        <action
+            android:id="@+id/action_musicFragment_to_musicPlayListFragment"
+            app:destination="@id/musicPlayListFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/musicPlayListFragment"
+        android:name="com.cureya.cure4mind.relaxation.ui.MusicPlayListFragment"
+        android:label="MusicPlayListFragment"
+        tools:layout="@layout/fragment_relaxation_music_playlist" />
     <fragment
         android:id="@+id/relaxationFragment"
         android:name="com.cureya.cure4mind.relaxation.ui.RelaxationFragment"
@@ -320,6 +331,8 @@
             android:name="item_title"
             app:argType="string" />
     </fragment>
+
+
     <fragment
         android:id="@+id/AccountFragment"
         android:name="com.cureya.cure4mind.settings.AccountFragment"

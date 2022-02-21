@@ -149,6 +149,7 @@
     <string name="send_otp">Send OTP</string>
     <string name="favourite">Favourite</string>
     <string name="all">All</string>
+    <string name="play_list">Play List</string>
 
     <string-array name="blog_name">
         <item>Mental Health Disorders and How to Overcome them</item>
