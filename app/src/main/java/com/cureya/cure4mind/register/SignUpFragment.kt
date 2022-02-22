@@ -211,7 +211,7 @@ class SignUpFragment: Fragment() {
             // in FirebaseDatabase callbacks
             findNavController().navigate(R.id.action_signUpFragment_to_homeFragment)
         } catch (e: Exception) {
-            Log.e(TAG, "Second time nav call aborted", e)
+            Log.d(TAG, "Second time nav call aborted", e)
         }
     }
 

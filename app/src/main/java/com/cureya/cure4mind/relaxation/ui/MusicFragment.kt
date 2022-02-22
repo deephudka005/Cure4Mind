@@ -18,6 +18,8 @@ import com.cureya.cure4mind.relaxation.viewModel.MusicViewModel
 import com.cureya.cure4mind.relaxation.viewModel.MusicViewModel.Companion.CHILD_FAVOURITE_MUSIC
 import com.cureya.cure4mind.relaxation.viewModel.MusicViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.util.concurrent.TimeUnit
+import kotlin.time.DurationUnit
 
 class MusicFragment : Fragment() {
 
@@ -29,7 +31,7 @@ class MusicFragment : Fragment() {
     private val musicViewModel: MusicViewModel by viewModels {
         MusicViewModelFactory(
             position,
-            binding.musicSeekbar,
+            binding.seekbar,
             binding.musicTimeTotal,
             binding.musicTimeCount,
             binding.musicFavourite,
@@ -74,7 +76,7 @@ class MusicFragment : Fragment() {
         }
 
         // controlling music when user slides seekbar
-        binding.musicSeekbar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
+        binding.seekbar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
                 if (p2) { musicViewModel.setSeekbarUserProgress(p1) }
             }
@@ -102,6 +104,11 @@ class MusicFragment : Fragment() {
             .findViewById<BottomNavigationView>(R.id.nav_view)
         bottomView.visibility = View.GONE
         super.onStart()
+    }
+
+    override fun onPause() {
+        musicViewModel.stopTimers()
+        super.onPause()
     }
 
     override fun onStop() {
