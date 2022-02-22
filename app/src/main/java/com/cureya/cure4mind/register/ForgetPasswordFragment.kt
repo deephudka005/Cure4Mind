@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.cureya.cure4mind.R
 import com.cureya.cure4mind.databinding.FragmentForgetPasswordBinding
+import com.cureya.cure4mind.model.User
 import com.cureya.cure4mind.register.SignUpFragment.Companion.USER_LIST
 import com.cureya.cure4mind.util.database
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -28,8 +29,10 @@ import java.util.concurrent.TimeUnit
 class ForgetPasswordFragment: Fragment() {
 
     private lateinit var auth: FirebaseAuth
+    private lateinit var user: User
     private lateinit var binding: FragmentForgetPasswordBinding
     private var verifyId = ""
+    private var key = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -62,6 +65,24 @@ class ForgetPasswordFragment: Fragment() {
         }
     }
 
+    private fun hasUserPassword(key: String, phone: String) {
+
+        database.child(USER_LIST).child(key).child("password")
+            .addListenerForSingleValueEvent(object: ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.value != null) {
+                        val phoneWithCountry = COUNTRY_CODE_IND.plus(phone)
+                        sendOTP(phoneWithCountry)
+                    } else {
+                        showToast("No password; User signed in with google account")
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e(TAG, "Error in retrieving password data", error.toException())
+                }
+            })
+    }
+
     private fun validatePhoneNumber() {
         val phoneNumber = binding.edtPhone.text.toString().trim()
 
@@ -69,8 +90,11 @@ class ForgetPasswordFragment: Fragment() {
             .addListenerForSingleValueEvent(object: ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.value != null) {
-                        val phoneWithCountry = COUNTRY_CODE_IND.plus(phoneNumber)
-                        sendOTP(phoneWithCountry)
+                        for (childSnapshot in snapshot.children) {
+                            key = childSnapshot.key!!
+                        }
+                        hasUserPassword(key, phoneNumber)
+                        Log.i("ForgotPasswordFragment", "Retrieved key value: $key")
                     } else {
                         showToast("User with this Phone does not exists")
                     }
@@ -97,7 +121,6 @@ class ForgetPasswordFragment: Fragment() {
             ) {
                 verifyId = verificationId
                 binding.continueButton.visibility = View.VISIBLE
-                Log.d(TAG, "onCodeSent:$verificationId")
             }
         }
         val options = PhoneAuthOptions.newBuilder(auth)
@@ -123,7 +146,7 @@ class ForgetPasswordFragment: Fragment() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener {
                 showToast("Signed in")
-                goToHomeFragment()
+                goToChangePasswordFragment()
             }
             .addOnFailureListener {
                 showToast("Unable to process request")
@@ -178,13 +201,15 @@ class ForgetPasswordFragment: Fragment() {
         })
     }
 
-    private fun goToHomeFragment() {
+    private fun goToChangePasswordFragment() {
         try {
             // to prevent crash from calling nav multiple times
             // in FirebaseDatabase callbacks
-            findNavController().navigate(R.id.action_forgetPasswordFragment_to_homeFragment)
+            this.findNavController().navigate(ForgetPasswordFragmentDirections
+                .actionForgetPasswordFragmentToChangePasswordFragment(key)
+            )
         } catch (e: Exception) {
-            Log.e(SignUpFragment.TAG, "Second time nav call aborted", e)
+            Log.d("ForgotPasswordFragment", "Second time nav call aborted", e)
         }
     }
 

@@ -14,8 +14,7 @@ import com.cureya.cure4mind.model.Content
 import com.cureya.cure4mind.relaxation.ui.MusicVideoFragment
 
 class VideoViewHolder(private val binding: CardMusicAndVideoBinding,
-                      private val listener: MusicVideoFragment,
-                      private val progressBar: ProgressBar
+                      private val listener: MusicVideoFragment
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(item: Content) {

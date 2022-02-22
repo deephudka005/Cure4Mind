@@ -175,15 +175,14 @@ class SignUpFragment: Fragment() {
         if (requestCode == RC_SIGN_IN) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
-                // Google Sign In was successful, authenticate with Firebase
                 val account = task.getResult(ApiException::class.java)!!
                 if (isRequiredSelected()) {
                     firebaseAuthWithGoogle(account.idToken!!)
                 } else {
-                    showToast("Please provide your gender and phone number")
+                    showToast("Gender and phone number are required")
                 }
             } catch (e: ApiException) {
-                // Google Sign In failed, update UI appropriately
+
                 Log.w(TAG, "Google sign in failed", e)
             }
         }
@@ -212,7 +211,7 @@ class SignUpFragment: Fragment() {
             // in FirebaseDatabase callbacks
             findNavController().navigate(R.id.action_signUpFragment_to_homeFragment)
         } catch (e: Exception) {
-            Log.e(TAG, "Second time nav call aborted", e)
+            Log.d(TAG, "Second time nav call aborted", e)
         }
     }
 

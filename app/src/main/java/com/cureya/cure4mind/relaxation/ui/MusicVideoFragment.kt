@@ -38,7 +38,7 @@ class MusicVideoFragment : Fragment() {
     private val navArgument: MusicVideoFragmentArgs by navArgs()
 
     private val musicVideoViewModel: MusicVideoViewModel by viewModels {
-        MusicVideoViewModelFactory(this, binding.progressBar)
+        MusicVideoViewModelFactory(this)
     }
 
     override fun onCreateView(

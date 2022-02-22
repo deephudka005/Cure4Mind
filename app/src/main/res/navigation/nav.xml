@@ -224,6 +224,8 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment" />
     </fragment>
+
+    <!-- Register -->
     <fragment
         android:id="@+id/logInFragment"
         android:name="com.cureya.cure4mind.register.LogInFragment"
@@ -240,6 +242,28 @@
             app:destination="@id/forgetPasswordFragment" />
     </fragment>
     <fragment
+        android:id="@+id/forgetPasswordFragment"
+        android:name="com.cureya.cure4mind.register.ForgetPasswordFragment"
+        android:label="ForgetPasswordFragment" >
+        <action
+            android:id="@+id/action_forgetPasswordFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.cureya.cure4mind.register.ChangePasswordFragment"
+        android:label="ChangePasswordFragment">
+        <action
+            android:id="@+id/action_changePasswordFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment" />
+        <argument
+            android:name="key"
+            app:argType="string" />
+    </fragment>
+
+
+    <fragment
         android:id="@+id/accountFragment"
         android:name="com.cureya.cure4mind.settings.AccountFragment"
         android:label="AccountFragment"
@@ -251,6 +275,9 @@
             android:id="@+id/action_accountFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+
+
+    <!-- Relaxation -->
     <fragment
         android:id="@+id/musicVideoFragment"
         android:name="com.cureya.cure4mind.relaxation.ui.MusicVideoFragment"
@@ -280,7 +307,15 @@
         <argument
             android:name="initial_music_title"
             app:argType="string" />
+        <action
+            android:id="@+id/action_musicFragment_to_musicPlayListFragment"
+            app:destination="@id/musicPlayListFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/musicPlayListFragment"
+        android:name="com.cureya.cure4mind.relaxation.ui.MusicPlayListFragment"
+        android:label="MusicPlayListFragment"
+        tools:layout="@layout/fragment_relaxation_music_playlist" />
     <fragment
         android:id="@+id/relaxationFragment"
         android:name="com.cureya.cure4mind.relaxation.ui.RelaxationFragment"
@@ -320,6 +355,8 @@
             android:name="item_title"
             app:argType="string" />
     </fragment>
+
+
     <fragment
         android:id="@+id/AccountFragment"
         android:name="com.cureya.cure4mind.settings.AccountFragment"
@@ -379,15 +416,6 @@
             app:destination="@id/personalProfile" />
     </fragment>
     <fragment
-        android:id="@+id/forgetPasswordFragment"
-        android:name="com.cureya.cure4mind.register.ForgetPasswordFragment"
-        android:label="ForgetPasswordFragment" >
-        <action
-            android:id="@+id/action_forgetPasswordFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:popUpTo="@id/forgetPasswordFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/chatFragment"
         android:name="com.cureya.cure4mind.chat.ui.fragments.chat.ChatFragment"
         android:label="ChatFragment" >
@@ -420,5 +448,6 @@
         android:id="@+id/savedPost"
         android:name="com.cureya.cure4mind.community.ui.fragment.saved.SavedPost"
         android:label="saved_post_fragment"
-        tools:layout="@layout/saved_post_fragment" />
+        tools:layout="@layout/saved_post_fragment" >
+    </fragment>
 </navigation>

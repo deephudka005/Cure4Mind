@@ -12,9 +12,11 @@ import android.widget.ProgressBar
 import android.widget.SeekBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.core.widget.ImageViewCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import coil.load
 import com.cureya.cure4mind.R
 import com.cureya.cure4mind.model.Content
@@ -22,9 +24,12 @@ import com.cureya.cure4mind.register.SignUpFragment.Companion.USER_LIST
 import com.cureya.cure4mind.relaxation.ui.MusicVideoFragment
 import com.cureya.cure4mind.relaxation.viewHolder.MusicViewHolder
 import com.cureya.cure4mind.util.database
+import com.google.android.exoplayer2.ExoPlayer
+import com.google.android.exoplayer2.MediaItem
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
 import java.lang.IllegalStateException
 import java.util.*
 import kotlin.IllegalArgumentException
@@ -32,7 +37,7 @@ import kotlin.IllegalArgumentException
 @SuppressLint("StaticFieldLeak")
 class MusicViewModel(
     private var pos: Int,
-    private val seekbar: SeekBar,
+    private val seekBar: SeekBar,
     private val musicTimeTotal: TextView,
     private val musicTimeCount: TextView,
     private val musicFavourite: ImageView,
@@ -43,6 +48,9 @@ class MusicViewModel(
     private val auth = Firebase.auth
     private lateinit var mediaPlayer: MediaPlayer
     private val contentList = mutableListOf<Content>()
+
+    private lateinit var seekBarTimer: Timer
+    private lateinit var textTimer: Timer
 
     fun createContentList() {
         database.child(MusicVideoFragment.MUSIC_LIST).get()
@@ -56,18 +64,6 @@ class MusicViewModel(
             }
     }
 
-    /* fun createFavouriteMusicList() {
-        database.child(USER_LIST).child(CHILD_FAVOURITE_MUSIC).get()
-            .addOnSuccessListener { snapshot ->
-                snapshot.children.forEach {
-                    val item = it.getValue(Content::class.java)!!
-                    Log.w("MusicViewModel", "item: $item")
-                    favouriteContentList.add(item)
-                }
-                val content = favouriteContentList[favPos]
-                playMusic(content.contentUrl!!)
-            }
-    } */
 
     private fun playMusic(url: String) {
         mediaPlayer = MediaPlayer().apply {
@@ -154,6 +150,11 @@ class MusicViewModel(
 
     fun releaseMediaPlayer() = mediaPlayer.release()
 
+    fun stopTimers() {
+        seekBarTimer.cancel()
+        textTimer.cancel()
+    }
+
     fun setButtonColor() {
         val content = contentList[pos]
         val userUid = auth.currentUser?.uid.toString()
@@ -185,27 +186,36 @@ class MusicViewModel(
     private fun setSeekBar() {
         musicTimeCount.text = formatTime(mediaPlayer.duration.toLong())
 
-        seekbar.max = mediaPlayer.duration
+        seekBar.max = mediaPlayer.duration
 
-        Timer().scheduleAtFixedRate(object: TimerTask() {
-            override fun run() {
-                try {
-                    seekbar.progress = mediaPlayer.currentPosition
-                } catch (e: IllegalStateException) {}
-            }
-        }, 0, 900)
+        seekBarTimer = Timer()
+
+        viewModelScope.launch {
+            seekBarTimer.scheduleAtFixedRate(object: TimerTask() {
+                override fun run() {
+                    try {
+                        seekBar.progress = mediaPlayer.currentPosition
+                    } catch (e: IllegalStateException) {}
+                }
+            }, 0, 1000)
+        }
     }
 
     @SuppressLint("NewApi")
     private fun updateTimer() {
-        Timer().scheduleAtFixedRate(object: TimerTask() {
-            override fun run() {
-                try {
-                    val currentTime = formatTime(mediaPlayer.currentPosition.toLong())
-                    musicTimeCount.text = currentTime
-                } catch (e: Exception) {}
-            }
-        }, 0, 1000)
+        textTimer = Timer()
+
+        viewModelScope.launch {
+            textTimer.scheduleAtFixedRate(object : TimerTask() {
+                override fun run() {
+                    try {
+                        val currentTime = formatTime(mediaPlayer.currentPosition.toLong())
+                        musicTimeCount.text = currentTime
+                    } catch (e: Exception) {
+                    }
+                }
+            }, 0, 1000)
+        }
     }
 
     @SuppressLint("NewApi")
