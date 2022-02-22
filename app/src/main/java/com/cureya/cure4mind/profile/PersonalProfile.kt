@@ -19,7 +19,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import coil.load
-import com.bumptech.glide.Glide
 import com.cureya.cure4mind.R
 import com.cureya.cure4mind.databinding.ProfileFragmentBinding
 import com.cureya.cure4mind.util.toDateString
@@ -89,7 +88,7 @@ class PersonalProfile : Fragment() {
                                     scaleType = ImageView.ScaleType.CENTER_CROP
 
                                 }
-                                Glide.with(this@PersonalProfile).load(uri).into(imageView)
+                                imageView.load(uri)
                                 setView(imageView)
                                 setNegativeButton("Cancel") { view, _ ->
                                     view.dismiss()

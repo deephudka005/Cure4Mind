@@ -102,17 +102,15 @@ class HomeFragment : Fragment(), blogitemClicked {
         )
         blogRecyclerView.layoutManager =
             LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
-        blogRecyclerView.setHasFixedSize(true)
         blogRecyclerView.adapter = blogAdapter(this, images)
     }
 
     private fun getusername() {
-        var username = ""
         val user = auth.currentUser
         val uid = user?.uid.toString()
         database.child("users").child(uid).get().addOnSuccessListener {
             Log.d("TAG", "getusername: ${it.getValue(Any::class.java)}")
-            username = it.child("name").value.toString()//.split(" ")[0]
+            val username = it.child("name").value.toString()//.split(" ")[0]
             val photoUrl = it.child("photoUrl").value.toString()
             binding.userinfo.text = username
             binding.profile.load(photoUrl)

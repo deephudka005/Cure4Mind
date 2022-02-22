@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import coil.load
 import com.cureya.cure4mind.R
 import com.cureya.cure4mind.chat.ui.adapters.AllUsersRecyclerAdapter
 import com.cureya.cure4mind.util.database
@@ -61,8 +61,7 @@ class ChatListFragment : Fragment() {
             val direction = ChatListFragmentDirections.actionChatListFragmentToPersonalProfile(it)
             navController.navigate(direction)
         }
-        Glide.with(this).load(auth.currentUser?.photoUrl)
-            .into(view.findViewById<CircleImageView>(R.id.profile))
+        view.findViewById<CircleImageView>(R.id.profile).load(auth.currentUser?.photoUrl)
     }
 
     private fun observeData() {
