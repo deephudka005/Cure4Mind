@@ -439,10 +439,7 @@
         android:name="com.cureya.cure4mind.MainActivity"
         android:label="chat_list_fragment"
         tools:layout="@layout/chat_list_fragment" />
-    <activity
-        android:id="@+id/splashActivity"
-        android:name="com.cureya.cure4mind.SplashActivity"
-        android:label="SplashActivity" />
+
     <fragment
         android:id="@+id/chatbotFragment"
         android:name="com.cureya.cure4mind.chatbot.ChatbotFragment"
