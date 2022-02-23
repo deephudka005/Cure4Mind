@@ -51,6 +51,8 @@ class ChangePasswordFragment : Fragment() {
         val password = binding.newPassEditText.text.toString().trim()
         val confirmPassword = binding.confirmPassEditText.text.toString().trim()
 
+        Log.d(TAG, "password emtry: ${password.isNotEmpty()}, lenght: ${password.length}, passwrod: $password, confirmPas: $confirmPassword")
+
         binding.savePassButton.setOnClickListener {
             // temp password; don't why editTexts always return null for validation
             if (validatePasswords("ronnieBine69", "ronnieBine69")) {
