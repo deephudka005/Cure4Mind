@@ -82,7 +82,7 @@ class CommunityFragment : Fragment() {
                                         viewModel.deletePost(post)
                                         dialog.dismiss()
                                     }
-                                    setNegativeButton("Cancel") { dialog, id ->
+                                    setNegativeButton("Cancel") { dialog, _ ->
                                         dialog.cancel()
                                     }
                                     setCancelable(false)

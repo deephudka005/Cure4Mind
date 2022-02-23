@@ -41,6 +41,7 @@
         <entry key="app/src/main/res/layout/layout_edit_email.xml" value="0.21458333333333332" />
         <entry key="app/src/main/res/layout/message_item.xml" value="0.1" />
         <entry key="app/src/main/res/layout/profile_fragment.xml" value="0.21458333333333332" />
+        <entry key="app/src/main/res/layout/saved_post_item.xml" value="0.33" />
         <entry key="app/src/main/res/layout/tags_picker.xml" value="0.12" />
         <entry key="app/src/main/res/layout/team_cureya.xml" value="0.33" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.23072916666666668" />

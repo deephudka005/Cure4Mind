@@ -1,7 +1,6 @@
 package com.cureya.cure4mind.home
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
@@ -74,13 +73,13 @@ class ContactFragment : Fragment() {
                 database.child("users").child(auth.uid!!).child("email").get().await().getValue(String::class.java)
             withContext(Dispatchers.Main) {
                 binding.sendMessage.setOnClickListener{
-                    showDialog(activity,"Your submission has been received!")
+                    showDialog("Your submission has been received!")
                     val message : String = binding.message.text.toString()
                     val subject : String = binding.subject.text.toString()
                     val name : String = binding.name.text.toString()
-                    val user_details = Contact(name,email,subject,message)
+                    val userDetails = Contact(name,email,subject,message)
                     if (email != null) {
-                        database.child("Contact Details").child(auth.uid.toString()).setValue(user_details)
+                        database.child("Contact Details").child(auth.uid.toString()).setValue(userDetails)
                     }
                     else {
                         Toast.makeText(activity, "email not mentioned!", Toast.LENGTH_SHORT).show()
@@ -157,7 +156,7 @@ class ContactFragment : Fragment() {
         val customTabsIntent = builder.build()
         customTabsIntent.launchUrl(requireContext(), Uri.parse("https://www.cureya.in/"))
     }
-    private fun showDialog(activity: Activity?, msg: String?) {
+    private fun showDialog(msg: String?) {
         val dialog = Dialog(requireContext())
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setCancelable(false)

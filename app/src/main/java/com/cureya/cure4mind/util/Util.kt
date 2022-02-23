@@ -11,7 +11,7 @@ val database =
     FirebaseDatabase.getInstance("https://cure4mind-d687f-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
 
 fun Date.toDateString(): String {
-    val formatter = SimpleDateFormat("hh:mm, dd MMM", Locale.getDefault());
+    val formatter = SimpleDateFormat("hh:mm, dd MMM", Locale.getDefault())
     return formatter.format(this)
 }
 

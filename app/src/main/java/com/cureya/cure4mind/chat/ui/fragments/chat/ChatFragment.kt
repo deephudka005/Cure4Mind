@@ -46,15 +46,15 @@ class ChatFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
-        initMembers(view)
+        initMembers()
         chatViewModel.loadChats(user.userId!!)
-        setupListeners(view)
+        setupListeners()
         setupRecycler()
         observeData()
         scrollToBottom()
     }
 
-    private fun initMembers(view: View) {
+    private fun initMembers() {
         dbReference =
             FirebaseDatabase.getInstance("https://cureyadraft-default-rtdb.asia-southeast1.firebasedatabase.app").reference
         auth = FirebaseAuth.getInstance()
@@ -97,12 +97,12 @@ class ChatFragment : Fragment() {
         }
     }
 
-    private fun setupListeners(view: View) {
+    private fun setupListeners() {
         binding.apply {
             backButton.setOnClickListener {
                 findNavController().popBackStack()
             }
-            chatbar.setOnFocusChangeListener { v, hasFocus ->
+            chatbar.setOnFocusChangeListener { _, hasFocus ->
                 if (hasFocus) {
                     sendButton.visibility = View.VISIBLE
                 } else {

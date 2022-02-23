@@ -1,16 +1,13 @@
 package com.cureya.cure4mind.community.ui.fragment.saved
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.cureya.cure4mind.R
-import com.cureya.cure4mind.databinding.PostDetailFragmentBinding
 import com.cureya.cure4mind.databinding.SavedPostFragmentBinding
 
 class SavedPost : Fragment() {
@@ -25,7 +22,7 @@ class SavedPost : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = SavedPostFragmentBinding.inflate(layoutInflater,container,false)
+        _binding = SavedPostFragmentBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -38,7 +35,7 @@ class SavedPost : Fragment() {
 
     private fun initMembers() {
         viewModel = ViewModelProvider(this)[SavedPostViewModel::class.java]
-        adapter = SavedPostRecyclerAdapter {  }
+        adapter = SavedPostRecyclerAdapter({ }, {})
     }
 
     private fun initUi() {
