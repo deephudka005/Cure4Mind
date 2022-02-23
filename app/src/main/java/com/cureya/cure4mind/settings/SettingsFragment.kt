@@ -50,6 +50,9 @@ class SettingsFragment : Fragment() {
             signOutFrame.setOnClickListener {
                 showDialog()
             }
+            dashboardBackButton.setOnClickListener {
+                findNavController().navigate(R.id.action_informationFragment_to_settingsFragment)
+            }
         }
     }
 

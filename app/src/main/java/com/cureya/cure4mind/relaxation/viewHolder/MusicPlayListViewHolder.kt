@@ -1,19 +1,11 @@
 package com.cureya.cure4mind.relaxation.viewHolder
 
-import android.graphics.drawable.Drawable
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.CustomTarget
-import com.bumptech.glide.request.transition.Transition
-import com.cureya.cure4mind.databinding.CardMusicAndVideoBinding
 import com.cureya.cure4mind.databinding.CardMusicGridBinding
 import com.cureya.cure4mind.model.Content
 import com.cureya.cure4mind.register.SignUpFragment
-import com.cureya.cure4mind.relaxation.ui.MusicVideoFragment
 import com.cureya.cure4mind.relaxation.viewModel.MusicViewModel
 import com.cureya.cure4mind.util.database
 import com.google.firebase.auth.ktx.auth

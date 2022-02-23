@@ -8,15 +8,6 @@
         android:layout_height="180dp"
         android:background="@drawable/tools_dashboard_image">
 
-        <ImageButton
-            android:id="@+id/dashboard_back_button"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_gravity="top|start"
-            android:background="?attr/actionBarItemBackground"
-            android:contentDescription="Back Button"
-            app:srcCompat="@drawable/asset_back" />
-
         <TextView
             android:id="@+id/community_name"
             android:layout_width="wrap_content"
@@ -24,6 +15,7 @@
             android:singleLine="true"
             android:padding="8dp"
             android:textStyle="bold"
+            android:textColor="@color/black"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
             android:layout_gravity="top|center_horizontal"
             android:text="Cureya Community" />

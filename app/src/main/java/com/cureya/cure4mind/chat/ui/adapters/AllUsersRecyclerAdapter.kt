@@ -8,7 +8,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
+import coil.load
 import com.cureya.cure4mind.R
 import com.cureya.cure4mind.chat.data.models.User
 import com.cureya.cure4mind.util.toDateString
@@ -44,7 +44,7 @@ class AllUsersRecyclerAdapter(
 
     override fun onBindViewHolder(holder: AllUsersViewHolder, position: Int) {
         holder.userName.text = users[position].name
-        Glide.with(context).load(users[position].photoUrl).into(holder.userImage);
+        holder.userImage.load(users[position].photoUrl)
         holder.message.text = users[position].lastMessage?.text
         holder.messageTime.text = users[position].lastMessage?.createdAt?.toDateString()
         holder.greenTick.visibility = if (users[position].isCounselor) View.VISIBLE else View.GONE

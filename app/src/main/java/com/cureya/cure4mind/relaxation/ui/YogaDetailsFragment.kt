@@ -8,15 +8,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import coil.load
-import com.bumptech.glide.Glide
 import com.cureya.cure4mind.databinding.FragmentRelaxationYogaDetailsBinding
 import com.cureya.cure4mind.model.Yoga
 import com.cureya.cure4mind.relaxation.ui.YogaFragment.Companion.YOGA_LIST
 import com.cureya.cure4mind.relaxation.ui.YogaFragment.Companion.YOGA_TITLE
 import com.cureya.cure4mind.util.database
-import com.google.firebase.database.*
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 
 class YogaDetailsFragment : Fragment() {
 

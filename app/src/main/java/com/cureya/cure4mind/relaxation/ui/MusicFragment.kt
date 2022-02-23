@@ -11,7 +11,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import coil.load
-import com.bumptech.glide.Glide
 import com.cureya.cure4mind.R
 import com.cureya.cure4mind.databinding.FragmentRelaxationMusicBinding
 import com.cureya.cure4mind.relaxation.viewModel.MusicViewModel
@@ -95,7 +94,7 @@ class MusicFragment : Fragment() {
 
     private fun setMusicTitleAndImg() {
         val content = musicViewModel.getCurrentContent()
-        Glide.with(this).load(content.thumbnailUrl!!).into(binding.musicImage)
+        binding.musicImage.load(content.thumbnailUrl!!)
         binding.musicHeading.text = content.title!!
     }
 
