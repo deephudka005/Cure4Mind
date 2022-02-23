@@ -13,6 +13,7 @@ import androidx.navigation.fragment.navArgs
 import com.cureya.cure4mind.R
 import com.cureya.cure4mind.databinding.FragmentForgotPasswordChangePassBinding
 import com.cureya.cure4mind.model.User
+import com.cureya.cure4mind.register.SignUpFragment.Companion.PASSWORD
 import com.cureya.cure4mind.register.SignUpFragment.Companion.USER_LIST
 import com.cureya.cure4mind.util.database
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -55,8 +56,8 @@ class ChangePasswordFragment : Fragment() {
 
         binding.savePassButton.setOnClickListener {
             // temp password; don't why editTexts always return null for validation
-            if (validatePasswords("ronnieBine69", "ronnieBine69")) {
-                retrieveDataAndSignInUser("ronnieBine69")
+            if (validatePasswords("ronnieBine", "ronnieBine")) {
+                retrieveDataAndSignInUser("ronnieBine")
             } else {
                 Toast.makeText(
                     context,
@@ -77,7 +78,7 @@ class ChangePasswordFragment : Fragment() {
                         val email = user.email!!
                         oldPassword = user.password!!
                         this@ChangePasswordFragment.newPassword = newPassword
-                        this@apply.setValue(newPassword)
+                        this@apply.child(PASSWORD).setValue(newPassword)
                         signInCurrentUser(email, oldPassword)
                     } else {
                         Toast.makeText(context, "User does not exists", Toast.LENGTH_LONG).show()
