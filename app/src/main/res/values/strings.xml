@@ -150,6 +150,7 @@
     <string name="favourite">Favourite</string>
     <string name="all">All</string>
     <string name="play_list">Play List</string>
+    <string name="saved_posts">Saved Posts</string>
 
     <string-array name="blog_name">
         <item>Mental Health Disorders and How to Overcome them</item>

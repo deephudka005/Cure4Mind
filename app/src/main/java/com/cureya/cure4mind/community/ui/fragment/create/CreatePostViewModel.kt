@@ -12,7 +12,6 @@ import com.cureya.cure4mind.community.models.User
 import com.cureya.cure4mind.util.STORAGE_BUCKET
 import com.cureya.cure4mind.util.database
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import kotlinx.coroutines.launch
@@ -59,16 +58,23 @@ class CreatePostViewModel : ViewModel() {
         _tag.value = tag
     }
 
-    fun createPost(imageUri: Uri, caption: String, tags: List<TAG>) {
+    fun createPost(imageUri: Uri?, caption: String, tags: List<TAG>) {
+        if(imageUri==null && caption.isBlank()) {
+            _error.value = "Please select an image or write a post!"
+            return
+        }
         _isLoading.value = true
         _error.value = null
         viewModelScope.launch {
             try {
+                var url : String? = null
                 val postId = "${auth.uid!!}${System.currentTimeMillis()}"
-                val imageRef =
-                    storageRef.child("community/post/${auth.uid!!}/IMG000${System.currentTimeMillis()}")
-                imageRef.putFile(imageUri).await()
-                val url = imageRef.downloadUrl.await()
+                imageUri?.let {
+                    val imageRef =
+                        storageRef.child("community/post/${auth.uid!!}/IMG000${System.currentTimeMillis()}")
+                    imageRef.putFile(imageUri).await()
+                    url = imageRef.downloadUrl.await().toString()
+                }
                 val post = Post(
                     postId = postId,
                     caption = caption,
@@ -78,7 +84,7 @@ class CreatePostViewModel : ViewModel() {
                     shares = 0,
                     createdAt = Date(),
                     userName = _currentUser.value!!.name,
-                    photoUrl = url.toString(),
+                    photoUrl = url,
                     profilePhoto = _currentUser.value!!.photoUrl,
                     tags = tags
                 )

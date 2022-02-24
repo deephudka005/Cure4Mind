@@ -117,6 +117,41 @@
 
     </FrameLayout>
 
+    <LinearLayout
+        android:id="@+id/file_preview"
+        android:layout_marginHorizontal="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:visibility="gone"
+        android:background="@color/bd_secondary"
+        app:layout_constraintBottom_toBottomOf="@+id/chat_recycler"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageButton
+            android:id="@+id/discard_file"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/dp_8"
+            android:background="?attr/actionBarItemBackground"
+            android:src="@drawable/asset_cross" />
+
+        <TextView
+            android:id="@+id/file_name"
+            android:textSize="18sp"
+            android:text="fileName.pdf"
+            android:maxLines="1"
+            android:maxWidth="@dimen/dp_128"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <ProgressBar
+            android:id="@+id/sending_file"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/message_container"
@@ -135,7 +170,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:contentDescription="@string/attach_value"
-            android:visibility="gone"
+            android:visibility="visible"
             app:srcCompat="@drawable/chat_attach"
             app:tint="@color/text_primary" />
 

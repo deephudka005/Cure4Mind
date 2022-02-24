@@ -10,7 +10,7 @@ import java.util.*
 data class Post(
     val postId: String = "",
     val caption: String = "",
-    val photoUrl: String = defaultProfilePic,
+    val photoUrl: String? = null,
     val commentCount: Int = 0,
     val createdAt: Date = Date(),
     val likes: List<String> = listOf(),

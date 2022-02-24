@@ -21,7 +21,14 @@ import java.util.*
 data class Message(
     val senderId: String? = null,
     val receiverId: String? = null,
-    val text: String? = null,
+    val text: String = "",
     val photoUrl: String? = null,
+    val attachment: Attachment?=null,
     val createdAt: Date = Date()
 ) : Parcelable
+
+@Parcelize
+data class Attachment(
+    val fileUrl:String ="",
+    val fileName:String=""
+):Parcelable

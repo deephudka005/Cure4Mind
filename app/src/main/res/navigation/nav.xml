@@ -450,5 +450,8 @@
         android:name="com.cureya.cure4mind.community.ui.fragment.saved.SavedPost"
         android:label="saved_post_fragment"
         tools:layout="@layout/saved_post_fragment" >
+        <action
+            android:id="@+id/action_savedPost_to_postDetailFragment"
+            app:destination="@id/postDetailFragment" />
     </fragment>
 </navigation>
