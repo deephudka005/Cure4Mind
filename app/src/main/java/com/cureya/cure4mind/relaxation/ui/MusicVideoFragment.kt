@@ -119,11 +119,14 @@ class MusicVideoFragment : Fragment() {
         } catch (e: UninitializedPropertyAccessException) { }
     }
 
-    fun goToVideoFragment(videoUrl: String) = findNavController().navigate(
-        MusicVideoFragmentDirections.actionMusicVideoFragmentToVideoFragment(
-            videoUrl
-        )
-    )
+    fun goToVideoFragment(videoUrl: String) {
+        try {
+            findNavController().navigate(
+                MusicVideoFragmentDirections.actionMusicVideoFragmentToVideoFragment(
+                    videoUrl
+                ))
+        } catch (e: Exception) {}
+    }
 
     fun goToMusicFragment(position: Int, imgUrl: String, title: String) {
         try {

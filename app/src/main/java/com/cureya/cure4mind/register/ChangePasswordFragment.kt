@@ -85,11 +85,11 @@ class ChangePasswordFragment : Fragment() {
                     }
                 }
                 override fun onCancelled(error: DatabaseError) {
-                    Log.e("ChangePasswordFragment", "Error in retrieving phone number data", error.toException())
+                    Log.e(TAG, "Error in retrieving phone number data", error.toException())
                 }
             })
         }
-    }
+    } 
 
     // deleting the account that logged-in with phone auth
     // with different uid during manual otp validation
@@ -99,19 +99,19 @@ class ChangePasswordFragment : Fragment() {
                 Log.i(TAG, "PhoneAuth deleted")
             }
             ?.addOnFailureListener {
-                Log.e("ChangePasswordFragment", "Error deleting phone error", it)
+                Log.e(TAG, "Error deleting phone error", it)
             }
     }
 
-    // sign in with email and new password
+    // sign in with email and old password
     private fun signInCurrentUser(email: String, oldPassword: String) {
         auth.signInWithEmailAndPassword(email, oldPassword)
             .addOnCompleteListener {
-                Log.i("ChangePasswordFragment", "User signed in")
+                Log.i(TAG, "User signed in")
                 updateNewPassword(newPassword)
             }
             .addOnFailureListener {
-                Log.e("ChangePasswordFragment", "error signing in the user", it)
+                Log.e(TAG, "error signing in the user", it)
             }
     }
 
@@ -145,10 +145,10 @@ class ChangePasswordFragment : Fragment() {
                 this.findNavController()
                     .navigate(R.id.action_changePasswordFragment_to_homeFragment)
             } catch (e: Exception) {
-                Log.d("ChangePasswordFragment", "second time nav call aborted", e)
+                Log.d(TAG, "second time nav call aborted", e)
             }
         } else {
-            Log.d("ChangePasswordFragment", "can't navigate; user does not exists")
+            Log.d(TAG, "can't navigate; user does not exists")
         }
     }
 

@@ -105,6 +105,8 @@ dependencies {
     // Exo player
     implementation 'com.google.android.exoplayer:exoplayer:2.16.1'
 
+    // Youtube
+    implementation 'com.pierfrancescosoffritti.androidyoutubeplayer:core:11.0.1'
 
     // RecyclerView
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
