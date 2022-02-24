@@ -84,6 +84,7 @@
 
 
             <LinearLayout
+                android:id="@+id/layout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -219,6 +220,121 @@
                 </LinearLayout>
 
             </LinearLayout>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/layout1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:cardBackgroundColor="#C7F4BC"
+                style="@style/CardView"
+                android:layout_margin="16dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/frame_468"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginStart="8dp"
+                        android:padding="8dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:layout_marginTop="8dp"
+                            android:text="ENJOYING CUREYA?"
+                            android:textStyle="bold"
+                            android:padding="2dp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/gray_700"
+                            android:textSize="12sp"
+                            android:text="Rate Your Experience with us!"
+                            android:padding="2dp"/>
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="70dp"
+                            android:layout_height="wrap_content"
+                            android:text="RATE US"
+                            android:layout_marginTop="2dp"
+                            android:padding="2dp"
+                            android:gravity="center_horizontal"
+                            android:textColor="@color/background"
+                            android:background="#474440"
+                            android:layout_marginBottom="8dp"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/card1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/card"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:cardBackgroundColor="#C7F4BC"
+                android:layout_margin="16dp"
+                style="@style/CardView">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/frame_468"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginStart="8dp"
+                        android:padding="8dp">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:layout_marginTop="8dp"
+                            android:text="SHARE CUREYA APP"
+                            android:textStyle="bold"
+                            android:padding="2dp"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/gray_700"
+                            android:textSize="12sp"
+                            android:text="Share your love by keeping your friends and family healthy."
+                            android:padding="2dp"/>
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="70dp"
+                            android:layout_height="wrap_content"
+                            android:text="SHARE"
+                            android:layout_marginTop="2dp"
+                            android:padding="2dp"
+                            android:gravity="center_horizontal"
+                            android:textColor="@color/background"
+                            android:background="#474440"
+                            android:layout_marginBottom="8dp"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </layout>
