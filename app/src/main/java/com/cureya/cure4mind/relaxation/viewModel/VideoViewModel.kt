@@ -2,28 +2,19 @@ package com.cureya.cure4mind.relaxation.viewModel
 
 import android.annotation.SuppressLint
 import android.util.Log
-import android.view.View
-import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.cureya.cure4mind.model.Content
-import com.cureya.cure4mind.register.SignUpFragment.Companion.USER_LIST
-import com.cureya.cure4mind.relaxation.ui.MusicVideoFragment.Companion.VIDEO_LIST
-import com.cureya.cure4mind.util.database
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener
-import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView
+import com.cureya.cure4mind.util.API_KEY
+import com.google.android.youtube.player.YouTubeInitializationResult
+import com.google.android.youtube.player.YouTubePlayer
+import com.google.android.youtube.player.YouTubePlayerView
 
 @SuppressLint("StaticFieldLeak")
 class VideoViewModel(
-    private val youtubePlayer: YouTubePlayerView,
-    private val videoUrl: String
+        private val youtubePlayer: YouTubePlayerView,
+        private val videoUrl: String
 ) : ViewModel() {
 
     private val _videoLoadingStatus = MutableLiveData<Boolean>()
@@ -36,17 +27,27 @@ class VideoViewModel(
     }
 
     private fun playVideo() {
-        try {
-            val videoId = videoUrl.split('=')[1]
-            youtubePlayer.addYouTubePlayerListener(object : AbstractYouTubePlayerListener() {
-                override fun onReady(youTubePlayer: YouTubePlayer) {
-                    youTubePlayer.loadVideo(videoId, 0f)
+        youtubePlayer.initialize(
+            API_KEY,
+            object: YouTubePlayer.OnInitializedListener {
+
+                override fun onInitializationSuccess(
+                    provider: YouTubePlayer.Provider?,
+                    ytPlayer: YouTubePlayer?,
+                    p2: Boolean
+                ) {
+                    val videoId = videoUrl.split('=')[1]
+                    ytPlayer?.loadVideo(videoId)
+                    ytPlayer?.play()
                     _videoLoadingStatus.value = false
                 }
+                override fun onInitializationFailure(
+                    provider: YouTubePlayer.Provider?,
+                    p1: YouTubeInitializationResult?
+                ) {
+                    Log.e("VideoViewModel", "Video Player Failed")
+                }
             })
-        } catch (e: Exception) {
-            Log.e("VideoViewModel", "unable to load youtube video", e)
-        }
     }
 
     /* private fun retrieveRestVideos() {
@@ -77,9 +78,10 @@ class VideoViewModel(
 }
 
 class VideoViewModelFactory(
-    private val youtubePlayer: YouTubePlayerView,
-    private val videoUrl: String
+        private val youtubePlayer: YouTubePlayerView,
+        private val videoUrl: String
 ) : ViewModelProvider.Factory {
+
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(VideoViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")

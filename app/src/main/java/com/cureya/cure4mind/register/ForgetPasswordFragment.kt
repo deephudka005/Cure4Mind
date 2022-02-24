@@ -14,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import com.cureya.cure4mind.R
 import com.cureya.cure4mind.databinding.FragmentForgetPasswordBinding
 import com.cureya.cure4mind.model.User
+import com.cureya.cure4mind.register.SignUpFragment.Companion.PASSWORD
 import com.cureya.cure4mind.register.SignUpFragment.Companion.USER_LIST
 import com.cureya.cure4mind.util.database
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -29,7 +30,6 @@ import java.util.concurrent.TimeUnit
 class ForgetPasswordFragment: Fragment() {
 
     private lateinit var auth: FirebaseAuth
-    private lateinit var user: User
     private lateinit var binding: FragmentForgetPasswordBinding
     private var verifyId = ""
     private var key = ""
@@ -54,7 +54,7 @@ class ForgetPasswordFragment: Fragment() {
             validatePhoneNumber()
         }
         binding.continueButton.setOnClickListener {
-            val userInput = getUserOtp()
+            val userInput = this.getUserOtp()
             if (userInput.isNotEmpty()) {
                 val phoneAuthCredential = PhoneAuthProvider.getCredential(verifyId, userInput)
                 signUpWithCredentials(phoneAuthCredential)
@@ -64,7 +64,7 @@ class ForgetPasswordFragment: Fragment() {
 
     private fun hasUserPassword(key: String, phone: String) {
 
-        database.child(USER_LIST).child(key).child("password")
+        database.child(USER_LIST).child(key).child(PASSWORD)
             .addListenerForSingleValueEvent(object: ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.value != null) {
@@ -91,7 +91,7 @@ class ForgetPasswordFragment: Fragment() {
                             key = childSnapshot.key!!
                         }
                         hasUserPassword(key, phoneNumber)
-                        Log.i("ForgotPasswordFragment", "Retrieved key value: $key")
+                        Log.i(TAG, "Retrieved key value: $key")
                     } else {
                         showToast("User with this Phone does not exists")
                     }
@@ -206,7 +206,7 @@ class ForgetPasswordFragment: Fragment() {
                 .actionForgetPasswordFragmentToChangePasswordFragment(key)
             )
         } catch (e: Exception) {
-            Log.d("ForgotPasswordFragment", "Second time nav call aborted", e)
+            Log.d(TAG, "Second time nav call aborted", e)
         }
     }
 
