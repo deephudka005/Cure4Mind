@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_homeFragment_to_personalProfile"
             app:destination="@id/personalProfile" />
+        <action
+            android:id="@+id/action_homeFragment_to_counsellorProfile"
+            app:destination="@id/counsellorProfile" />
     </fragment>
     <fragment
         android:id="@+id/contactusFragment"
@@ -167,6 +170,15 @@
         <argument
             android:name="userId"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/counsellorProfile"
+        android:name="com.cureya.cure4mind.profile.PersonalProfile"
+        android:label="profile_fragment"
+        tools:layout="@layout/fragment_councelprofile" >
+    <argument
+        android:name="userId"
+        app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/faqFragment"

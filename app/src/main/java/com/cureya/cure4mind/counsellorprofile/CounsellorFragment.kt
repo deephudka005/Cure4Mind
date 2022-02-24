@@ -1,4 +1,4 @@
-package com.cureya.cure4mind.profile
+package com.cureya.cure4mind.counsellorprofile
 
 import android.net.Uri
 import android.os.Bundle
@@ -20,7 +20,10 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import coil.load
 import com.cureya.cure4mind.R
+import com.cureya.cure4mind.databinding.FragmentCouncelprofileBinding
 import com.cureya.cure4mind.databinding.ProfileFragmentBinding
+import com.cureya.cure4mind.profile.PersonalProfileArgs
+import com.cureya.cure4mind.profile.ProfileViewModel
 import com.cureya.cure4mind.util.toDateString
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -29,25 +32,24 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
-class PersonalProfile : Fragment() {
+class CounsellorFragment : Fragment() {
 
-    private lateinit var viewModel: ProfileViewModel
+    private lateinit var viewModel: CounsellorProfileViewModel
     private lateinit var navController: NavController
     private lateinit var getContent: ActivityResultLauncher<String>
     private lateinit var database: DatabaseReference
 
-    private var _binding: ProfileFragmentBinding? = null
+    private var _binding: FragmentCouncelprofileBinding? = null
     private val binding get() = _binding!!
     private val auth = FirebaseAuth.getInstance()
     private var imageUri: Uri? = null
     private var name : String? = ""
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = ProfileFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentCouncelprofileBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -59,7 +61,7 @@ class PersonalProfile : Fragment() {
     }
 
     private fun initMembers() {
-        viewModel = ViewModelProvider(this)[ProfileViewModel::class.java]
+        viewModel = ViewModelProvider(this)[CounsellorProfileViewModel::class.java]
         val profileId = PersonalProfileArgs.fromBundle(requireArguments()).userId
         if (profileId != auth.uid!!) {
             binding.apply {
@@ -67,6 +69,9 @@ class PersonalProfile : Fragment() {
                 editEmail.visibility = View.GONE
                 editProfilePhoto.visibility = View.GONE
                 editGender.visibility = View.GONE
+                editExperience.visibility = View.GONE
+                editOccupation.visibility = View.GONE
+                editQualification.visibility = View.GONE
             }
         }
         database =
@@ -181,18 +186,18 @@ class PersonalProfile : Fragment() {
             editGender.setOnClickListener {
                 val e = layoutInflater.inflate(R.layout.layout_edit_gender, null)
                 val radioGroup = e.findViewById<RadioGroup>(R.id.radioGroup)
-                var gender: ProfileViewModel.GENDER = ProfileViewModel.GENDER.MALE
+                var gender: CounsellorProfileViewModel.GENDER = CounsellorProfileViewModel.GENDER.MALE
                 e.findViewById<RadioButton>(R.id.male).isChecked = true
                 radioGroup.setOnCheckedChangeListener { group, checkedId ->
                     when (checkedId) {
                         R.id.male -> {
-                            gender = ProfileViewModel.GENDER.MALE
+                            gender = CounsellorProfileViewModel.GENDER.MALE
                         }
                         R.id.female -> {
-                            gender = ProfileViewModel.GENDER.FEMALE
+                            gender = CounsellorProfileViewModel.GENDER.FEMALE
                         }
                         R.id.lgbtq -> {
-                            gender = ProfileViewModel.GENDER.LGBTQ
+                            gender = CounsellorProfileViewModel.GENDER.LGBTQ
                         }
                     }
                 }
@@ -229,7 +234,7 @@ class PersonalProfile : Fragment() {
     private fun isEmailValid(email: String) = Patterns.EMAIL_ADDRESS.matcher(email).matches()
 
     companion object {
-        private const val TAG = "PROFILE_FRAGMENT"
+        private const val TAG = "COUNSELLOR_PROFILE_FRAG"
     }
 
 }

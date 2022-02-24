@@ -66,7 +66,11 @@ class HomeFragment : Fragment(), blogitemClicked {
         binding.profile.setOnClickListener {
             val direction =
                 HomeFragmentDirections.actionHomeFragmentToPersonalProfile(auth.uid!!)
-            findNavController().navigate(direction)
+            val cdirection = HomeFragmentDirections.actionHomeFragmentToCounsellorProfile(auth.uid!!)
+            if(checkCounsellor()){
+                findNavController().navigate(cdirection)
+            }
+            else findNavController().navigate(direction)
         }
         binding.moods.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_moodFragment)
@@ -115,6 +119,15 @@ class HomeFragment : Fragment(), blogitemClicked {
             binding.userinfo.text = username
             binding.profile.load(photoUrl)
         }
+    }
+    private fun checkCounsellor() : Boolean{
+        val user = auth.currentUser
+        val uid = user?.uid.toString()
+        var check : Boolean = false
+        database.child("users").child(uid).get().addOnSuccessListener {
+            check = it.child("counsellarstatus").value.toString().toBoolean()
+        }
+        return check
     }
 
     private fun opentwitterlink() {
@@ -189,7 +202,11 @@ class HomeFragment : Fragment(), blogitemClicked {
                     R.id.profile -> {
                         val direction =
                             HomeFragmentDirections.actionHomeFragmentToPersonalProfile(auth.uid!!)
-                        findNavController().navigate(direction)
+                        val cdirection = HomeFragmentDirections.actionHomeFragmentToCounsellorProfile(auth.uid!!)
+                        if(checkCounsellor()){
+                            findNavController().navigate(cdirection)
+                        }
+                        else findNavController().navigate(direction)
                         true
                     }
                     R.id.moods -> {
