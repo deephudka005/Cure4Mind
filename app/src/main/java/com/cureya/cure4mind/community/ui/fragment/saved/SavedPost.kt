@@ -35,7 +35,12 @@ class SavedPost : Fragment() {
 
     private fun initMembers() {
         viewModel = ViewModelProvider(this)[SavedPostViewModel::class.java]
-        adapter = SavedPostRecyclerAdapter({ }, {})
+        adapter = SavedPostRecyclerAdapter({
+            val directions = SavedPostDirections.actionSavedPostToPostDetailFragment(it)
+            findNavController().navigate(directions)
+        }, {
+            viewModel.unSavePost(it.postId)
+        })
     }
 
     private fun initUi() {

@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="../../../../../layout/custom_preview.xml" value="0.24322916666666666" />
         <entry key="..\:/Internship/Cure4Mind/app/src/main/res/drawable/ic_img_2.xml" value="0.1285" />
         <entry key="..\:/Internship/Cure4Mind/app/src/main/res/layout/blog_item.xml" value="0.1" />
         <entry key="..\:/Internship/Cure4Mind/app/src/main/res/layout/fragment_about_us.xml" value="0.176" />
@@ -44,7 +45,6 @@
         <entry key="app/src/main/res/layout/community_post_card.xml" value="0.1" />
         <entry key="app/src/main/res/layout/create_post_fragment.xml" value="0.21458333333333332" />
         <entry key="app/src/main/res/layout/fragment_about_us.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_one_on_one_chat.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_one_on_one_chat.xml" value="0.1" />
         <entry key="app/src/main/res/layout/layout_community_dashboard.xml" value="0.1" />
         <entry key="app/src/main/res/layout/layout_edit_email.xml" value="0.21458333333333332" />

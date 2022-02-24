@@ -14,7 +14,7 @@ import com.cureya.cure4mind.util.toDateString
 
 class SavedPostRecyclerAdapter(
     private val onPostClick: (Post) -> Unit,
-    private val unSave : () -> Unit
+    private val unSave: (Post) -> Unit
 ) : RecyclerView.Adapter<SavedPostRecyclerAdapter.SavedPostHolder>() {
 
     private val posts = mutableListOf<Post>()
@@ -44,8 +44,9 @@ class SavedPostRecyclerAdapter(
         holder.apply {
             image.load(post.photoUrl)
             time.text = post.createdAt.toDateString()
-            viewPost.setOnClickListener {  onPostClick(post)}
-            unSave.setOnClickListener {  }
+            userName.text = post.userName
+            viewPost.setOnClickListener { onPostClick(post) }
+            unSave.setOnClickListener { unSave(post) }
         }
     }
 
