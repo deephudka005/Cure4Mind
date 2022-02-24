@@ -30,10 +30,22 @@
         android:maxHeight="200dp"
         android:padding="4dp"
         android:scaleType="fitStart"
-        android:src="@drawable/cureya_brand_image"
+        tools:src="@drawable/cureya_brand_image"
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/receiver_attach"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="fileName.pdf"
+        android:padding="8dp"
+        android:background="@drawable/receiver_message_background"
+        android:textColor="#0D097F"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/receiver_message"
+        app:drawableLeftCompat="@drawable/chat_attach" />
 
     <TextView
         android:id="@+id/sender_message"
@@ -58,9 +70,21 @@
         android:maxHeight="200dp"
         android:padding="4dp"
         android:scaleType="fitEnd"
-        android:src="@drawable/cureya_brand_image"
+        tools:src="@drawable/cureya_brand_image"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/sender_attach"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/sender_message_background"
+        android:padding="8dp"
+        tools:text="fileName.pdf"
+        android:textColor="#0D097F"
+        app:drawableLeftCompat="@drawable/chat_attach"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sender_message" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

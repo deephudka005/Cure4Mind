@@ -6,10 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.cureya.cure4mind.chat.data.models.Chat
-import com.cureya.cure4mind.chat.data.models.Message
-import com.cureya.cure4mind.chat.data.models.Notification
-import com.cureya.cure4mind.chat.data.models.PushNotification
+import com.cureya.cure4mind.chat.data.models.*
 import com.cureya.cure4mind.chat.notification.NotificationApiInstance
 import com.cureya.cure4mind.util.STORAGE_BUCKET
 import com.cureya.cure4mind.util.database
@@ -50,25 +47,37 @@ class ChatViewModel : ViewModel() {
         receiverId: String,
         text: String? = null,
         imageUri: Uri? = null,
+        fileUri:Uri?=null,
+        fileName:String?=null,
         next: () -> Unit = {}
     ) {
         viewModelScope.launch {
             try {
-                if (text == null && imageUri == null) {
+                if (text == null && imageUri == null && fileUri==null) {
                     throw IllegalArgumentException("Both message text and image uri are null")
                 } else {
                     var url: String? = null
+                    var file : Attachment?=null
                     imageUri?.let {
                         val imageRef =
                             storageRef.child("chats/images/${getChatId(receiverId)}/IMG000${System.currentTimeMillis()}")
                         imageRef.putFile(imageUri).await()
                         url = imageRef.downloadUrl.await().toString()
                     }
+                    fileUri?.let {
+                        val dbFileName = "DOC000" + System.currentTimeMillis()
+                        val fileRef =
+                            storageRef.child("chats/files/${getChatId(receiverId)}/${dbFileName}")
+                        fileRef.putFile(fileUri).await()
+                        val fileUrl = fileRef.downloadUrl.await().toString()
+                        file = Attachment(fileUrl,fileName?:dbFileName)
+                    }
                     val message = Message(
                         text = text!!,
                         photoUrl = url,
                         senderId = auth.uid!!,
-                        receiverId = receiverId
+                        receiverId = receiverId,
+                        attachment = file
                     )
                     database.child("chats").child(getChatId(receiverId)).child("messages").push()
                         .setValue(message).await()

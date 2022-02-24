@@ -45,7 +45,7 @@
         <entry key="app/src/main/res/layout/community_post_card.xml" value="0.1" />
         <entry key="app/src/main/res/layout/create_post_fragment.xml" value="0.21458333333333332" />
         <entry key="app/src/main/res/layout/fragment_about_us.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_one_on_one_chat.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_one_on_one_chat.xml" value="0.5" />
         <entry key="app/src/main/res/layout/layout_community_dashboard.xml" value="0.1" />
         <entry key="app/src/main/res/layout/layout_edit_email.xml" value="0.21458333333333332" />
         <entry key="app/src/main/res/layout/message_item.xml" value="0.5" />
