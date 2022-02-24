@@ -29,6 +29,7 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
 import com.google.firebase.ktx.Firebase
+import java.util.*
 
 class SignUpFragment: Fragment() {
 
@@ -81,7 +82,7 @@ class SignUpFragment: Fragment() {
                             "Female"
                         } else "LGBTQIA"
                     Log.w("SignUpFragment","Firebase auth successful")
-                    val user = User(name, email, phone, defaultProfilePic, password, gender,false)
+                    val user = User(name, email, phone, defaultProfilePic, password, gender, false, Date())
                     addToUserBase(user)
                 }
             }
@@ -235,7 +236,8 @@ class SignUpFragment: Fragment() {
                         auth.currentUser?.photoUrl.toString(),
                         null,
                         gender,
-                        false
+                        false,
+                        Date()
                     )
                     addToUserBase(user)
                     googleSignInClient.revokeAccess()

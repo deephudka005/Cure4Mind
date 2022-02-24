@@ -50,9 +50,6 @@ class ForgetPasswordFragment: Fragment() {
 
         autoChangeOtpEditTextFocus()
 
-        // to wait until the otp arrives
-        binding.continueButton.visibility = View.GONE
-
         binding.sendButton.setOnClickListener {
             validatePhoneNumber()
         }
@@ -145,7 +142,7 @@ class ForgetPasswordFragment: Fragment() {
     private fun signUpWithCredentials(credential: PhoneAuthCredential) {
         auth.signInWithCredential(credential)
             .addOnCompleteListener {
-                showToast("Signed in")
+                showToast("Success")
                 goToChangePasswordFragment()
             }
             .addOnFailureListener {

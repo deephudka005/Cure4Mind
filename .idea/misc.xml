@@ -13,11 +13,17 @@
         <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/layout/card_music.xml" value="0.17481884057971014" />
         <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/layout/card_music_video.xml" value="0.17481884057971014" />
         <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/layout/card_yoga.xml" value="0.17481884057971014" />
+        <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/layout/chat_list_fragment.xml" value="0.20697463768115942" />
+        <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/layout/community_dashboard.xml" value="0.12183383991894631" />
+        <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/layout/community_post_card.xml" value="0.2115036231884058" />
         <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/layout/fragment_forget_password.xml" value="0.17481884057971014" />
+        <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/layout/fragment_forgot_password_change_pass.xml" value="0.20606884057971014" />
         <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/layout/fragment_home.xml" value="0.12183383991894631" />
         <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/layout/fragment_log_in.xml" value="0.17481884057971014" />
+        <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/layout/fragment_one_on_one_chat.xml" value="0.20697463768115942" />
         <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/layout/fragment_relaxation.xml" value="0.17481884057971014" />
-        <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/layout/fragment_relaxation_music.xml" value="0.17481884057971014" />
+        <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/layout/fragment_relaxation_music.xml" value="0.264" />
+        <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/layout/fragment_relaxation_music_playlist.xml" value="0.12360688956433637" />
         <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/layout/fragment_relaxation_music_video.xml" value="0.12183383991894631" />
         <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/layout/fragment_relaxation_video.xml" value="0.17481884057971014" />
         <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/layout/fragment_relaxation_yoga.xml" value="0.17481884057971014" />
@@ -39,6 +45,7 @@
         <entry key="app/src/main/res/layout/create_post_fragment.xml" value="0.21458333333333332" />
         <entry key="app/src/main/res/layout/fragment_about_us.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_one_on_one_chat.xml" value="0.5" />
+        <entry key="app/src/main/res/layout/fragment_one_on_one_chat.xml" value="0.1" />
         <entry key="app/src/main/res/layout/layout_community_dashboard.xml" value="0.1" />
         <entry key="app/src/main/res/layout/layout_edit_email.xml" value="0.21458333333333332" />
         <entry key="app/src/main/res/layout/message_item.xml" value="0.5" />
