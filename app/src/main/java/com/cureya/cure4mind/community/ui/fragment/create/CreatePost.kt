@@ -91,19 +91,11 @@ class CreatePost : Fragment() {
                     "Please select a Tag",
                     Toast.LENGTH_SHORT
                 ).show()
-            } else if (imageUri == null) {
-                Toast.makeText(
-                    requireContext(),
-                    "Please select a file",
-                    Toast.LENGTH_SHORT
-                ).show()
             } else {
                 val caption = binding.createPostCaption.text.toString()
-                viewModel.createPost(imageUri!!, caption, listOf(tag!!))
+                viewModel.createPost(imageUri, caption, listOf(tag!!))
             }
         }
-
-
     }
 
     private fun observeData() {

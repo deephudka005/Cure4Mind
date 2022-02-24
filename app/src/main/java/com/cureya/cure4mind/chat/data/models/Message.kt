@@ -21,7 +21,7 @@ import java.util.*
 data class Message(
     val senderId: String? = null,
     val receiverId: String? = null,
-    val text: String? = null,
+    val text: String = "",
     val photoUrl: String? = null,
     val createdAt: Date = Date()
 ) : Parcelable

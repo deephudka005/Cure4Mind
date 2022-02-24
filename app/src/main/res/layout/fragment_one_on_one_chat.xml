@@ -135,7 +135,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:contentDescription="@string/attach_value"
-            android:visibility="gone"
+            android:visibility="visible"
             app:srcCompat="@drawable/chat_attach"
             app:tint="@color/text_primary" />
 

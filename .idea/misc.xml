@@ -24,6 +24,8 @@
         <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/layout/fragment_relaxation_yoga_details.xml" value="0.17481884057971014" />
         <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/layout/fragment_sign_up.xml" value="0.17481884057971014" />
         <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25052083333333336" />
+        <entry key="app/src/main/res/drawable/receiver_message_background.xml" value="0.18" />
+        <entry key="app/src/main/res/drawable/sender_message_background.xml" value="0.2225" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.27717391304347827" />
         <entry key="app/src/main/res/layout/alertcard.xml" value="0.27717391304347827" />
         <entry key="app/src/main/res/layout/blog_item.xml" value="0.27717391304347827" />
@@ -36,10 +38,10 @@
         <entry key="app/src/main/res/layout/community_post_card.xml" value="0.1" />
         <entry key="app/src/main/res/layout/create_post_fragment.xml" value="0.21458333333333332" />
         <entry key="app/src/main/res/layout/fragment_about_us.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/fragment_one_on_one_chat.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_one_on_one_chat.xml" value="0.5" />
         <entry key="app/src/main/res/layout/layout_community_dashboard.xml" value="0.1" />
         <entry key="app/src/main/res/layout/layout_edit_email.xml" value="0.21458333333333332" />
-        <entry key="app/src/main/res/layout/message_item.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/message_item.xml" value="0.5" />
         <entry key="app/src/main/res/layout/post_detail_fragment.xml" value="0.215625" />
         <entry key="app/src/main/res/layout/profile_fragment.xml" value="0.21458333333333332" />
         <entry key="app/src/main/res/layout/saved_post_fragment.xml" value="0.215625" />

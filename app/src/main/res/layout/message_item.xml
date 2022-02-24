@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_margin="4dp"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp">
 
     <TextView
         android:id="@+id/receiver_message"
@@ -17,8 +17,8 @@
         android:textColor="@color/text_primary"
         android:textSize="14sp"
         android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/receiver_image"
         tools:text="Lorem ipsum dolor sit amet,consectetur adipiscing elit. Est dui, tincidunt ut morbi." />
 
     <ImageView
@@ -28,9 +28,10 @@
         android:adjustViewBounds="true"
         android:maxWidth="@dimen/dp_128"
         android:maxHeight="200dp"
+        android:padding="4dp"
+        android:scaleType="fitStart"
         android:src="@drawable/cureya_brand_image"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@+id/receiver_message"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,9 +46,8 @@
         android:textColor="@color/text_primary"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sender_image"
         tools:text="Lorem ipsum dolor sit amet,consectetur adipiscing elit. Est dui, tincidunt ut morbi." />
-
 
     <ImageView
         android:id="@+id/sender_image"
@@ -56,9 +56,11 @@
         android:adjustViewBounds="true"
         android:maxWidth="@dimen/dp_128"
         android:maxHeight="200dp"
+        android:padding="4dp"
+        android:scaleType="fitEnd"
         android:src="@drawable/cureya_brand_image"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sender_message" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
