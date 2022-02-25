@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:setVisibility="@{videoFragment.videoLoadingStatus}"/>
+            app:setVisibility="@{videoFragment.videoLoadingStatus}" />
 
         <!--
         <com.google.android.exoplayer2.ui.PlayerView
