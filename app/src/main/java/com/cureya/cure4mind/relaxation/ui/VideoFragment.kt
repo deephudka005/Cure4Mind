@@ -20,10 +20,6 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
 
-// Some work is still left, will finish them by today
-// specially the unresolved bugs; youtubePlayerApi itself is buggy
-// they haven't moved their api to androidX yet, but the
-// following code still runs
 class VideoFragment : Fragment() {
 
     private lateinit var binding: FragmentRelaxationVideoBinding
@@ -34,6 +30,7 @@ class VideoFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         activity?.window?.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN)
@@ -50,11 +47,13 @@ class VideoFragment : Fragment() {
 
         initializeYoutubeFragment()
 
-        context?.shortToast("Please wait! This may take a while")
-
         return binding.root
     }
 
+    // YouTubePlayerApi is buggy; compiler is unable to detect
+    // YouTubeSupportFragment as a Fragment.
+    // While the following block compiles and runs
+    // without any issue, I am looking for a solution
     private fun initializeYoutubeFragment() {
         val videoUrl = navArgument.videoUrl
 
