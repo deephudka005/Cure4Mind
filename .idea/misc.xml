@@ -30,6 +30,7 @@
         <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/layout/fragment_relaxation_yoga.xml" value="0.17481884057971014" />
         <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/layout/fragment_relaxation_yoga_details.xml" value="0.17481884057971014" />
         <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/layout/fragment_sign_up.xml" value="0.17481884057971014" />
+        <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/layout/youtube_fragment.xml" value="0.26614583333333336" />
         <entry key="..\:/Users/ronni/AndroidStudioProjects/Cure4Mind/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25052083333333336" />
         <entry key="app/src/main/res/drawable/receiver_message_background.xml" value="0.18" />
         <entry key="app/src/main/res/drawable/sender_message_background.xml" value="0.2225" />
@@ -59,7 +60,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

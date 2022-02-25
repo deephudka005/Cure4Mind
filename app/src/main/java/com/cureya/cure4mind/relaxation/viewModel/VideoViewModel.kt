@@ -9,24 +9,25 @@ import androidx.lifecycle.ViewModelProvider
 import com.cureya.cure4mind.util.API_KEY
 import com.google.android.youtube.player.YouTubeInitializationResult
 import com.google.android.youtube.player.YouTubePlayer
-import com.google.android.youtube.player.YouTubePlayerView
+import com.google.android.youtube.player.YouTubePlayerFragment
+import com.google.android.youtube.player.YouTubePlayerSupportFragment
 
 @SuppressLint("StaticFieldLeak")
 class VideoViewModel(
-        private val youtubePlayer: YouTubePlayerView,
+        private val youtubePlayer: YouTubePlayerFragment,
         private val videoUrl: String
 ) : ViewModel() {
 
-    private val _videoLoadingStatus = MutableLiveData<Boolean>()
+    /* private val _videoLoadingStatus = MutableLiveData<Boolean>()
     val videoLoadingStatus: LiveData<Boolean> get() = _videoLoadingStatus
 
     init {
-        playVideo()
+        initializeAndPlayVideo()
         // retrieveRestVideos()
         _videoLoadingStatus.value = true
     }
 
-    private fun playVideo() {
+    private fun initializeAndPlayVideo() {
         youtubePlayer.initialize(
             API_KEY,
             object: YouTubePlayer.OnInitializedListener {
@@ -47,7 +48,8 @@ class VideoViewModel(
                 ) {
                     Log.e("VideoViewModel", "Video Player Failed")
                 }
-            })
+            }
+        )
     }
 
     /* private fun retrieveRestVideos() {
@@ -74,12 +76,12 @@ class VideoViewModel(
                 }
             }
         })
-    }*/
+    }*/ */
 }
 
 class VideoViewModelFactory(
-        private val youtubePlayer: YouTubePlayerView,
-        private val videoUrl: String
+    private val youtubePlayer: YouTubePlayerFragment,
+    private val videoUrl: String
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.cureya.cure4mind.R
 import com.cureya.cure4mind.databinding.FragmentForgetPasswordBinding
-import com.cureya.cure4mind.model.User
 import com.cureya.cure4mind.register.SignUpFragment.Companion.PASSWORD
 import com.cureya.cure4mind.register.SignUpFragment.Companion.USER_LIST
 import com.cureya.cure4mind.util.database
@@ -38,7 +37,7 @@ class ForgetPasswordFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentForgetPasswordBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -233,7 +232,6 @@ class ForgetPasswordFragment: Fragment() {
     }
 
     companion object {
-        const val EMAIL_CHILD = "email"
         private const val COUNTRY_CODE_IND = "+91"
         private const val TAG = "ForgetPasswordFragment"
     }

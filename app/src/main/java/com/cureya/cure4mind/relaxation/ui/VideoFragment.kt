@@ -1,54 +1,90 @@
 package com.cureya.cure4mind.relaxation.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.navArgs
 import com.cureya.cure4mind.R
 import com.cureya.cure4mind.databinding.FragmentRelaxationVideoBinding
-import com.cureya.cure4mind.relaxation.viewModel.VideoViewModel
-import com.cureya.cure4mind.relaxation.viewModel.VideoViewModelFactory
+import com.cureya.cure4mind.util.API_KEY
+import com.cureya.cure4mind.util.shortToast
+import com.google.android.youtube.player.YouTubePlayerSupportFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.youtube.player.YouTubeInitializationResult
+import com.google.android.youtube.player.YouTubePlayer
 
-
+// Some work is still left, will finish them by today
+// specially the unresolved bugs; youtubePlayerApi itself is buggy
+// they haven't moved their api to androidX yet, but the
+// following code still runs
 class VideoFragment : Fragment() {
 
     private lateinit var binding: FragmentRelaxationVideoBinding
     private val navArgument: VideoFragmentArgs by navArgs()
 
-    private lateinit var viewModel: VideoViewModel
+    private val _videoLoadingStatus = MutableLiveData<Boolean>()
+    val videoLoadingStatus: LiveData<Boolean> get() = _videoLoadingStatus
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         activity?.window?.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN)
+
+        _videoLoadingStatus.value = true
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRelaxationVideoBinding.inflate(inflater, container, false)
+
+        initializeYoutubeFragment()
+
+        context?.shortToast("Please wait! This may take a while")
+
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private fun initializeYoutubeFragment() {
+        val videoUrl = navArgument.videoUrl
 
-        viewModel = ViewModelProvider(this, VideoViewModelFactory(
-            binding.youtubePlayerView, navArgument.videoUrl))[VideoViewModel::class.java]
+        val youtubePlayerFragment = YouTubePlayerSupportFragment()
+        val transaction = childFragmentManager.beginTransaction()
+        transaction.replace(R.id.youtube_fragment, youtubePlayerFragment)
+        transaction.commit()
 
-        viewLifecycleOwner.lifecycle.addObserver(binding.youtubePlayerView)
+        youtubePlayerFragment.initialize(
+            API_KEY,
+            object: YouTubePlayer.OnInitializedListener {
 
-        Toast.makeText(context, "Please wait! This may take a while", Toast.LENGTH_LONG).show()
+                override fun onInitializationSuccess(
+                    provider: YouTubePlayer.Provider?,
+                    ytPlayer: YouTubePlayer?,
+                    p2: Boolean
+                ) {
+                    val videoId = videoUrl.split('=')[1]
+                    ytPlayer?.loadVideo(videoId)
+                    ytPlayer?.play()
+                    _videoLoadingStatus.value = true
+                }
+                override fun onInitializationFailure(
+                    provider: YouTubePlayer.Provider?,
+                    p1: YouTubeInitializationResult?
+                ) {
+                    Log.e("VideoViewModel", "Video Player Failed")
+                }
+            }
+        )
     }
 
     override fun onStart() {

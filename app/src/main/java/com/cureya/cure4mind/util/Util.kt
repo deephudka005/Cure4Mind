@@ -6,7 +6,7 @@ import java.util.*
 
 const val DATABASE_URL = "https://cure4mind-d687f-default-rtdb.asia-southeast1.firebasedatabase.app/"
 const val STORAGE_BUCKET = "gs://cure4mind-d687f.appspot.com"
-const val API_KEY = "REPLACE_ME"
+const val API_KEY = "AIzaSyCeRdHeH1DrHuXPsE5zSn-fg_jQFQqykXw"
 
 val database =
     FirebaseDatabase.getInstance("https://cure4mind-d687f-default-rtdb.asia-southeast1.firebasedatabase.app/").reference

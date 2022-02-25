@@ -4,6 +4,7 @@ import android.view.View
 import android.widget.ProgressBar
 import androidx.databinding.BindingAdapter
 
+// to be used in layouts
 @BindingAdapter("setVisibility")
 fun setProgressVisibility(view: ProgressBar, loadingStatus: Boolean) {
     if (loadingStatus) {

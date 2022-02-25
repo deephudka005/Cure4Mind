@@ -4,8 +4,8 @@
 
     <data>
         <variable
-            name="viewModel"
-            type="com.cureya.cure4mind.relaxation.viewModel.VideoViewModel" />
+            name="videoFragment"
+            type="com.cureya.cure4mind.relaxation.ui.VideoFragment" />
     </data>
 
     <FrameLayout
@@ -13,10 +13,11 @@
         android:layout_height="match_parent"
         android:background="@color/black">
 
-        <com.google.android.youtube.player.YouTubePlayerView
-            android:id="@+id/youtube_player_view"
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/youtube_fragment"
+            android:name="com.google.android.youtube.player.YouTubePlayerSupportFragment"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center" />
 
         <ProgressBar
@@ -24,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            app:setVisibility="@{viewModel.videoLoadingStatus}"/>
+            app:setVisibility="@{videoFragment.videoLoadingStatus}"/>
 
         <!--
         <com.google.android.exoplayer2.ui.PlayerView
