@@ -14,10 +14,6 @@ import com.cureya.cure4mind.relaxation.viewHolder.YogaViewHolder
 import com.cureya.cure4mind.util.database
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 
 class YogaFragment : Fragment() {
 
@@ -28,7 +24,7 @@ class YogaFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRelaxationYogaBinding.inflate(inflater, container, false)
         return binding.root
     }

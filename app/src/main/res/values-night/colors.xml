@@ -7,5 +7,7 @@
 
     <!-- Relaxation -->
     <color name="music_player_button_background">#EBE8E8</color>
+    <!-- Settings -->
+    <color name="content_background">#FFFFFF</color>
 
 </resources>

@@ -9,24 +9,14 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.cureya.cure4mind.R
-import com.cureya.cure4mind.databinding.CardMusicAndVideoBinding
 import com.cureya.cure4mind.databinding.FragmentRelaxationMusicVideoBinding
 import com.cureya.cure4mind.model.Content
-import com.cureya.cure4mind.register.SignUpFragment
-import com.cureya.cure4mind.register.SignUpFragment.Companion.USER_LIST
 import com.cureya.cure4mind.relaxation.ui.RelaxationFragment.Companion.CONTENT_TYPE_VIDEO
 import com.cureya.cure4mind.relaxation.viewHolder.MusicViewHolder
 import com.cureya.cure4mind.relaxation.viewHolder.VideoViewHolder
 import com.cureya.cure4mind.relaxation.viewModel.MusicVideoViewModel
 import com.cureya.cure4mind.relaxation.viewModel.MusicVideoViewModelFactory
-import com.cureya.cure4mind.relaxation.viewModel.MusicViewModel
-import com.cureya.cure4mind.relaxation.viewModel.MusicViewModel.Companion.CHILD_FAVOURITE_MUSIC
-import com.cureya.cure4mind.relaxation.viewModel.MusicViewModelFactory
-import com.cureya.cure4mind.util.database
 import com.firebase.ui.database.FirebaseRecyclerAdapter
-import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 class MusicVideoFragment : Fragment() {
 
@@ -45,7 +35,7 @@ class MusicVideoFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRelaxationMusicVideoBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -141,7 +131,6 @@ class MusicVideoFragment : Fragment() {
     }
 
     companion object {
-        private const val TAG = "MusicVideoFragment"
         const val VIDEO_LIST = "videos"
         const val MUSIC_LIST = "music"
     }

@@ -85,6 +85,7 @@ class ChangeDetailsFragment : Fragment() {
                 ).show()
             }
         }
+        binding.backButton.setOnClickListener { findNavController().navigateUp() }
     }
 
     private fun prepareToChangeEmail() {

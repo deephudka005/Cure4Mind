@@ -51,7 +51,7 @@ class SettingsFragment : Fragment() {
                 showDialog()
             }
             dashboardBackButton.setOnClickListener {
-                findNavController().navigate(R.id.action_informationFragment_to_settingsFragment)
+                findNavController().navigateUp()
             }
         }
     }

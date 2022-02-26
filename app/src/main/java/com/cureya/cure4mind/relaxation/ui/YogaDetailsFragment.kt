@@ -27,7 +27,7 @@ class YogaDetailsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRelaxationYogaDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }

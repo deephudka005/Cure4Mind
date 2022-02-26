@@ -10,12 +10,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import com.cureya.cure4mind.R
 import com.cureya.cure4mind.databinding.FragmentForgetPasswordBinding
 import com.cureya.cure4mind.register.SignUpFragment.Companion.PASSWORD
 import com.cureya.cure4mind.register.SignUpFragment.Companion.USER_LIST
 import com.cureya.cure4mind.util.database
+import com.cureya.cure4mind.util.shortToast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
@@ -30,6 +33,7 @@ class ForgetPasswordFragment: Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: FragmentForgetPasswordBinding
+
     private var verifyId = ""
     private var key = ""
 
@@ -53,10 +57,14 @@ class ForgetPasswordFragment: Fragment() {
             validatePhoneNumber()
         }
         binding.continueButton.setOnClickListener {
-            val userInput = this.getUserOtp()
-            if (userInput.isNotEmpty()) {
-                val phoneAuthCredential = PhoneAuthProvider.getCredential(verifyId, userInput)
-                signUpWithCredentials(phoneAuthCredential)
+            if (verifyId != "") {
+                val userInput = this.getUserOtp()
+                if (userInput.isNotEmpty()) {
+                    val phoneAuthCredential = PhoneAuthProvider.getCredential(verifyId, userInput)
+                    signUpWithCredentials(phoneAuthCredential)
+                }
+            } else {
+                context?.shortToast("Please wait!")
             }
         }
     }
@@ -105,6 +113,7 @@ class ForgetPasswordFragment: Fragment() {
         val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
+                Log.i(TAG, "verification complete, credential: ${credential.toString()}")
                 signUpWithCredentials(credential)
             }
             override fun onVerificationFailed(e: FirebaseException) {
@@ -115,10 +124,11 @@ class ForgetPasswordFragment: Fragment() {
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
+                Log.i(TAG, "inside on code sent")
                 verifyId = verificationId
-                binding.continueButton.visibility = View.VISIBLE
             }
         }
+
         val options = PhoneAuthOptions.newBuilder(auth)
             .setPhoneNumber(phoneNumber)
             .setTimeout(60L, TimeUnit.SECONDS)

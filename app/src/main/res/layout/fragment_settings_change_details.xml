@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <ImageButton
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:background="?attr/actionBarItemBackground"
+        android:contentDescription="Back Button"
+        app:tint="@color/content_background"
+        app:srcCompat="@drawable/asset_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/label_change_details"
+        app:layout_constraintBottom_toBottomOf="@id/label_change_details" />
+
     <TextView
         android:id="@+id/label_change_details"
         android:layout_width="match_parent"
@@ -14,16 +27,15 @@
         android:padding="16dp"
         android:fontFamily="@font/inria_serif_light"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-        app:drawableStartCompat="@drawable/asset_cross"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
         android:id="@+id/frame_one"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/search_bar_background"
+        android:background="@drawable/faq_bar_background"
         android:layout_marginTop="16dp"
         android:layout_marginHorizontal="16dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +56,7 @@
         android:id="@+id/frame_two"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/search_bar_background"
+        android:background="@drawable/faq_bar_background"
         android:layout_marginTop="16dp"
         android:layout_marginHorizontal="16dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -65,7 +77,7 @@
         android:id="@+id/frame_three"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/search_bar_background"
+        android:background="@drawable/faq_bar_background"
         android:visibility="invisible"
         android:layout_marginTop="16dp"
         android:layout_marginHorizontal="16dp"

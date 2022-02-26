@@ -52,6 +52,9 @@ class AccountFragment : Fragment() {
             signOutFrame.setOnClickListener {
                 showDialog()
             }
+            backButton.setOnClickListener {
+                findNavController().navigateUp()
+            }
         }
     }
 

@@ -328,7 +328,11 @@
         android:id="@+id/musicPlayListFragment"
         android:name="com.cureya.cure4mind.relaxation.ui.MusicPlayListFragment"
         android:label="MusicPlayListFragment"
-        tools:layout="@layout/fragment_relaxation_music_playlist" />
+        tools:layout="@layout/fragment_relaxation_music_playlist">
+        <argument
+            android:name="content_position"
+            app:argType="integer" />
+    </fragment>
     <fragment
         android:id="@+id/relaxationFragment"
         android:name="com.cureya.cure4mind.relaxation.ui.RelaxationFragment"

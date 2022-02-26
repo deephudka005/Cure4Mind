@@ -13,6 +13,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
         <ImageButton
             android:id="@+id/dashboard_back_button"
             android:layout_width="wrap_content"
@@ -20,7 +21,9 @@
             android:layout_marginStart="16dp"
             android:background="?attr/actionBarItemBackground"
             android:contentDescription="Back Button"
+            app:tint="@color/content_background"
             app:srcCompat="@drawable/asset_back" />
+
         <TextView
             android:id="@+id/label_information"
             android:layout_width="match_parent"
@@ -31,7 +34,6 @@
             android:gravity="center"
             android:fontFamily="@font/inria_serif_light"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>

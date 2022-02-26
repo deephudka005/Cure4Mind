@@ -14,7 +14,6 @@ import androidx.navigation.fragment.navArgs
 import com.cureya.cure4mind.R
 import com.cureya.cure4mind.databinding.FragmentRelaxationVideoBinding
 import com.cureya.cure4mind.util.API_KEY
-import com.cureya.cure4mind.util.shortToast
 import com.google.android.youtube.player.YouTubePlayerSupportFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.youtube.player.YouTubeInitializationResult
@@ -25,7 +24,7 @@ class VideoFragment : Fragment() {
     private lateinit var binding: FragmentRelaxationVideoBinding
     private val navArgument: VideoFragmentArgs by navArgs()
 
-    private val _videoLoadingStatus = MutableLiveData<Boolean>()
+    private val _videoLoadingStatus = MutableLiveData(false)
     val videoLoadingStatus: LiveData<Boolean> get() = _videoLoadingStatus
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,8 +33,6 @@ class VideoFragment : Fragment() {
         activity?.window?.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN)
-
-        _videoLoadingStatus.value = true
     }
 
     override fun onCreateView(
