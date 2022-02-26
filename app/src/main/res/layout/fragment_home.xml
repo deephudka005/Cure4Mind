@@ -227,8 +227,9 @@
                 app:layout_constraintTop_toBottomOf="@id/layout1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:cardBackgroundColor="#C7F4BC"
-                style="@style/CardView"
+                app:cardBackgroundColor="#8BC34A"
+                android:backgroundTint="@null"
+                style="@style/AppTheme"
                 android:layout_margin="16dp">
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -285,7 +286,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:cardBackgroundColor="#C7F4BC"
+                app:cardBackgroundColor="#8BC34A"
                 android:layout_margin="16dp"
                 style="@style/CardView">
                 <LinearLayout
