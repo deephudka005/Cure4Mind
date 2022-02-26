@@ -14,11 +14,8 @@ import coil.load
 import com.cureya.cure4mind.R
 import com.cureya.cure4mind.databinding.FragmentRelaxationMusicBinding
 import com.cureya.cure4mind.relaxation.viewModel.MusicViewModel
-import com.cureya.cure4mind.relaxation.viewModel.MusicViewModel.Companion.CHILD_FAVOURITE_MUSIC
 import com.cureya.cure4mind.relaxation.viewModel.MusicViewModelFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import java.util.concurrent.TimeUnit
-import kotlin.time.DurationUnit
 
 class MusicFragment : Fragment() {
 
@@ -43,7 +40,7 @@ class MusicFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentRelaxationMusicBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -76,8 +73,8 @@ class MusicFragment : Fragment() {
 
         // controlling music when user slides seekbar
         binding.seekbar.setOnSeekBarChangeListener(object: SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(p0: SeekBar?, p1: Int, p2: Boolean) {
-                if (p2) { musicViewModel.setSeekbarUserProgress(p1) }
+            override fun onProgressChanged(seekbar: SeekBar?, progress: Int, fromUser: Boolean) {
+                if (fromUser) { musicViewModel.setSeekbarUserProgress(progress) }
             }
             override fun onStartTrackingTouch(p0: SeekBar?) {}
             override fun onStopTrackingTouch(p0: SeekBar?) {}
@@ -105,16 +102,14 @@ class MusicFragment : Fragment() {
         super.onStart()
     }
 
-    override fun onPause() {
-        musicViewModel.stopTimers()
-        super.onPause()
-    }
-
     override fun onStop() {
         val bottomView = (activity as AppCompatActivity)
             .findViewById<BottomNavigationView>(R.id.nav_view)
         bottomView.visibility = View.VISIBLE
+
         musicViewModel.releaseMediaPlayer()
+        musicViewModel.stopTimers()
+
         super.onStop()
     }
 }
