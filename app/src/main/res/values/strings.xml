@@ -171,6 +171,7 @@
     <string name="youscored">You scored </string>
     <string name="point">points</string>
     <string name="newRecord">NEW RECORD !</string>
+    <string name="ayuda">Help</string>
     <string name="textoAyuda">
         The game is about prevent the ball from falling to the the ground by hitting it with your finger \n\n
         To push the ball in a specific direction, You have to touch the screen on the oposite direction

@@ -38,7 +38,7 @@
     <style name="texto_botones" parent="@style/ajuste_general">
         <item name="android:background">@drawable/fondo</item>
         <item name="android:textSize">@dimen/texto</item>
-        <item name="android:text">@string/dificultad</item>
+        <item name="android:text">@string/difficult</item>
     </style>
 
     <style name="botones" parent="@style/ajuste_general">
