@@ -62,7 +62,7 @@ class SignUpFragment: Fragment() {
 
     private fun prepareToRegister() {
         if (areTextFieldsValid(binding.nameEditText, binding.edtLogInEmail, binding.edtLogInPassword, binding.edtPhone)) {
-            register()
+            registerIfPhoneIsUnique()
         }
     }
 
@@ -127,6 +127,24 @@ class SignUpFragment: Fragment() {
             passwordField.requestFocus()
         }
         return nameFieldCheck && emailFieldCheck && passwordFieldCheck && phoneFieldCheck
+    }
+
+    private fun registerIfPhoneIsUnique() {
+        val phoneNumber = binding.edtPhone.text.toString()
+
+        database.child(USER_LIST).orderByChild("phone").equalTo(phoneNumber)
+            .addListenerForSingleValueEvent(object: ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.value == null) {
+                        register()
+                    } else {
+                        showToast("Phone already exists with another account")
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e(TAG, "Error in retrieving phone number data", error.toException())
+                }
+            })
     }
 
     private fun isTextFieldEmpty(text: String): Boolean {

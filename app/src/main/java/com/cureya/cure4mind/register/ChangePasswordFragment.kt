@@ -29,7 +29,6 @@ class ChangePasswordFragment : Fragment() {
     private val auth = Firebase.auth
     private lateinit var binding: FragmentForgotPasswordChangePassBinding
     private val navArgument: ChangePasswordFragmentArgs by navArgs()
-    private var oldPassword = ""
     private var newPassword = ""
     private val key by lazy {
         navArgument.key
@@ -49,15 +48,12 @@ class ChangePasswordFragment : Fragment() {
 
         deletePhoneAuth()
 
-        val password = binding.newPassEditText.text.toString().trim()
-        val confirmPassword = binding.confirmPassEditText.text.toString().trim()
-
-        Log.d(TAG, "password emtry: ${password.isNotEmpty()}, lenght: ${password.length}, passwrod: $password, confirmPas: $confirmPassword")
-
         binding.savePassButton.setOnClickListener {
-            // temp password; don't why editTexts always return null for validation
-            if (validatePasswords("ronnieBine", "ronnieBine")) {
-                retrieveDataAndSignInUser("ronnieBine")
+            val password = binding.newPassEditText.text.toString().trim()
+            val confirmPassword = binding.confirmPassEditText.text.toString().trim()
+
+            if (validatePasswords(password, confirmPassword)) {
+                retrieveDataAndSignInUser(password)
             } else {
                 Toast.makeText(
                     context,
@@ -76,10 +72,8 @@ class ChangePasswordFragment : Fragment() {
                     if (snapshot.value != null) {
                         val user = snapshot.getValue(User::class.java)!!
                         val email = user.email!!
-                        oldPassword = user.password!!
                         this@ChangePasswordFragment.newPassword = newPassword
-                        this@apply.child(PASSWORD).setValue(newPassword)
-                        signInCurrentUser(email, oldPassword)
+                        signInCurrentUser(email, user.password!!)
                     } else {
                         Toast.makeText(context, "User does not exists", Toast.LENGTH_LONG).show()
                     }
@@ -95,7 +89,7 @@ class ChangePasswordFragment : Fragment() {
     // with different uid during manual otp validation
     private fun deletePhoneAuth() {
         auth.currentUser?.delete()
-            ?.addOnCompleteListener {
+            ?.addOnSuccessListener {
                 Log.i(TAG, "PhoneAuth deleted")
             }
             ?.addOnFailureListener {
@@ -103,37 +97,46 @@ class ChangePasswordFragment : Fragment() {
             }
     }
 
+    private fun setNewPasswordToDatabase() {
+        database.child(USER_LIST).child(key).child(PASSWORD).setValue(newPassword)
+            .addOnSuccessListener {
+                Log.i(TAG, "new password set to database")
+            }
+            .addOnFailureListener {
+                Log.e(TAG, "error setting new password to database", it)
+            }
+    }
+
     // sign in with email and old password
     private fun signInCurrentUser(email: String, oldPassword: String) {
         auth.signInWithEmailAndPassword(email, oldPassword)
-            .addOnCompleteListener {
+            .addOnSuccessListener {
                 Log.i(TAG, "User signed in")
-                updateNewPassword(newPassword)
+                updateNewPassword()
             }
             .addOnFailureListener {
-                Log.e(TAG, "error signing in the user", it)
+                Log.e(TAG, "error signing in the user with email: $email, password: $oldPassword", it)
             }
     }
 
-    private fun updateNewPassword(newPassword: String) {
-        val user = auth.currentUser!!
-
-        user.updatePassword(newPassword)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
+    private fun updateNewPassword() {
+        try {
+            val user = auth.currentUser!!
+            user.updatePassword(newPassword)
+                .addOnSuccessListener {
+                    setNewPasswordToDatabase()
                     goToHomeFragment()
                     Log.i(TAG, "Password updated")
-                } else {
-                    Log.e(TAG, "Error password not updated")
                 }
-            }
-            .addOnFailureListener {
-                Log.e(TAG, "error updating password", it)
-            }
+                .addOnFailureListener {
+                    Log.e(TAG, "error updating password: $newPassword", it)
+                }
+        } catch (e: Exception) {
+            e.stackTrace
+        }
     }
 
     private fun validatePasswords(password: String, confirmPassword: String) : Boolean {
-        Log.d(TAG, "password emtry: ${password.isNotEmpty()}, lenght: ${password.length}, passwrod: $password, confirmPas: $confirmPassword")
         return password.isNotEmpty() &&
                 password.length > 7 &&
                 password == confirmPassword

@@ -56,17 +56,6 @@ class ForgetPasswordFragment: Fragment() {
         binding.sendButton.setOnClickListener {
             validatePhoneNumber()
         }
-        binding.continueButton.setOnClickListener {
-            if (verifyId != "") {
-                val userInput = this.getUserOtp()
-                if (userInput.isNotEmpty()) {
-                    val phoneAuthCredential = PhoneAuthProvider.getCredential(verifyId, userInput)
-                    signUpWithCredentials(phoneAuthCredential)
-                }
-            } else {
-                context?.shortToast("Please wait!")
-            }
-        }
     }
 
     private fun hasUserPassword(key: String, phone: String) {
@@ -126,6 +115,7 @@ class ForgetPasswordFragment: Fragment() {
             ) {
                 Log.i(TAG, "inside on code sent")
                 verifyId = verificationId
+                enableContinueButtonFunction()
             }
         }
 
@@ -137,6 +127,21 @@ class ForgetPasswordFragment: Fragment() {
             .build()
         PhoneAuthProvider.verifyPhoneNumber(options)
         showToast("Redirecting to verify you are not a robot")
+    }
+
+    private fun enableContinueButtonFunction() {
+        binding.continueButton.visibility = View.VISIBLE
+        binding.continueButton.setOnClickListener {
+            if (verifyId != "") {
+                val userInput = this.getUserOtp()
+                if (userInput.isNotEmpty()) {
+                    val phoneAuthCredential = PhoneAuthProvider.getCredential(verifyId, userInput)
+                    signUpWithCredentials(phoneAuthCredential)
+                }
+            } else {
+                context?.shortToast("Please wait!")
+            }
+        }
     }
 
     private fun getUserOtp(): String {
