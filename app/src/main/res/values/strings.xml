@@ -152,6 +152,31 @@
     <string name="play_list">Play List</string>
     <string name="saved_posts">Saved Posts</string>
 
+    <!-- Game: TicTacToe -->
+    <string name="game_end_dialog_headline">The winner is</string>
+    <string name="player_1_hint">Player 1</string>
+    <string name="player2_hint">Player 2</string>
+    <string name="done">Done</string>
+    <string name="game_dialog_title">"New game"</string>
+    <string name="game_dialog_empty_name">Name mustn\'t be empty</string>
+    <string name="game_dialog_same_names">Name mustn\'t be the same</string>
+
+    <!-- Game: Bouncing Ball -->
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="difficult">Difficult</string>
+    <string name="btnVolver">Back</string>
+    <string name="highest">Highest: </string>
+    <string name="endMessage">Congratulions !</string>
+    <string name="youscored">You scored </string>
+    <string name="point">points</string>
+    <string name="newRecord">NEW RECORD !</string>
+    <string name="textoAyuda">
+        The game is about prevent the ball from falling to the the ground by hitting it with your finger \n\n
+        To push the ball in a specific direction, You have to touch the screen on the oposite direction
+        \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n Cheer up !
+    </string>
+
     <string-array name="blog_name">
         <item>Mental Health Disorders and How to Overcome them</item>
         <item>What is Depression, Symptoms, Know all</item>
