@@ -1,5 +1,6 @@
 package com.cureya.cure4mind.home
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -63,6 +64,13 @@ class HomeFragment : Fragment(), blogitemClicked {
         binding.twitterLink.setOnClickListener {
             opentwitterlink()
         }
+        binding.card.setOnClickListener{
+            openplaystorelink()
+        }
+        binding.card1.setOnClickListener{
+            openshareme()
+        }
+
         binding.profile.setOnClickListener {
             val direction =
                 HomeFragmentDirections.actionHomeFragmentToPersonalProfile(auth.uid!!)
@@ -108,7 +116,22 @@ class HomeFragment : Fragment(), blogitemClicked {
             LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
         blogRecyclerView.adapter = blogAdapter(this, images)
     }
+    private fun openplaystorelink(){
+        val builder = CustomTabsIntent.Builder()
+        val customTabsIntent = builder.build()
+        customTabsIntent.launchUrl(requireContext(), Uri.parse("https://play.google.com/store/apps/details?id=com.cureya.cure4mind"))
+    }
 
+    private fun openshareme(){
+        val intent= Intent()
+        intent.action= Intent.ACTION_SEND
+        intent.type = "text/plain"
+
+        intent.putExtra(
+            Intent.EXTRA_TEXT,
+            "Check out this App : Cure4Mind https://play.google.com/store/apps/details?id=com.cureya.cure4mind")
+        startActivity(Intent.createChooser(intent,"Share To:"))
+    }
     private fun getusername() {
         val user = auth.currentUser
         val uid = user?.uid.toString()
