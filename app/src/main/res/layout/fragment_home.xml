@@ -169,55 +169,78 @@
                     android:textSize="24sp"
                     android:textStyle="bold" />
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:orientation="horizontal"
-                    android:padding="8dp">
+                    android:padding="16dp">
 
                     <ImageView
                         android:id="@+id/web_link"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="6dp"
-                        android:src="@drawable/frame_468" />
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:src="@drawable/frame_468"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/fb_link"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside" />
 
                     <ImageView
                         android:id="@+id/fb_link"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="6dp"
-                        android:src="@drawable/frame_464" />
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:src="@drawable/frame_464"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/web_link"
+                        app:layout_constraintEnd_toStartOf="@id/linkedIn_link"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"/>
 
                     <ImageView
                         android:id="@+id/linkedIn_link"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="6dp"
-                        android:src="@drawable/frame_463" />
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:src="@drawable/frame_463"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/fb_link"
+                        app:layout_constraintEnd_toStartOf="@id/yt_link"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"/>
 
                     <ImageView
                         android:id="@+id/yt_link"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="6dp"
-                        android:src="@drawable/frame_466" />
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:src="@drawable/frame_466"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/linkedIn_link"
+                        app:layout_constraintEnd_toStartOf="@id/insta_link"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"/>
 
                     <ImageView
                         android:id="@+id/insta_link"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="6dp"
-                        android:src="@drawable/frame_462" />
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:src="@drawable/frame_462"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/yt_link"
+                        app:layout_constraintEnd_toStartOf="@id/twitter_link"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"/>
 
                     <ImageView
                         android:id="@+id/twitter_link"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="6dp"
-                        android:src="@drawable/frame_469" />
-                </LinearLayout>
+                        android:layout_width="42dp"
+                        android:layout_height="42dp"
+                        android:src="@drawable/frame_469"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/insta_link"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_chainStyle="spread_inside"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </LinearLayout>
             <com.google.android.material.card.MaterialCardView
@@ -227,7 +250,7 @@
                 app:layout_constraintTop_toBottomOf="@id/layout1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:cardBackgroundColor="#8BC34A"
+                app:cardBackgroundColor="@color/green_100"
                 android:backgroundTint="@null"
                 style="@style/AppTheme"
                 android:layout_margin="16dp">
@@ -286,7 +309,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:cardBackgroundColor="#8BC34A"
+                app:cardBackgroundColor="@color/green_100"
                 android:layout_margin="16dp"
                 style="@style/CardView">
                 <LinearLayout
