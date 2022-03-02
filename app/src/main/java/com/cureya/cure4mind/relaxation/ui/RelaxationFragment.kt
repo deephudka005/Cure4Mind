@@ -1,6 +1,5 @@
 package com.cureya.cure4mind.relaxation.ui
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,7 +8,6 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.cureya.cure4mind.R
 import com.cureya.cure4mind.databinding.FragmentRelaxationBinding
-import com.cureya.cure4mind.relaxation.game.ticTacToe.view.GameActivity
 
 class RelaxationFragment : Fragment() {
 
@@ -29,6 +27,9 @@ class RelaxationFragment : Fragment() {
         binding.yogaFrame.setOnClickListener {
             findNavController().navigate(R.id.action_relaxationFragment_to_yogaFragment)
         }
+        binding.gameFrame.setOnClickListener {
+            findNavController().navigate(R.id.action_relaxationFragment_to_gamesFragment)
+        }
         binding.musicFrame.setOnClickListener {
             findNavController().navigate(
                 RelaxationFragmentDirections.actionRelaxationFragmentToMusicVideoFragment(
@@ -42,10 +43,6 @@ class RelaxationFragment : Fragment() {
                     CONTENT_TYPE_VIDEO
                 )
             )
-        }
-        binding.gameFrame.setOnClickListener {
-            val intent = Intent(requireActivity(), GameActivity::class.java)
-            startActivity(intent)
         }
     }
 

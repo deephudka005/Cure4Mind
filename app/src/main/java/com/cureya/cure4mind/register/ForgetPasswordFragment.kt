@@ -10,8 +10,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.fragment.findNavController
 import com.cureya.cure4mind.R
 import com.cureya.cure4mind.databinding.FragmentForgetPasswordBinding
@@ -89,7 +87,7 @@ class ForgetPasswordFragment: Fragment() {
                         hasUserPassword(key, phoneNumber)
                         Log.i(TAG, "Retrieved key value: $key")
                     } else {
-                        showToast("User with this Phone does not exists")
+                        showToast("User with this Phone does not exist")
                     }
                 }
                 override fun onCancelled(error: DatabaseError) {

@@ -11,8 +11,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.cureya.cure4mind.R
 import com.cureya.cure4mind.databinding.FragmentSignUpBinding
@@ -41,7 +39,7 @@ class SignUpFragment: Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSignUpBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -62,7 +60,7 @@ class SignUpFragment: Fragment() {
 
     private fun prepareToRegister() {
         if (areTextFieldsValid(binding.nameEditText, binding.edtLogInEmail, binding.edtLogInPassword, binding.edtPhone)) {
-            registerIfPhoneIsUnique()
+            registerIfPhoneEmailIsUnique()
         }
     }
 
@@ -75,12 +73,11 @@ class SignUpFragment: Fragment() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    val gender =
-                        if (binding.checkboxMale.isChecked) {
-                            "Male"
-                        } else if (binding.checkboxFemale.isChecked) {
-                            "Female"
-                        } else "LGBTQIA"
+                    val gender = when {
+                            binding.checkboxMale.isChecked -> { "Male" }
+                            binding.checkboxFemale.isChecked -> { "Female" }
+                            else -> "LGBTQIA"
+                    }
                     Log.w("SignUpFragment","Firebase auth successful")
                     val user = User(name, email, phone, defaultProfilePic, password, gender, false, Date())
                     addToUserBase(user)
@@ -129,16 +126,34 @@ class SignUpFragment: Fragment() {
         return nameFieldCheck && emailFieldCheck && passwordFieldCheck && phoneFieldCheck
     }
 
-    private fun registerIfPhoneIsUnique() {
+    private fun registerIfPhoneEmailIsUnique() {
         val phoneNumber = binding.edtPhone.text.toString()
 
         database.child(USER_LIST).orderByChild("phone").equalTo(phoneNumber)
             .addListenerForSingleValueEvent(object: ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.value == null) {
-                        register()
+                        checkEmail()
                     } else {
                         showToast("Phone already exists with another account")
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {
+                    Log.e(TAG, "Error in retrieving phone number data", error.toException())
+                }
+            })
+    }
+
+    private fun checkEmail() {
+        val email = binding.edtLogInEmail.text.toString().trim()
+
+        database.child(USER_LIST).orderByChild("email").equalTo(email)
+            .addListenerForSingleValueEvent(object: ValueEventListener{
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.value == null) {
+                        register()
+                    } else {
+                        showToast("User is already registered with us")
                     }
                 }
                 override fun onCancelled(error: DatabaseError) {
@@ -240,23 +255,21 @@ class SignUpFragment: Fragment() {
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    val gender =
-                        if (binding.checkboxMale.isChecked) {
-                            "Male"
-                        } else if (binding.checkboxFemale.isChecked) {
-                            "Female"
-                        } else "LGBTQIA"
-
+                    val gender = when {
+                            binding.checkboxMale.isChecked -> { "Male" }
+                            binding.checkboxFemale.isChecked -> { "Female" }
+                            else -> "LGBTQIA"
+                    }
                     val user = User(
-                        auth.currentUser?.displayName,
-                        auth.currentUser?.email,
-                        binding.edtPhone.text.toString(),
-                        auth.currentUser?.photoUrl.toString(),
-                        null,
-                        gender,
-                        false,
-                        Date()
-                    )
+                            auth.currentUser?.displayName,
+                            auth.currentUser?.email,
+                            binding.edtPhone.text.toString(),
+                            auth.currentUser?.photoUrl.toString(),
+                            null,
+                            gender,
+                            false,
+                            Date())
+
                     addToUserBase(user)
                     googleSignInClient.revokeAccess()
                 } else {
