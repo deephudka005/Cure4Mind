@@ -16,6 +16,7 @@ import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.view.setMargins
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import coil.load
@@ -72,7 +73,7 @@ class PersonalProfile : Fragment() {
         database =
             FirebaseDatabase.getInstance("https://cure4mind-d687f-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
 
-        GlobalScope.launch {
+        lifecycleScope.launch {
             name = database.child("users").child(auth.uid!!).child("name").get().await()
                 .getValue(String::class.java)
             binding.username.text = name
