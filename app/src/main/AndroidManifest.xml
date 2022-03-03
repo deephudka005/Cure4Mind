@@ -13,12 +13,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <!-- Bouncing ball -->
         <activity
-            android:name=".relaxation.game.ticTacToe.view.GameActivity"
+            android:name=".relaxation.game.bouncingBall.MainScreenActivity"
             android:exported="false">
         </activity>
         <activity
-            android:name=".relaxation.game.bouncingBall.MainScreenActivity"
+            android:name=".relaxation.game.bouncingBall.AyudaActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".relaxation.game.bouncingBall.GestionActivity"
+            android:exported="false">
+        </activity>
+
+        <activity
+            android:name=".relaxation.game.ticTacToe.view.GameActivity"
             android:exported="false">
         </activity>
         <activity
