@@ -56,6 +56,28 @@ class ForgetPasswordFragment: Fragment() {
         }
     }
 
+    /**
+     * Execution WorkFlow:
+     *
+     * [validatePhoneNumber] -> [hasUserPassword] -> [sendOTP] -> [enableContinueButtonFunction] -> [signUpWithCredentials]
+     *
+     * [validatePhoneNumber]: this function checks whether the phone number entered
+     * by the user exists/matches with Firebase database. It shifts to [hasUserPassword]
+     * if any row data matches with the phone number provided.
+     *
+     * [hasUserPassword]: this function checks whether the user with the phone number
+     * signed in with password. If there's no password in database that denotes user
+     * signed in with google sign in, and therefore there's no need to change password and
+     * shows a toast for the same. If there's an old existing password then it shifts to [sendOTP]
+     * for otp verification.
+     *
+     * If all prerequisites are fulfilled the phone number with country code is verified in
+     * [sendOTP] where variable [verifyId] is assigned with the string value provied by firebase
+     * in onCodeSend(). Upon Receiving the OTP the continue button becomes visible in
+     * [enableContinueButtonFunction] where user input is taken and credentials are stored.
+     * Once that is not user is sign in with the credentials.
+     */
+
     private fun hasUserPassword(key: String, phone: String) {
 
         database.child(USER_LIST).child(key).child(PASSWORD)
@@ -100,7 +122,8 @@ class ForgetPasswordFragment: Fragment() {
         val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
 
             override fun onVerificationCompleted(credential: PhoneAuthCredential) {
-                Log.i(TAG, "verification complete, credential: ${credential.toString()}")
+                // verification is done automatically by firebase
+                Log.i(TAG, "verification complete, credential: $credential")
                 signUpWithCredentials(credential)
             }
             override fun onVerificationFailed(e: FirebaseException) {
@@ -111,6 +134,7 @@ class ForgetPasswordFragment: Fragment() {
                 verificationId: String,
                 token: PhoneAuthProvider.ForceResendingToken
             ) {
+                // manually handle verification if the process is not auto generated
                 Log.i(TAG, "inside on code sent")
                 verifyId = verificationId
                 enableContinueButtonFunction()
@@ -123,6 +147,7 @@ class ForgetPasswordFragment: Fragment() {
             .setActivity(requireActivity())
             .setCallbacks(callbacks)
             .build()
+
         PhoneAuthProvider.verifyPhoneNumber(options)
         showToast("Redirecting to verify you are not a robot")
     }
@@ -142,15 +167,6 @@ class ForgetPasswordFragment: Fragment() {
         }
     }
 
-    private fun getUserOtp(): String {
-        return binding.otpBoxOne.text.toString().trim()
-            .plus(binding.otpBoxTwo.text.toString()).trim()
-            .plus(binding.otpBoxThree.text.toString()).trim()
-            .plus(binding.otpBoxFour.text.toString()).trim()
-            .plus(binding.otpBoxFive.text.toString()).trim()
-            .plus(binding.otpBoxSix.text.toString()).trim()
-    }
-
     private fun signUpWithCredentials(credential: PhoneAuthCredential) {
         auth.signInWithCredential(credential)
             .addOnCompleteListener {
@@ -160,6 +176,15 @@ class ForgetPasswordFragment: Fragment() {
             .addOnFailureListener {
                 showToast("Unable to process request")
             }
+    }
+
+    private fun getUserOtp(): String {
+        return binding.otpBoxOne.text.toString().trim()
+            .plus(binding.otpBoxTwo.text.toString()).trim()
+            .plus(binding.otpBoxThree.text.toString()).trim()
+            .plus(binding.otpBoxFour.text.toString()).trim()
+            .plus(binding.otpBoxFive.text.toString()).trim()
+            .plus(binding.otpBoxSix.text.toString()).trim()
     }
 
     private fun autoChangeOtpEditTextFocus() {
@@ -215,8 +240,7 @@ class ForgetPasswordFragment: Fragment() {
             // to prevent crash from calling nav multiple times
             // in FirebaseDatabase callbacks
             this.findNavController().navigate(ForgetPasswordFragmentDirections
-                .actionForgetPasswordFragmentToChangePasswordFragment(key)
-            )
+                .actionForgetPasswordFragmentToChangePasswordFragment(key))
         } catch (e: Exception) {
             Log.d(TAG, "Second time nav call aborted", e)
         }
